@@ -35,6 +35,10 @@ def simple_camera(camera, target_rect,w,h):
     _, _, w, h = camera
     return Rect(-l+w//2, -t+h//2, w, h)
 
+'''camara que sigue al objetivo respetando
+    los limites de la ventana
+'''
+
 def complex_camera(camera, target_rect,wi,hi):
     l, t, _, _ = target_rect
     _, _, w, h = camera

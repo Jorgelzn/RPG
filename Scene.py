@@ -2,8 +2,7 @@ class Scene:
     '''Representa un escena abstracta del videojuego.
 
     Una escena es una parte visible del juego, como una pantalla
-    de presentación o menú de opciones. Esta clase servirá como
-    estructura para poder crear luego nuestras propias escenas
+    de presentación o menú de opciones.
     '''
 
     def __init__(self, director):
@@ -27,10 +26,3 @@ class Scene:
         ''' Se llama cuando se quiere dibujar la pantalla
         '''
         raise NotImplemented("Tiene que implementar el método on_draw.")
-
-
-''' Ya tenemos nuestro director y escena definidos, ahora ya podemos
-    crear cosas.
-
-    Paso 3. Crear escenas y "rellenarlas"
-'''

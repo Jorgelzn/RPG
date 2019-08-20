@@ -5,10 +5,7 @@ import pygame
 from pygame.locals import *
 
 class Pantalla1(Scene):
-    ''' Esta pantalla va a tener el color azul.
-        Cuando se presione la tecla "Enter" lo que
-        se va a hacer es cambiar de escena a "Pantalla2"
-    '''
+
     def __init__(self, director):
         Scene.__init__(self, director)
         self.camera = Camara.Camera(Camara.complex_camera,1000, 1000, director)
