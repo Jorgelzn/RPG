@@ -11,17 +11,24 @@ class Pantalla1(Scene):
     '''
     def __init__(self, director):
         Scene.__init__(self, director)
-        self.camera = Camara.Camera(Camara.simple_camera,1000, 1000, director)
+        self.camera = Camara.Camera(Camara.complex_camera,1000, 1000, director)
         self.pj = Personaje(self.camera.state, 300, 300)
-        self.otherpj = Personaje(self.camera.state,200, 200)
+        self.otherpj1 = Personaje(self.camera.state,1, 1)
+        self.otherpj2 = Personaje(self.camera.state,999, 1)
+        self.otherpj3 = Personaje(self.camera.state,999, 999)
+        self.otherpj4 = Personaje(self.camera.state,1, 999)
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
-        self.ingame_elemets.add(self.otherpj)
+        self.ingame_elemets.add(self.otherpj1)
+        self.ingame_elemets.add(self.otherpj2)
+        self.ingame_elemets.add(self.otherpj3)
+        self.ingame_elemets.add(self.otherpj4)
 
     def on_update(self, time, data_events):
         self.camera.update(self.pj)
         self.ingame_elemets.update(time/1000)
         self.pj.mover(data_events[0], data_events[1])
+
 
     def on_event(self, time, event):
         ''' El director pasa aquí los eventos que ha captado
@@ -48,7 +55,7 @@ class Pantalla1(Scene):
 
 
     def on_draw(self, screen):
-        screen.fill((0,0,0))
+        screen.fill((0,100,0))
 
         for i in self.ingame_elemets:
             screen.blit(i.image, self.camera.apply(i))
