@@ -40,7 +40,7 @@ class Director:
 
             # dibuja la pantalla
             self.scene.on_draw(self.screen)
-            pygame.display.flip()
+            pygame.display.update()
 
     def change_scene(self, scene):
         '''Altera la escena actual'''

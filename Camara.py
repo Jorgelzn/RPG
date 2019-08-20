@@ -32,10 +32,12 @@ class Camera(object):
 def simple_camera(camera, target_rect,w,h):
     l, t, _, _ = target_rect
     _, _, w, h = camera
+    print(-l+w//2, -t+h//2, w, h)
     return Rect(-l+w//2, -t+h//2, w, h)
 
 def complex_camera(camera, target_rect,w,h):
     l, t, _, _ = target_rect
+
     _, _, w, h = camera
     l, t, _, _ = -l+w//2, -t+h//2, w, h
     l = min(0, l)                           # stop scrolling at the left edge

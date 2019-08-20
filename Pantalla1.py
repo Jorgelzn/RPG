@@ -11,9 +11,9 @@ class Pantalla1(Scene):
     '''
     def __init__(self, director):
         Scene.__init__(self, director)
-        self.camera = Camara.Camera(Camara.complex_camera,2000, 2000, director)
-        self.pj = Personaje(Camara.Camera.state)
-        self.otherpj = Personaje(director.screen,200, 200)
+        self.camera = Camara.Camera(Camara.simple_camera,1000, 1000, director)
+        self.pj = Personaje(self.camera.state, 300, 300)
+        self.otherpj = Personaje(self.camera.state,200, 200)
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
         self.ingame_elemets.add(self.otherpj)
@@ -48,9 +48,7 @@ class Pantalla1(Scene):
 
 
     def on_draw(self, screen):
-        #se pone la pantalla de color azul
         screen.fill((0,0,0))
-        #screen.blit(self.otherpj.image, self.otherpj.rect)
-        #screen.blit(self.pj.image, self.pj.rect)
+
         for i in self.ingame_elemets:
-            self.director.screen.blit(i.image, self.camera.apply(i))
+            screen.blit(i.image, self.camera.apply(i))

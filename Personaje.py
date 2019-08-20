@@ -16,7 +16,7 @@ class Personaje(sprite.Sprite):
         self.rect = self.image.get_rect()
         #Donde se situa la imagen.
         if(x==0 and y ==0):
-            self.rect.center = (ventana.get_width()/2, ventana.get_height()/2)
+            self.rect.center = (ventana.width/2, ventana.height/2)
         else:
             self.rect.center = (x, y)
 
@@ -31,7 +31,7 @@ class Personaje(sprite.Sprite):
         self.frame_width = 64     #Anchura de la imagen
         self.frame_height = 64     #Altura dela imagen
 
-        self.speed = 10
+        self.speed = 5
 
     #Método heredado de la clase Sprite
     def update(self, dt):
@@ -60,8 +60,8 @@ class Personaje(sprite.Sprite):
 
 
     def mover(self, x=0, y=0):
-        if self.rect.centerx+x>=self.ventana.get_width() or self.rect.centerx+x <= 0:
+        if self.rect.centerx+x>=self.ventana.width or self.rect.centerx+x <= 0:
             return
-        if self.rect.centery+y>=self.ventana.get_height()-5 or self.rect.centery+y <= 0:
+        if self.rect.centery+y>=self.ventana.height or self.rect.centery+y <= 0:
             return
         self.rect.center = (self.rect.centerx+x, self.rect.centery+y)
