@@ -8,7 +8,7 @@ class Personaje(sprite.Sprite):
         ''' Cargamos la hoja completa de sprites del personaje.
             Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
         '''
-        self.spriteSheet = pygame.image.load("D:/pok.png").convert_alpha()
+        self.spriteSheet = pygame.image.load("imagenes/pok.png").convert_alpha()
         # "image" se corresponde con la imagen actual a mostrar.
         #La hacemos más pequeña para que quede mejor
         self.image = self.spriteSheet.subsurface((0,0,64,64))
