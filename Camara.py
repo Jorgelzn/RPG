@@ -12,7 +12,7 @@ class Camera(object):
         self.state = Rect(0, 0, width, height)
         self.width_window = director.screen.get_width()
         self.high_window = director.screen.get_height()
-        print(self.width_window)
+
 
     ''' Sobre qué objeto vamos a realizar el seguimiento.
         Se puede cambiar "en vivo"
@@ -25,7 +25,6 @@ class Camera(object):
         a nuestro "objetivo".
     '''
     def update(self, target):
-        print(self.width_window)
         self.state = self.camera_func(self.state, target.rect, self.width_window, self.high_window)
 
 ''' Cámara que sigue al objetivo, pero le
