@@ -1,5 +1,6 @@
 from Scene import Scene
 from Personaje import Personaje
+import Camara
 import pygame
 from pygame.locals import *
 
@@ -10,12 +11,16 @@ class Pantalla1(Scene):
     '''
     def __init__(self, director):
         Scene.__init__(self, director)
-        self.pj = Personaje(director.screen)
+        self.camera = Camara.Camera(Camara.complex_camera,2000, 2000, director)
+        self.pj = Personaje(Camara.Camera.state)
         self.otherpj = Personaje(director.screen,200, 200)
+        self.ingame_elemets = pygame.sprite.Group()
+        self.ingame_elemets.add(self.pj)
+        self.ingame_elemets.add(self.otherpj)
 
     def on_update(self, time, data_events):
-        self.pj.update(time/1000)
-        self.otherpj.update(time/1000)
+        self.camera.update(self.pj)
+        self.ingame_elemets.update(time/1000)
         self.pj.mover(data_events[0], data_events[1])
 
     def on_event(self, time, event):
@@ -45,5 +50,7 @@ class Pantalla1(Scene):
     def on_draw(self, screen):
         #se pone la pantalla de color azul
         screen.fill((0,0,0))
-        screen.blit(self.otherpj.image, self.otherpj.rect)
-        screen.blit(self.pj.image, self.pj.rect)
+        #screen.blit(self.otherpj.image, self.otherpj.rect)
+        #screen.blit(self.pj.image, self.pj.rect)
+        for i in self.ingame_elemets:
+            self.director.screen.blit(i.image, self.camera.apply(i))

@@ -49,18 +49,3 @@ class Director:
     def quit(self):
         '''Para cuando queremos salir'''
         self.quit_flag = True
-
-    def simple_camera(camera, target_rect):
-        l, t, _, _ = target_rect
-        _, _, w, h = camera
-        return Rect(-l+WIDTH//2, -t+HEIGHT//2, w, h)
-
-    def complex_camera(camera, target_rect):
-        l, t, _, _ = target_rect
-        _, _, w, h = camera
-        l, t, _, _ = -l+WIDTH//2, -t+HEIGHT//2, w, h
-        l = min(0, l)                           # stop scrolling at the left edge
-        l = max(-(camera.width-WIDTH), l)   # stop scrolling at the right edge
-        t = max(-(camera.height-HEIGHT), t) # stop scrolling at the bottom
-        t = min(0, t)                           # stop scrolling at the top
-        return Rect(l, t, w, h)
