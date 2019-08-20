@@ -11,9 +11,11 @@ class Pantalla1(Scene):
     def __init__(self, director):
         Scene.__init__(self, director)
         self.pj = Personaje(director.screen)
+        self.otherpj = Personaje(director.screen,200, 200)
 
     def on_update(self, time, data_events):
         self.pj.update(time/1000)
+        self.otherpj.update(time/1000)
         self.pj.mover(data_events[0], data_events[1])
 
     def on_event(self, time, event):
@@ -43,4 +45,5 @@ class Pantalla1(Scene):
     def on_draw(self, screen):
         #se pone la pantalla de color azul
         screen.fill((0,0,0))
+        screen.blit(self.otherpj.image, self.otherpj.rect)
         screen.blit(self.pj.image, self.pj.rect)

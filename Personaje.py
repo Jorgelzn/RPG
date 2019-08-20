@@ -2,7 +2,7 @@ from pygame import sprite
 import pygame
 class Personaje(sprite.Sprite):
 
-    def __init__(self, ventana):
+    def __init__(self,ventana,x=0, y=0,):
         #Init de Sprite
         sprite.Sprite.__init__(self)
         ''' Cargamos la hoja completa de sprites del personaje.
@@ -15,7 +15,10 @@ class Personaje(sprite.Sprite):
         #Necesario para mostrar la imagen
         self.rect = self.image.get_rect()
         #Donde se situa la imagen.
-        self.rect.center = (ventana.get_width()/2, ventana.get_height()/2)
+        if(x==0 and y ==0):
+            self.rect.center = (ventana.get_width()/2, ventana.get_height()/2)
+        else:
+            self.rect.center = (x, y)
 
         self.ventana = ventana
 
