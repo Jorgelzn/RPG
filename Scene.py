@@ -9,6 +9,7 @@ class Scene:
     '''
 
     def __init__(self,map,image):
+
         self.camera = Camara.Camera(Camara.complex_camera,map)
         self.background = pygame.image.load(image).convert_alpha()
     def on_update(self, time):

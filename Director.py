@@ -32,7 +32,8 @@ class Director:
 
             keys = pygame.key.get_pressed()
             # actualiza la escena
-            self.scene.on_update(time,keys)
+            new_scene = self.scene.on_update(time,keys)
+            if new_scene is not None: self.change_scene(new_scene)
             # dibuja la pantalla
             self.scene.on_draw(self.screen)
             pygame.display.update()
