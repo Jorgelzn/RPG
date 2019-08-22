@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from Variables import *
 
 class Director:
     '''Representa el objeto principal del juego.
@@ -12,7 +13,7 @@ class Director:
         ''' En el init establecemos las características globales como
             resolución, título de la ventana, etc"
         '''
-        self.screen = pygame.display.set_mode([800,600])
+        self.screen = pygame.display.set_mode(ventana)
         pygame.display.set_caption("RPG")
         self.scene = None       #Escena actual
         self.quit_flag = False  #Control para el bucle de juego
@@ -33,11 +34,10 @@ class Director:
                     le tenemos que pasar a la escena actual
                     los eventos capturados para sus cosas
                 '''
-                data=self.scene.on_event(time, event)
+                keys=self.scene.on_event(time, event)
 
             # actualiza la escena
-            self.scene.on_update(time,data)
-
+            self.scene.on_update(time,keys)
             # dibuja la pantalla
             self.scene.on_draw(self.screen)
             pygame.display.update()

@@ -1,5 +1,7 @@
 from pygame import sprite
 import pygame
+from pygame.locals import *
+from Variables import *
 class Personaje(sprite.Sprite):
 
     def __init__(self,ventana,x=0, y=0,):
@@ -20,46 +22,55 @@ class Personaje(sprite.Sprite):
         else:
             self.rect.center = (x, y)
 
-        self.ventana = ventana
-
-
+        self.ventana = Rect(0,0,ventana[0],ventana[1])
 
         ''' Variables para nuestro control del sprite
         '''
         self.frames = 4             #Número máximo de imágenes
         self.current_frame = 0      #Frame actual
+        self.nframes = 4 # number of sprites/direction
         self.frame_width = 64     #Anchura de la imagen
         self.frame_height = 64     #Altura dela imagen
-
-        self.speed = 5
+        self.frame_counter = FPSPRITE     #number of frames per sprite
+        self.speedx = 5
+        self.speedy = 5
 
     #Método heredado de la clase Sprite
-    def update(self, dt):
-        ''' Aquí es donde se realizarán las actualizaciones del personaje.
-            Es decir, movimiento, cambios en el sprite, cambios
-            de atributos como puede ser la vida...
+    def update(self, dt, keys):
 
-            En este caso, si se llega al límite de frames se reinicia.
-            De esta forma estará animándo siempre en bucle.
-        '''
-        if self.current_frame > 3.5:
-            self.current_frame = 0
-        #Si no se llega, se sigue aumentando
+        if self.frame_counter == 0:
+            self.current_frame = (self.current_frame + 1) % self.nframes # next sprite
+            self.frame_counter = FPSPRITE
         else:
-            #Hacemos x3 por que queremos que salgan 3 imágenes por segundow
-            self.current_frame += 3*dt
+            self.frame_counter -= 1
 
-        ''' Una vez actualizados los frames, se actualiza la imagen actual del personaje.
+        if keys[K_DOWN] :
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          0,
+                                                          self.frame_width, self.frame_height))
+            self.move(0, self.speedy)
+        elif keys[K_LEFT] :
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          self.frame_height,
+                                                          self.frame_width, self.frame_height))
+            self.move(-self.speedx)
+        elif keys[K_RIGHT] :
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          2*self.frame_height,
+                                                          self.frame_width, self.frame_height))
+            self.move(self.speedx)
+        elif keys[K_UP] :
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          3*self.frame_height,
+                                                          self.frame_width, self.frame_height))
+            self.move(0,-self.speedy)
 
-            Para ello, realizamos el mismo recorte que antes, pero la diferencia
-            principal ahora es que la imagen que se recorta, va a
-            depender del frame (momento actual) en el que nos situemos.
-        '''
-        # print(int(self.current_frame)*self.frame_width)
-        self.image = self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,64,64))
+        else:
+            self.image = self.spriteSheet.subsurface((0,0, self.frame_width, self.frame_height))
+                # if not moving, set standing sprite
 
 
-    def mover(self, x=0, y=0):
+    def move(self, x=0, y=0):
         if self.rect.centerx+x>=self.ventana.width or self.rect.centerx+x <= 0:
             return
         if self.rect.centery+y>=self.ventana.height or self.rect.centery+y <= 0:
