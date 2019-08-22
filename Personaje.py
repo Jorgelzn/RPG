@@ -77,7 +77,7 @@ class Personaje(sprite.Sprite):
             self.speedy += 1
 
 
-        if  self.suelo(hierba, 100):
+        if  self.suelo(hierba, 100) or self.suelo(agua):
             self.saltando = False
             self.speedy = 0
 
