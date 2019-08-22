@@ -10,16 +10,14 @@ class Pantalla1(Scene):
     def __init__(self,map,image):
         Scene.__init__(self, map,image)
         self.pj = Personaje(map, 300, 300)
-        self.otherpj1 = Personaje(map)
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
-        self.ingame_elemets.add(self.otherpj1)
 
     def on_update(self, time,keys):
         self.camera.update(self.pj)
         self.ingame_elemets.update(time/1000, keys)
         if keys[K_RETURN]:
-            return Pantalla2(map2,"imagenes/min.jpg")
+            return Pantalla2(map2,"imagenes/test.png")
         else: return None
 
 
@@ -33,11 +31,11 @@ class Pantalla2(Scene):
 
     def __init__(self,map,image):
         Scene.__init__(self, map,image)
+        self.background = pygame.transform.scale(self.background,(10000,5000))
+        Scene.__init__(self, map,image)
         self.pj = Personaje(map, 300, 300)
-        self.otherpj1 = Personaje(map)
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
-        self.ingame_elemets.add(self.otherpj1)
 
     def on_update(self, time,keys):
         self.camera.update(self.pj)

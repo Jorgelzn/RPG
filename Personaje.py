@@ -71,7 +71,7 @@ class Personaje(sprite.Sprite):
             self.saltando = True
             self.speedy = -10
 
-        if self.saltando:
+        if self.saltando :
             self.move(0, self.speedy)
             self.speedy += 1
 

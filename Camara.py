@@ -32,7 +32,7 @@ class Camera(object):
 def simple_camera(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
-    return Rect(-l+w//2, -t+h//2, w, h)
+    return Rect(-l+ventana[0]//2, -t+ventana[1]//2, w, h)
 
 '''camara que sigue al objetivo respetando
     los limites de la ventana
@@ -41,7 +41,7 @@ def simple_camera(camera, target_rect):
 def complex_camera(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
-    l, t, _, _ = -l+w//2, -t+h//2, w, h
+    l, t, _, _ = -l+ventana[0]//2, -t+ventana[1]//2, w, h
     l = min(0, l)                           # stop scrolling at the left edge
     l = max(-(camera.width-ventana[0]), l)   # stop scrolling at the right edge
     t = max(-(camera.height-ventana[1]), t) # stop scrolling at the bottom
