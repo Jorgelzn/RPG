@@ -30,12 +30,7 @@ class Director:
                     self.quit()
                     break
 
-                ''' Si el juego no se ha cancelado,
-                    le tenemos que pasar a la escena actual
-                    los eventos capturados para sus cosas
-                '''
-                keys=self.scene.on_event(time, event)
-
+            keys = pygame.key.get_pressed()
             # actualiza la escena
             self.scene.on_update(time,keys)
             # dibuja la pantalla

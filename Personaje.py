@@ -65,7 +65,6 @@ class Personaje(sprite.Sprite):
                                                           3*self.frame_height,
                                                           self.frame_width, self.frame_height))
             self.move(0,-self.speedy)
-
         else:
             self.image = self.spriteSheet.subsurface((0,0, self.frame_width, self.frame_height))
                 # if not moving, set standing sprite

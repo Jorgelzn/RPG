@@ -17,25 +17,10 @@ class Pantalla1(Scene):
         self.ingame_elemets.add(self.otherpj1)
         self.background = pygame.image.load("imagenes/background.png").convert_alpha()
 
-    def on_update(self, time, keys):
-        keys = pygame.key.get_pressed()
+    def on_update(self, time,keys):
+
         self.camera.update(self.pj)
         self.ingame_elemets.update(time/1000, keys)
-        if keys[K_ESCAPE]:
-            self.director.quit()
-        
-
-
-    def on_event(self, time, event):
-        ''' El director pasa aquí los eventos que ha captado
-        '''
-        keys = None
-        if event.type == KEYDOWN:   #Si el usuario ha presionado una tecla
-            #Recuperamos las teclas presionadas
-            keys = pygame.key.get_pressed()
-
-        return keys
-
 
     def on_draw(self, screen):
         screen.blit(self.background, self.camera.apply(self.background.get_rect()))
