@@ -71,13 +71,19 @@ class Personaje(sprite.Sprite):
             self.saltando = True
             self.speedy = -10
 
-        if self.saltando: self.speedy += 1
+        if self.saltando:
+            self.speedy += 1
+            self.salto(self.speedy)
+
+        if keys[K_n]:
+            self.saltando = False
+
 
         if self.rect.bottom == 560:
             self.saltando = False
             self.speedy = 0
 
-        self.salto(self.speedy)
+
 
 
 
@@ -96,4 +102,4 @@ class Personaje(sprite.Sprite):
         self.rect.center = (self.rect.centerx+x, self.rect.centery+y)
 
     def salto(self, y=0):
-        self.rect.center = (0, self.rect.centery+y)
+        self.rect.center = (self.rect.centerx, self.rect.centery+y)
