@@ -72,27 +72,16 @@ class Personaje(sprite.Sprite):
             self.speedy = -10
 
         if self.saltando:
+            self.move(0, self.speedy)
             self.speedy += 1
-            self.salto(self.speedy)
 
-        if keys[K_n]:
-            self.saltando = False
-
-
-        if self.rect.bottom == 560:
+        if self.rect.bottom >= 560:
             self.saltando = False
             self.speedy = 0
-
-
-
-
-
 
         if not (keys[K_DOWN] or keys[K_LEFT] or keys[K_RIGHT] or keys[K_UP]):
             self.image = self.spriteSheet.subsurface((0,0, self.frame_width, self.frame_height))
                 # if not moving, set standing sprite
-
-
 
     def move(self, x=0, y=0):
         if self.rect.centerx+x>=self.mapa.width or self.rect.centerx+x <= 0:
@@ -100,6 +89,3 @@ class Personaje(sprite.Sprite):
         if self.rect.centery+y>=self.mapa.height or self.rect.centery+y <= 0:
             return
         self.rect.center = (self.rect.centerx+x, self.rect.centery+y)
-
-    def salto(self, y=0):
-        self.rect.center = (self.rect.centerx, self.rect.centery+y)
