@@ -79,7 +79,7 @@ class Personaje(sprite.Sprite):
             self.saltando = False
 
 
-        if self.rect.bottom == 560:
+        if self.rect.bottom >= 560:
             self.saltando = False
             self.speedy = 0
 
