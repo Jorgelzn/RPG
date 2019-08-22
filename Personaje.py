@@ -36,7 +36,6 @@ class Personaje(sprite.Sprite):
         self.frame_counter = FPSPRITE     #number of frames per sprite
         self.speedx = 5
         self.speedy = 0
-
         self.saltando = False
 
 
@@ -78,7 +77,7 @@ class Personaje(sprite.Sprite):
             self.speedy += 1
 
 
-        if self.suelo(agua) or self.suelo(hierba):
+        if  self.suelo(hierba, 100):
             self.saltando = False
             self.speedy = 0
 
