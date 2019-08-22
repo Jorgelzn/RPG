@@ -2,6 +2,7 @@ from pygame import sprite
 import pygame
 from pygame.locals import *
 from Variables import *
+
 class Personaje(sprite.Sprite):
 
     def __init__(self,ventana,x=0, y=0,):
@@ -35,7 +36,7 @@ class Personaje(sprite.Sprite):
         self.speedx = 5
         self.speedy = 5
 
-    #Método heredado de la clase Sprite
+
     def update(self, dt, keys):
 
         if self.frame_counter == 0:

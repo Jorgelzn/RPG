@@ -1,10 +1,9 @@
-import sys
 from pygame.locals import *
 from Variables import *
 class Camera(object):
     ''' Camera_func es el tipo de "seguir" que vamos
         a hacer sobre el objeto.
-        Width y Height, tamaño total del mapa/escena, es decir,
+        map, tamaño total del mapa/escena, es decir,
         si nuestra ventana es de 800x600 pero la escena de 1000x700,
         pues ponemos 1000x700
     '''
@@ -30,7 +29,7 @@ class Camera(object):
 ''' Cámara que sigue al objetivo, pero le
     dan igual los límites de la ventana
 '''
-def simple_camera(camera, target_rect,w,h):
+def simple_camera(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
     return Rect(-l+w//2, -t+h//2, w, h)

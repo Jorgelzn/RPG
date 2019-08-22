@@ -4,6 +4,7 @@ import Camara
 import pygame
 from pygame.locals import *
 from Variables import *
+
 class Pantalla1(Scene):
 
     def __init__(self, director):
@@ -14,7 +15,6 @@ class Pantalla1(Scene):
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
         self.ingame_elemets.add(self.otherpj1)
-        self.director = director
         self.background = pygame.image.load("imagenes/background.png").convert_alpha()
 
     def on_update(self, time, keys):
@@ -23,7 +23,7 @@ class Pantalla1(Scene):
         self.ingame_elemets.update(time/1000, keys)
         if keys[K_ESCAPE]:
             self.director.quit()
-        #self.pj.mover(data_events[0], data_events[1])
+        
 
 
     def on_event(self, time, event):
