@@ -77,40 +77,32 @@ class Personaje(sprite.Sprite):
             self.move(0, self.speedy)
             self.speedy += 1
 
-        if self.suelo(50, 120, 240):
+
+        if self.suelo(agua) or self.suelo(hierba):
             self.saltando = False
             self.speedy = 0
 
-        else: self.move(0, 2)
+        else: self.move(0, 5)
 
         if not (keys[K_DOWN] or keys[K_LEFT] or keys[K_RIGHT] or keys[K_UP]):
             self.image = self.spriteSheet.subsurface((0,0, self.frame_width, self.frame_height))
                 # if not moving, set standing sprite
 
     def move(self, x=0, y=0):
-        if self.rect.right+x>=self.mapa.width:
-            self.rect.right = self.mapa.width
+        if self.rect.centerx+x>=self.mapa.width or self.rect.centerx+x <= 0:
             return
-        if self.rect.left+x <= 0:
-            self.left = 0
-            return
-        if self.rect.bottom+y>=self.mapa.height:
-            self.bottom = mapa.height
-            return
-        if self.rect.top+y <= 0:
-            self.rect.top = 0
+        if self.rect.centery+y>=self.mapa.height or self.rect.centery+y <= 0:
             return
         self.rect.center = (self.rect.centerx+x, self.rect.centery+y)
 
-    def suelo(self, r, g, b):
+    def suelo(self, color, rango = 50):
         lista = []
         for e in range(self.rect.width):
             lista.append(self.pantalla.get_at((self.rect.left + e, self.rect.bottom + 1)))
-            print(lista[e])
 
         contador = 0
         for x in lista:
-            if abs(x[0] - r) < 50 and abs(x[1] - g) < 50 and abs(x[2] - b) < 50:
+            if abs(x[0] - color[0]) < rango and abs(x[1] - color[1]) < rango and abs(x[2] - color[2]) < rango:
                 contador += 1
 
         return contador > 30
