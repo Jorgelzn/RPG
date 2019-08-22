@@ -78,7 +78,7 @@ class Personaje(sprite.Sprite):
             self.speedy += 1
 
         if self.suelo():
-            self.move(0, 1)
+            self.move(0, 2)
 
         #if self.rect.bottom >= 560:
             #self.saltando = False
@@ -99,11 +99,11 @@ class Personaje(sprite.Sprite):
         lista = []
         for e in range(self.rect.width):
             lista.append(self.pantalla.get_at((self.rect.left + e, self.rect.bottom + 1)))
-            print(e)
+            print(lista[e])
 
         contador = 0
         for x in lista:
-            if abs(x[0] - 0) < 50 and abs(x[1] - 0) < 50 and abs(x[2] - 231) < 50:
+            if abs(x[0] - 50) < 50 and abs(x[1] - 120) < 50 and abs(x[2] - 240) < 50:
                 contador += 1
 
         return contador > 30
