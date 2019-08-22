@@ -5,7 +5,7 @@ from Variables import *
 
 class Personaje(sprite.Sprite):
 
-    def __init__(self,ventana,x=0, y=0,):
+    def __init__(self,mapa,x=0, y=0,):
         #Init de Sprite
         sprite.Sprite.__init__(self)
         ''' Cargamos la hoja completa de sprites del personaje.
@@ -19,11 +19,11 @@ class Personaje(sprite.Sprite):
         self.rect = self.image.get_rect()
         #Donde se situa la imagen.
         if(x==0 and y ==0):
-            self.rect.center = (ventana.width/2, ventana.height/2)
+            self.rect.center = (mapa[0]/2, mapa[1]/2)
         else:
             self.rect.center = (x, y)
 
-        self.ventana = Rect(0,0,ventana[0],ventana[1])
+        self.mapa = Rect(0,0,mapa[0],mapa[1])
 
         ''' Variables para nuestro control del sprite
         '''
@@ -71,8 +71,8 @@ class Personaje(sprite.Sprite):
 
 
     def move(self, x=0, y=0):
-        if self.rect.centerx+x>=self.ventana.width or self.rect.centerx+x <= 0:
+        if self.rect.centerx+x>=self.mapa.width or self.rect.centerx+x <= 0:
             return
-        if self.rect.centery+y>=self.ventana.height or self.rect.centery+y <= 0:
+        if self.rect.centery+y>=self.mapa.height or self.rect.centery+y <= 0:
             return
         self.rect.center = (self.rect.centerx+x, self.rect.centery+y)

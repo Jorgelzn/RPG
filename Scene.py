@@ -1,3 +1,6 @@
+import Camara
+import pygame
+
 class Scene:
     '''Representa un escena abstracta del videojuego.
 
@@ -5,11 +8,9 @@ class Scene:
     de presentación o menú de opciones.
     '''
 
-    def __init__(self, director):
-        #Contiene el director para poder acceder a cosas como
-        #el reloj o la pantalla
-        self.director = director
-
+    def __init__(self,map,image):
+        self.camera = Camara.Camera(Camara.complex_camera,map)
+        self.background = pygame.image.load(image).convert_alpha()
     def on_update(self, time):
         ''' Actualización lógica que se llama automáticamente desde el director
         '''
