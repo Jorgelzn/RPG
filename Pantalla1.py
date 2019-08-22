@@ -9,7 +9,7 @@ class Pantalla1(Scene):
 
     def __init__(self,map,image):
         Scene.__init__(self, map,image)
-        self.pj = Personaje(map, 300, 300)
+        self.pj = Personaje(map,self.background, 300, 300)
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
 

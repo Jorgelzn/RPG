@@ -22,7 +22,7 @@ class Director:
     def loop(self):
         ''' Bucle de juego'''
         while not self.quit_flag:
-            time = self.clock.tick(60)  #PCMaster Race
+            time = self.clock.tick(30)  #PCMaster Race
             # Eventos que capturamos en cada momento
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

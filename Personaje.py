@@ -5,12 +5,13 @@ from Variables import *
 
 class Personaje(sprite.Sprite):
 
-    def __init__(self,mapa,x=0, y=0,):
+    def __init__(self,mapa,pantalla,x=0, y=0,):
         #Init de Sprite
         sprite.Sprite.__init__(self)
         ''' Cargamos la hoja completa de sprites del personaje.
             Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
         '''
+        self.pantalla=pantalla
         self.spriteSheet = pygame.image.load("imagenes/pok.png").convert_alpha()
         # "image" se corresponde con la imagen actual a mostrar.
         #La hacemos más pequeña para que quede mejor
@@ -34,9 +35,10 @@ class Personaje(sprite.Sprite):
         self.frame_height = 64     #Altura dela imagen
         self.frame_counter = FPSPRITE     #number of frames per sprite
         self.speedx = 5
-        self.speedy = 0
+        self.speedy = 5
 
         self.saltando = False
+        self.suelo()
 
     def update(self, dt, keys):
 
@@ -75,9 +77,12 @@ class Personaje(sprite.Sprite):
             self.move(0, self.speedy)
             self.speedy += 1
 
-        if self.rect.bottom >= 560:
-            self.saltando = False
-            self.speedy = 0
+        if self.suelo():
+            self.move(0, 1)
+
+        #if self.rect.bottom >= 560:
+            #self.saltando = False
+            #self.speedy = 0
 
         if not (keys[K_DOWN] or keys[K_LEFT] or keys[K_RIGHT] or keys[K_UP]):
             self.image = self.spriteSheet.subsurface((0,0, self.frame_width, self.frame_height))
@@ -89,3 +94,16 @@ class Personaje(sprite.Sprite):
         if self.rect.centery+y>=self.mapa.height or self.rect.centery+y <= 0:
             return
         self.rect.center = (self.rect.centerx+x, self.rect.centery+y)
+
+    def suelo(self):
+        lista = []
+        for e in range(self.rect.width):
+            lista.append(self.pantalla.get_at((self.rect.left + e, self.rect.bottom + 1)))
+            print(e)
+
+        contador = 0
+        for x in lista:
+            if abs(x[0] - 0) < 50 and abs(x[1] - 0) < 50 and abs(x[2] - 231) < 50:
+                contador += 1
+
+        return contador > 30
