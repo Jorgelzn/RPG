@@ -5,13 +5,13 @@ from Variables import *
 
 class Personaje(sprite.Sprite):
 
-    def __init__(self,mapa,pantalla,x=0, y=0,):
+    def __init__(self, mapa, x=0, y=0):
         #Init de Sprite
         sprite.Sprite.__init__(self)
         ''' Cargamos la hoja completa de sprites del personaje.
             Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
         '''
-        self.pantalla=pantalla
+        
         self.spriteSheet = pygame.image.load("imagenes/pok.png").convert_alpha()
         # "image" se corresponde con la imagen actual a mostrar.
         #La hacemos más pequeña para que quede mejor
@@ -19,8 +19,8 @@ class Personaje(sprite.Sprite):
         #Necesario para mostrar la imagen
         self.rect = self.image.get_rect()
         #Donde se situa la imagen.
-        if(x==0 and y ==0):
-            self.rect.center = (mapa[0]/2, mapa[1]/2)
+        if (x==0 and y==0):
+            self.rect.center = (mapa[0]//2, mapa[1]//2)
         else:
             self.rect.center = (x, y)
 
@@ -36,17 +36,22 @@ class Personaje(sprite.Sprite):
         self.frame_counter = FPSPRITE     #number of frames per sprite
         self.speedx = 5
         self.speedy = 0
-        self.saltando = False
+        self.saltando = True
 
 
     def update(self, dt, keys):
-
+        # animaciones:
         if self.frame_counter == 0:
-            self.current_frame = (self.current_frame + 1) % self.nframes # next sprite
+            self.current_frame = (self.current_frame + 1) % self.nframes # siguiente sprite
             self.frame_counter = FPSPRITE
         else:
             self.frame_counter -= 1
 
+        # si no se está moviendo, ponemos sprite normal:
+        if not (keys[K_DOWN] or keys[K_LEFT] or keys[K_RIGHT] or keys[K_UP]):
+            self.image = self.spriteSheet.subsurface((0,0, self.frame_width, self.frame_height))
+
+        # movimiento y animación según la dirección de movimiento:
         if keys[K_DOWN] :
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                           0,
@@ -67,25 +72,24 @@ class Personaje(sprite.Sprite):
                                                           3*self.frame_height,
                                                           self.frame_width, self.frame_height))
             self.move(0,-self.speedy)
-
+        
+        # salto:
         if keys[K_SPACE] and not self.saltando:
             self.saltando = True
             self.speedy = -10
 
         if self.saltando:
             self.move(0, self.speedy)
-            self.speedy += 1
-
-
-        if  self.suelo(hierba, 100) or self.suelo(agua):
-            self.saltando = False
+            self.speedy += 1 #gravedad
+        else:
             self.speedy = 0
 
-        else: self.move(0, 5)
+        ## nuevo
+        if keys[K_r]:
+            self.rect.center = (200, 200)
+            
+        ##
 
-        if not (keys[K_DOWN] or keys[K_LEFT] or keys[K_RIGHT] or keys[K_UP]):
-            self.image = self.spriteSheet.subsurface((0,0, self.frame_width, self.frame_height))
-                # if not moving, set standing sprite
 
     def move(self, x=0, y=0):
         if self.rect.centerx+x>=self.mapa.width or self.rect.centerx+x <= 0:
@@ -94,14 +98,6 @@ class Personaje(sprite.Sprite):
             return
         self.rect.center = (self.rect.centerx+x, self.rect.centery+y)
 
-    def suelo(self, color, rango = 50):
-        lista = []
-        for e in range(self.rect.width):
-            lista.append(self.pantalla.get_at((self.rect.left + e, self.rect.bottom + 1)))
-
-        contador = 0
-        for x in lista:
-            if abs(x[0] - color[0]) < rango and abs(x[1] - color[1]) < rango and abs(x[2] - color[2]) < rango:
-                contador += 1
-
-        return contador > 30
+    def suelo(self, otro_rect):
+        return self.rect.colliderect(otro_rect)
+        
