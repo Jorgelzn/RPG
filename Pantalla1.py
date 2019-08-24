@@ -5,6 +5,7 @@ import Camara
 import pygame
 from pygame.locals import *
 from Variables import *
+from text import Text
 
 class Pantalla1(Scene):
 
@@ -13,7 +14,7 @@ class Pantalla1(Scene):
         self.pj = Personaje(map, 200, 200)
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
-
+        self.text=Text()
         self.plataformas = [
             Plataforma(150, 500),
             Plataforma(550, 500),
@@ -21,40 +22,35 @@ class Pantalla1(Scene):
         ]
 
     def on_update(self, time,keys):
-        self.camera.update(self.pj)
-
-        ## nuevo
-        tocado_suelo = False
-        for plat in self.plataformas:
-            if self.pj.suelo(plat):
-                tocado_suelo = True
-                self.pj.saltando = False
-                print("Tocando suelo!")
-                
-        if not tocado_suelo:
-            self.pj.saltando = True
-            print("Flotando")
-        ##
-
-
-
-        self.ingame_elemets.update(time/1000, keys)
-
+        if not self.text.display:
+            self.camera.update(self.pj)
+            self.ingame_elemets.update(time/1000, keys)
         if keys[K_RETURN]:
-            return Pantalla2(map2,"imagenes/test.png")
+                return Pantalla2(map2,"imagenes/test.png")
         else: return None
+
+    def on_event(self,keys, screen):
+        if keys[K_r]:
+            if self.pj.rect.centerx>=480 and self.pj.rect.centerx<=520:
+                self.text.dialog2()
+
+            else:
+                self.text.dialog1()
+            self.event = False
+
+
 
 
     def on_draw(self, screen):
-        screen.blit(self.background, self.camera.apply(self.background.get_rect()))
-        for i in self.ingame_elemets:
-            screen.blit(i.image, self.camera.apply(i.rect))
-
-        ## nuevo
-        for plat in self.plataformas:
-            screen.blit(plat.image, plat.rect)
+        if self.text.display:
+            screen.blit(self.text.image, self.text.image.get_rect())
+            screen.blit(self.text.text, self.text.text.get_rect())
+        else:
+            screen.blit(self.background, self.camera.apply(self.background.get_rect()))
+            for i in self.ingame_elemets:
+                screen.blit(i.image, self.camera.apply(i.rect))
         pygame.draw.rect(screen, (0,0,127), self.pj.rect)
-        ##
+
 
 
 class Pantalla2(Scene):
@@ -65,12 +61,24 @@ class Pantalla2(Scene):
         self.pj = Personaje(map, 300, 300)
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
+        self.text=Text()
 
     def on_update(self, time,keys):
-        self.camera.update(self.pj)
-        self.ingame_elemets.update(time/1000, keys)
+        if not self.text.display:
+            self.camera.update(self.pj)
+            self.ingame_elemets.update(time/1000, keys)
+
+
+
+    def on_event(self,keys, screen):
+        if keys[K_r]:
+            self.text.dialog1(keys, screen)
 
     def on_draw(self, screen):
-        screen.blit(self.background, self.camera.apply(self.background.get_rect()))
-        for i in self.ingame_elemets:
-            screen.blit(i.image, self.camera.apply(i.rect))
+        if self.text.display:
+            screen.blit(self.text.image, self.text.image.get_rect())
+            screen.blit(self.text.text, self.text.text.get_rect())
+        else:
+            screen.blit(self.background, self.camera.apply(self.background.get_rect()))
+            for i in self.ingame_elemets:
+                screen.blit(i.image, self.camera.apply(i.rect))

@@ -11,7 +11,7 @@ class Personaje(sprite.Sprite):
         ''' Cargamos la hoja completa de sprites del personaje.
             Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
         '''
-        
+
         self.spriteSheet = pygame.image.load("imagenes/pok.png").convert_alpha()
         # "image" se corresponde con la imagen actual a mostrar.
         #La hacemos más pequeña para que quede mejor
@@ -35,8 +35,8 @@ class Personaje(sprite.Sprite):
         self.frame_height = 64     #Altura dela imagen
         self.frame_counter = FPSPRITE     #number of frames per sprite
         self.speedx = 5
-        self.speedy = 0
-        self.saltando = True
+        self.speedy = 5
+
 
 
     def update(self, dt, keys):
@@ -72,23 +72,7 @@ class Personaje(sprite.Sprite):
                                                           3*self.frame_height,
                                                           self.frame_width, self.frame_height))
             self.move(0,-self.speedy)
-        
-        # salto:
-        if keys[K_SPACE] and not self.saltando:
-            self.saltando = True
-            self.speedy = -10
 
-        if self.saltando:
-            self.move(0, self.speedy)
-            self.speedy += 1 #gravedad
-        else:
-            self.speedy = 0
-
-        ## nuevo
-        if keys[K_r]:
-            self.rect.center = (200, 200)
-            
-        ##
 
 
     def move(self, x=0, y=0):
@@ -97,7 +81,3 @@ class Personaje(sprite.Sprite):
         if self.rect.centery+y>=self.mapa.height or self.rect.centery+y <= 0:
             return
         self.rect.center = (self.rect.centerx+x, self.rect.centery+y)
-
-    def suelo(self, otro_rect):
-        return self.rect.colliderect(otro_rect)
-        

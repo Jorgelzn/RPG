@@ -1,7 +1,7 @@
 import pygame
 from Director import Director
 from Pantalla1 import Pantalla1
-from Variables import map1
+from Variables import *
 
 
 pygame.init()
