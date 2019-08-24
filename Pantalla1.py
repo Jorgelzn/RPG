@@ -15,6 +15,8 @@ class Pantalla1(Scene):
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
         self.text=Text()
+        self.soundtrack= pygame.mixer.music.load("sonidos/Moki_Town.mp3")
+        pygame.mixer.music.play()
         self.plataformas = [
             Plataforma(150, 500),
             Plataforma(550, 500),
@@ -25,6 +27,7 @@ class Pantalla1(Scene):
         if not self.text.display:
             self.camera.update(self.pj)
             self.ingame_elemets.update(time/1000, keys)
+
         if keys[K_RETURN]:
                 return Pantalla2(map2,"imagenes/test.png")
         else: return None
@@ -49,7 +52,7 @@ class Pantalla1(Scene):
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))
             for i in self.ingame_elemets:
                 screen.blit(i.image, self.camera.apply(i.rect))
-        pygame.draw.rect(screen, (0,0,127), self.pj.rect)
+        #pygame.draw.rect(screen, (0,0,127), self.pj.rect)
 
 
 
