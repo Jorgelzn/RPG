@@ -43,8 +43,8 @@ class Pantalla1(Scene):
 
     def on_draw(self, screen):
         if self.text.display:
-            screen.blit(self.text.image, self.text.image.get_rect())
-            screen.blit(self.text.text, self.text.text.get_rect())
+            screen.blit(self.text.image, self.text.rect)
+            screen.blit(self.text.text, self.text.rectext)
         else:
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))
             for i in self.ingame_elemets:
