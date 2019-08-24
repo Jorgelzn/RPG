@@ -1,7 +1,7 @@
 import pygame
 
-class Plataforma:
-    def __init__(self, x=0, y=0, w=350, h=70):
-        self.image = pygame.image.load("imagenes/plataforma.png").convert_alpha()
+class Obstaculo:
+    def __init__(self, imagen, x=0, y=0, w=200, h=200):
+        self.image = pygame.image.load(imagen)
         self.image = pygame.transform.scale(self.image, (w, h))
         self.rect = pygame.Rect(x, y, w, h)

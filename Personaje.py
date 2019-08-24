@@ -22,13 +22,11 @@ class Personaje(sprite.Sprite):
         # "image" se corresponde con la imagen actual a mostrar.
         self.image = self.spriteSheet.subsurface(0,0,self.frame_width,self.frame_height)
         # Collision box:
-        self.rect = self.image.get_rect()
-        self.rect = pygame.Rect(x, y, self.rect.width, 20)
-        
+        self.rect = pygame.Rect(x,y,self.frame_width,20)
+
         # Control del movimiento:
         self.speedx = 5
-        self.speedy = 0
-        self.saltando = False
+        self.speedy = 5
 
 
     def update(self, dt, keys, mapa, obs):
@@ -64,20 +62,6 @@ class Personaje(sprite.Sprite):
                                                       3*self.frame_height,
                                                       self.frame_width, self.frame_height))
             self.move((0,-self.speedy), mapa, obs)
-
-        # salto:
-        if keys[K_SPACE] and not self.saltando:
-            self.saltando = True
-            self.speedy = -10
-
-        if self.saltando:
-            self.move((0, self.speedy), mapa, obs)
-            self.speedy += 1 # gravedad
-        else:
-            self.speedy = 0
-
-        if keys[K_r]:
-            self.rect.center = (200, 200)
 
     def move(self, offset, mapa, obs):
         self.rect = self.rect.move(offset) # avanzamos

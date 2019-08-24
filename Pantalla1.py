@@ -1,6 +1,6 @@
 from Scene import Scene
 from Personaje import Personaje
-from Escenarios import Plataforma
+from Escenarios import *
 import Camara
 import pygame
 from pygame.locals import *
@@ -10,15 +10,14 @@ class Pantalla1(Scene):
 
     def __init__(self, map, image):
         Scene.__init__(self, map, image)
-        self.pj = Personaje(200, 200)
+        self.pj = Personaje(500, 200)
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
         self.mapa = map
 
         self.obs = [
-            Plataforma(150, 500),
-            Plataforma(550, 500),
-            Plataforma(0, 700, 1000, 5)
+            Obstaculo("imagenes/snorlax.png", 100, 150),
+            Obstaculo("imagenes/snorlax.png", 500, 500)
         ]
 
     def on_update(self, time, keys):
@@ -31,12 +30,14 @@ class Pantalla1(Scene):
 
 
     def on_draw(self, screen):
+        # fondo:
         screen.blit(self.background, self.camera.apply(self.background.get_rect()))
-        for i in self.ingame_elemets:
-            screen.blit(i.image, self.camera.apply(i.rect).move(0, -44))
-
+        # obstáculos / decorado:
         for o in self.obs:
             screen.blit(o.image, o.rect)
+        # personaje:
+        for i in self.ingame_elemets:
+            screen.blit(i.image, self.camera.apply(i.rect).move(0, -44))
         pygame.draw.rect(screen, (0,0,127), self.pj.rect)
 
 
