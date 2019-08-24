@@ -39,7 +39,7 @@ class Pantalla1(Scene):
 
             else:
                 self.text.dialog1()
-            self.event = False
+            
 
 
 
