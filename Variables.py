@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 # Escenarios y ventanas:
-map1 = (1251, 757)
+map1 = (1600, 1300)
 map2 = (10000, 3000)
 ventana = (1000, 757)
 

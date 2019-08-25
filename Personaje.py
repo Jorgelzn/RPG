@@ -13,7 +13,7 @@ class Personaje(sprite.Sprite):
         # Variables para nuestro control del sprite:
         self.frames = 4               # Número máximo de imágenes
         self.current_frame = 0        # Imagen actual
-        self.frame_width = 64         # Anchura de la imagen
+        self.frame_width = 64        # Anchura de la imagen
         self.frame_height = 64        # Altura de la imagen
         self.frame_counter = FPSPRITE # Nº de frames por imagen
 
@@ -25,7 +25,8 @@ class Personaje(sprite.Sprite):
             Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
         '''
 
-        self.spriteSheet = pygame.image.load("imagenes/pok.png").convert_alpha()
+        self.spriteSheet = pygame.image.load("imagenes/moki2.png").convert_alpha()
+        self.spriteSheet = pygame.transform.scale(self.spriteSheet, (256, 256))
         # "image" se corresponde con la imagen actual a mostrar.
         self.image = self.spriteSheet.subsurface(0,0,self.frame_width,self.frame_height)
         # Collision box:
@@ -61,12 +62,12 @@ class Personaje(sprite.Sprite):
             self.move((-self.speedx, 0), mapa, obs)
         if keys[K_RIGHT]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      2*self.frame_height,
+                                                      3*self.frame_height,
                                                       self.frame_width, self.frame_height))
             self.move((self.speedx, 0), mapa, obs)
         if keys[K_UP]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      3*self.frame_height,
+                                                      2*self.frame_height,
                                                       self.frame_width, self.frame_height))
             self.move((0,-self.speedy), mapa, obs)
 

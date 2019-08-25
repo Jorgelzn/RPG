@@ -8,7 +8,7 @@ pygame.init()
 
 director = Director()
 #Creamos la instancia de la escena
-scene = Pantalla1(map1,"imagenes/background.png")
+scene = Pantalla1(map1,"imagenes/city.jpg")
 #Le decimos al director la escena que ejecutará
 director.change_scene(scene)
 #Y ponemos en marcha el juego!
