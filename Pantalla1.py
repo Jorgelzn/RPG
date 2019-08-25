@@ -53,8 +53,8 @@ class Pantalla1(Scene):
             for o in self.obs:
                 screen.blit(o.image, self.camera.apply(o.rect))
             for i in self.ingame_elemets:
-                screen.blit(i.image, self.camera.apply(i.rect))
-        pygame.draw.rect(screen, (0,0,127), self.camera.apply(self.pj.rect))
+                screen.blit(i.image, self.camera.apply(i.rect).move(0, -44))
+        pygame.draw.rect(screen, (0,100,200), self.camera.apply(self.pj.rect))
 
 
 
