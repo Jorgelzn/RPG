@@ -36,12 +36,12 @@ class Pantalla1(Scene):
 
 
     def on_event(self,keys, screen):
-        if keys[K_r]:
+        if keys[K_r] and not self.text.displayMenu:
             if self.pj.rect.centerx>=480 and self.pj.rect.centerx<=520:
                 self.text.dialog2()
             else:
                 self.text.dialog1()
-        if keys[K_t]:
+        elif keys[K_t] and not self.text.display:
             self.text.menu()
 
 
@@ -57,7 +57,7 @@ class Pantalla1(Scene):
                 screen.blit(o.image, self.camera.apply(o.rect))
             for i in self.ingame_elemets:
                 screen.blit(i.image, self.camera.apply(i.rect).move(0, -150))
-            
+
 
 class Pantalla2(Scene):
 
