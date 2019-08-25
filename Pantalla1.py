@@ -39,22 +39,26 @@ class Pantalla1(Scene):
         if keys[K_r]:
             if self.pj.rect.centerx>=480 and self.pj.rect.centerx<=520:
                 self.text.dialog2()
-
             else:
                 self.text.dialog1()
+        if keys[K_t]:
+            self.text.menu()
 
 
     def on_draw(self, screen):
         if self.text.display:
             screen.blit(self.text.image, self.text.rect)
             screen.blit(self.text.text, self.text.rectext)
+        elif self.text.displayMenu:
+            screen.blit(self.text.menuImage, self.text.menuRect)
         else:
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))
             for o in self.obs:
                 screen.blit(o.image, self.camera.apply(o.rect))
             for i in self.ingame_elemets:
-                screen.blit(i.image, self.camera.apply(i.rect).move(0, -44))
-            
+                screen.blit(i.image, self.camera.apply(i.rect).move(0, -150))
+            pygame.draw.rect(screen, (0,100,200), self.camera.apply(self.pj.rect))
+
 class Pantalla2(Scene):
 
     def __init__(self,map,image):

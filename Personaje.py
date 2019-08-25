@@ -13,22 +13,17 @@ class Personaje(sprite.Sprite):
         # Variables para nuestro control del sprite:
         self.frames = 4               # Número máximo de imágenes
         self.current_frame = 0        # Imagen actual
-        self.frame_width = 64        # Anchura de la imagen
-        self.frame_height = 64        # Altura de la imagen
+        self.frame_width = 115        # Anchura de la imagen
+        self.frame_height = 158        # Altura de la imagen
         self.frame_counter = FPSPRITE # Nº de frames por imagen
 
         # Cargamos la hoja completa de sprites del personaje.
         # Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
 
 
-        ''' Cargamos la hoja completa de sprites del personaje.
-            Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
-        '''
-
-        self.spriteSheet = pygame.image.load("imagenes/moki2.png").convert_alpha()
-        self.spriteSheet = pygame.transform.scale(self.spriteSheet, (256, 256))
+        self.spriteSheet = pygame.image.load("imagenes/Moki.png").convert_alpha()
         # "image" se corresponde con la imagen actual a mostrar.
-        self.image = self.spriteSheet.subsurface(0,0,self.frame_width,self.frame_height)
+        self.image = self.spriteSheet.subsurface(136,0,self.frame_width,self.frame_height)
         # Collision box:
         self.rect = pygame.Rect(x,y,self.frame_width,20)
 
@@ -47,26 +42,26 @@ class Personaje(sprite.Sprite):
 
         # si no se está moviendo, ponemos sprite normal:
         if not (keys[K_DOWN] or keys[K_LEFT] or keys[K_RIGHT] or keys[K_UP]):
-            self.image = self.spriteSheet.subsurface((0,0, self.frame_width, self.frame_height))
+            self.image = self.spriteSheet.subsurface((136,0, self.frame_width+15, self.frame_height))
 
         # movimiento y animación según la dirección de movimiento:
         if keys[K_DOWN]:
-            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width+136,
                                                       0,
                                                       self.frame_width, self.frame_height))
             self.move((0, self.speedy), mapa, obs)
         if keys[K_LEFT]:
-            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width+136,
                                                       self.frame_height,
                                                       self.frame_width, self.frame_height))
             self.move((-self.speedx, 0), mapa, obs)
         if keys[K_RIGHT]:
-            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width+136,
                                                       3*self.frame_height,
                                                       self.frame_width, self.frame_height))
             self.move((self.speedx, 0), mapa, obs)
         if keys[K_UP]:
-            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width+136,
                                                       2*self.frame_height,
                                                       self.frame_width, self.frame_height))
             self.move((0,-self.speedy), mapa, obs)

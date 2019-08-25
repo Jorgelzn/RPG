@@ -1,9 +1,13 @@
 import pygame
 from pygame.locals import *
+from Variables import *
 
 class Text:
 
     def __init__(self):
+        self.menuImage = pygame.image.load("imagenes/Menu.png").convert_alpha()
+        self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-100, ventana[1]-100))
+        self.menuRect = self.menuImage.get_rect()
         self.font = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",20)
         self.image = pygame.image.load("imagenes/text_box.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (800, 300))
@@ -13,6 +17,7 @@ class Text:
         self.color1= (3, 123, 239)
         self.color2= (200,50,50)
         self.display = False
+        self.displayMenu = False
         self.finishdialog = False
         self.countdialog=0;
         self.chat1=[False, False]
@@ -49,3 +54,10 @@ class Text:
                 self.display=True
             else:
                 self.display= False
+
+
+    def menu(self):
+        if not self.displayMenu:
+            self.displayMenu=True
+        else:
+            self.displayMenu= False
