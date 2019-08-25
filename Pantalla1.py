@@ -34,11 +34,11 @@ class Pantalla1(Scene):
         screen.blit(self.background, self.camera.apply(self.background.get_rect()))
         # obstáculos / decorado:
         for o in self.obs:
-            screen.blit(o.image, o.rect)
+            screen.blit(o.image, self.camera.apply(o.rect))
         # personaje:
         for i in self.ingame_elemets:
             screen.blit(i.image, self.camera.apply(i.rect).move(0, -44))
-        pygame.draw.rect(screen, (0,0,127), self.pj.rect)
+        pygame.draw.rect(screen, (0,0,127), self.camera.apply(self.pj.rect))
 
 
 class Pantalla2(Scene):
