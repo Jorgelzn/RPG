@@ -21,3 +21,7 @@ class Scene:
         ''' Se llama cuando se quiere dibujar la pantalla
         '''
         raise NotImplemented("Tiene que implementar el método on_draw.")
+
+    def on_event(self):
+
+        raise NotImplemented("Tiene que implementar el método on_event.")

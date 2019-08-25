@@ -28,6 +28,9 @@ class Director:
                 if event.type == pygame.QUIT:
                     self.quit()
                     break
+                elif event.type == pygame.KEYDOWN:
+                    key = pygame.key.get_pressed()
+                    self.scene.on_event(key, self.screen)
 
             keys = pygame.key.get_pressed()
             # actualiza la escena
