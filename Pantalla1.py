@@ -51,6 +51,9 @@ class Pantalla1(Scene):
             screen.blit(self.text.text, self.text.rectext)
         elif self.text.displayMenu:
             screen.blit(self.text.menuImage, self.text.menuRect)
+            screen.blit(self.text.selectorImage,self.text.selectorRect)
+            for i in range(4):
+                screen.blit(self.text.menuText[i],self.text.menuTextRect[i])
         else:
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))
             for o in self.obs:
