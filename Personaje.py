@@ -43,10 +43,10 @@ class Personaje(sprite.Sprite):
 
         # si no se está moviendo, ponemos sprite normal:
         if not (keys[K_DOWN] or keys[K_LEFT] or keys[K_RIGHT] or keys[K_UP]):
-            if self.current_frame == 4 or self.current_frame == 3:
+            if self.current_frame == 2 or self.current_frame == 3:
                 self.image = self.spriteSheet.subsurface((136,0, self.frame_width, self.frame_height))
             else:
-                self.image = self.spriteSheet.subsurface((15,0, self.frame_width, self.frame_height))
+                self.image = self.spriteSheet.subsurface((20,0, self.frame_width, self.frame_height))
 
         # movimiento y animación según la dirección de movimiento:
         if keys[K_DOWN]:

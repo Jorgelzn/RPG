@@ -37,7 +37,7 @@ class Pantalla1(Scene):
 
     def on_event(self,keys, screen):
         if keys[K_r] and not self.text.displayMenu:
-            if self.pj.rect.centerx>=480 and self.pj.rect.centerx<=520:
+            if self.pj.rect_col.centerx>=480 and self.pj.rect_col.centerx<=520:
                 self.text.dialog2()
             else:
                 self.text.dialog1()
