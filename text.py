@@ -39,9 +39,9 @@ class Text:
 
         self.menuText = []
         self.menuText.append(self.fontMenu.render('Objetos', True, self.textcolor3))
-        self.menuText.append(self.fontMenu.render('Salir', True, self.textcolor3))
         self.menuText.append(self.fontMenu.render('Mapa', True, self.textcolor3))
         self.menuText.append(self.fontMenu.render('Guardar', True, self.textcolor3))
+        self.menuText.append(self.fontMenu.render('Salir', True, self.textcolor3))
 
         self.menuTextRect = []
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[0][1]-20,self.menuRect.width,50))
