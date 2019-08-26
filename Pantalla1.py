@@ -35,7 +35,7 @@ class Pantalla1(Scene):
         else: return None
 
 
-    def on_event(self,keys, screen):
+    def on_event(self,keys):
         if keys[K_r] and not self.text.displayMenu:
             if self.pj.rect_col.centerx>=480 and self.pj.rect_col.centerx<=520:
                 self.text.dialog2()
@@ -43,18 +43,23 @@ class Pantalla1(Scene):
                 self.text.dialog1()
         elif keys[K_t] and not self.text.display:
             self.text.menu()
+        elif self.text.displayMenu:
+            if keys[K_DOWN]:
+                self.text.countSelector+=1
+            elif keys[K_UP]:
+                self.text.countSelector-=1
+
+            if self.text.countSelector==4:
+                self.text.countSelector=0
+            elif self.text.countSelector==-1:
+                self.text.countSelector=3
+
+            self.text.selectorRect.center=self.text.posSelector[self.text.countSelector]
 
 
     def on_draw(self, screen):
-        if self.text.display:
-            screen.blit(self.text.image, self.text.rect)
-            screen.blit(self.text.text, self.text.rectext)
-        elif self.text.displayMenu:
-            screen.blit(self.text.menuImage, self.text.menuRect)
-            screen.blit(self.text.selectorImage,self.text.selectorRect)
-            for i in range(4):
-                screen.blit(self.text.menuText[i],self.text.menuTextRect[i])
-        else:
+        self.text.displays(screen)
+        if not self.text.display and not self.text.displayMenu:
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))
             for o in self.obs:
                 screen.blit(o.image, self.camera.apply(o.rect))

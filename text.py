@@ -9,15 +9,16 @@ class Text:
         self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-100, ventana[1]-100))
         self.menuRect = self.menuImage.get_rect()
         self.selectorImage = pygame.image.load("imagenes/pok.jpg").convert_alpha()
-        self.selectorImage = pygame.transform.scale(self.selectorImage, (80,80))
+        self.selectorImage = pygame.transform.scale(self.selectorImage, (100,100))
         self.selectorRect = self.selectorImage.get_rect()
-        self.selectorRect.center = (self.menuRect.topleft[0]+150,self.menuRect.topleft[1]+150)
+        self.selectorRect.center = (self.menuRect.topleft[0]+250,self.menuRect.topleft[1]+130)
+        self.countSelector=0
         self.posSelector = []
         self.posSelector.append(self.selectorRect.center)
         for i in range(3):
-            self.posSelector.append((self.selectorRect.center[0],self.posSelector[i][1]+100))
+            self.posSelector.append((self.selectorRect.center[0],self.posSelector[i][1]+120))
         self.displayMenu = False
-        print(self.posSelector)
+        self.fontMenu = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",50)
 
         self.font = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",20)
         self.image = pygame.image.load("imagenes/text_box.png").convert_alpha()
@@ -27,6 +28,7 @@ class Text:
         self.rectext=(self.rect.topleft[0]+60,self.rect.topleft[1]+80,self.rect.width,self.rect.height)
         self.textcolor1= (3, 123, 239)
         self.textcolor2= (200,50,50)
+        self.textcolor3= (90, 90, 90)
         self.display = False
         self.finishdialog = False
         self.countdialog=0;
@@ -34,16 +36,16 @@ class Text:
         self.text =None
 
         self.menuText = []
-        self.menuText.append(self.font.render('Objetos', True, self.textcolor2))
-        self.menuText.append(self.font.render('Salir', True, self.textcolor2))
-        self.menuText.append(self.font.render('Mapa', True, self.textcolor2))
-        self.menuText.append(self.font.render('Guardar', True, self.textcolor2))
+        self.menuText.append(self.fontMenu.render('Objetos', True, self.textcolor3))
+        self.menuText.append(self.fontMenu.render('Salir', True, self.textcolor3))
+        self.menuText.append(self.fontMenu.render('Mapa', True, self.textcolor3))
+        self.menuText.append(self.fontMenu.render('Guardar', True, self.textcolor3))
 
         self.menuTextRect = []
-        self.menuTextRect.append((self.selectorRect.center[0]+30,self.posSelector[0][1],self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+30,self.posSelector[1][1],self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+30,self.posSelector[2][1],self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+30,self.posSelector[3][1],self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[0][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[1][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[2][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[3][1]-20,self.menuRect.width,50))
         print(self.menuTextRect)
 
     def dialog1(self):
@@ -84,3 +86,13 @@ class Text:
             self.displayMenu=True
         else:
             self.displayMenu= False
+
+    def displays(self, screen):
+        if self.display:
+            screen.blit(self.image, self.rect)
+            screen.blit(self.text, self.rectext)
+        elif self.displayMenu:
+            screen.blit(self.menuImage, self.menuRect)
+            screen.blit(self.selectorImage,self.selectorRect)
+            for i in range(4):
+                screen.blit(self.menuText[i],self.menuTextRect[i])

@@ -42,29 +42,29 @@ class Personaje(sprite.Sprite):
             self.frame_counter -= 1
 
         # si no se está moviendo, ponemos sprite normal:
-        if not (keys[K_DOWN] or keys[K_LEFT] or keys[K_RIGHT] or keys[K_UP]):
+        if not (keys[K_s] or keys[K_a] or keys[K_d] or keys[K_w]):
             if self.current_frame == 2 or self.current_frame == 3:
                 self.image = self.spriteSheet.subsurface((136,0, self.frame_width, self.frame_height))
             else:
                 self.image = self.spriteSheet.subsurface((20,0, self.frame_width, self.frame_height))
 
         # movimiento y animación según la dirección de movimiento:
-        if keys[K_DOWN]:
+        if keys[K_s]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width+136,
                                                       0,
                                                       self.frame_width, self.frame_height))
             self.move((0, self.speedy), mapa, obs)
-        if keys[K_LEFT]:
+        if keys[K_a]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width+136,
                                                       self.frame_height,
                                                       self.frame_width, self.frame_height))
             self.move((-self.speedx, 0), mapa, obs)
-        if keys[K_RIGHT]:
+        if keys[K_d]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width+136,
                                                       3*self.frame_height,
                                                       self.frame_width, self.frame_height))
             self.move((self.speedx, 0), mapa, obs)
-        if keys[K_UP]:
+        if keys[K_w]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width+136,
                                                       2*self.frame_height,
                                                       self.frame_width, self.frame_height))
