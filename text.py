@@ -48,7 +48,9 @@ class Text:
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[1][1]-20,self.menuRect.width,50))
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[2][1]-20,self.menuRect.width,50))
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[3][1]-20,self.menuRect.width,50))
-        print(self.menuTextRect)
+
+        self.mapImage=pygame.image.load("imagenes/mapita.png").convert_alpha()
+        self.displayMap=False
 
     def dialog1(self):
         for e in self.chat1:
@@ -94,6 +96,13 @@ class Text:
                 self.countSelector+=1
             elif keys[K_UP]:
                 self.countSelector-=1
+            elif keys[K_p] and self.countSelector==1:
+                if self.displayMap:
+                    self.displayMap=False
+                    self.displayMenu=False
+                else:
+                    self.displayMap=True
+
 
             if self.countSelector==4:
                 self.countSelector=0
@@ -113,3 +122,5 @@ class Text:
             screen.blit(self.selectorImageL,(leftRect))
             for i in range(4):
                 screen.blit(self.menuText[i],self.menuTextRect[i])
+            if self.displayMap:
+                screen.blit(self.mapImage,self.mapImage.get_rect())
