@@ -8,9 +8,11 @@ class Text:
         self.menuImage = pygame.image.load("imagenes/Menu.png").convert_alpha()
         self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-100, ventana[1]-100))
         self.menuRect = self.menuImage.get_rect()
-        self.selectorImage = pygame.image.load("imagenes/pok.jpg").convert_alpha()
-        self.selectorImage = pygame.transform.scale(self.selectorImage, (100,100))
-        self.selectorRect = self.selectorImage.get_rect()
+        self.selectorImageR = pygame.image.load("imagenes/Pointer_R.png").convert_alpha()
+        self.selectorImageR = pygame.transform.scale(self.selectorImageR, (70,70))
+        self.selectorImageL = pygame.image.load("imagenes/Pointer_L.png").convert_alpha()
+        self.selectorImageL = pygame.transform.scale(self.selectorImageL, (70,70))
+        self.selectorRect = self.selectorImageR.get_rect()
         self.selectorRect.center = (self.menuRect.topleft[0]+250,self.menuRect.topleft[1]+130)
         self.countSelector=0
         self.posSelector = []
@@ -106,6 +108,8 @@ class Text:
             screen.blit(self.text, self.rectext)
         elif self.displayMenu:
             screen.blit(self.menuImage, self.menuRect)
-            screen.blit(self.selectorImage,self.selectorRect)
+            screen.blit(self.selectorImageR,self.selectorRect)
+            leftRect=(self.selectorRect.topleft[0]+350,self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
+            screen.blit(self.selectorImageL,(leftRect))
             for i in range(4):
                 screen.blit(self.menuText[i],self.menuTextRect[i])
