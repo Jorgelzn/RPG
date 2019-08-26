@@ -9,9 +9,9 @@ class Text:
         self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-100, ventana[1]-100))
         self.menuRect = self.menuImage.get_rect()
         self.selectorImageR = pygame.image.load("imagenes/Pointer_R.png").convert_alpha()
-        self.selectorImageR = pygame.transform.scale(self.selectorImageR, (70,70))
+        self.selectorImageR = pygame.transform.scale(self.selectorImageR, (40,40))
         self.selectorImageL = pygame.image.load("imagenes/Pointer_L.png").convert_alpha()
-        self.selectorImageL = pygame.transform.scale(self.selectorImageL, (70,70))
+        self.selectorImageL = pygame.transform.scale(self.selectorImageL, (40,40))
         self.selectorRect = self.selectorImageR.get_rect()
         self.selectorRect.center = (self.menuRect.topleft[0]+250,self.menuRect.topleft[1]+130)
         self.countSelector=0
