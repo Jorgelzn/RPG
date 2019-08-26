@@ -24,7 +24,7 @@ class Camera(object):
         a nuestro "objetivo".
     '''
     def update(self, target):
-        self.state = self.camera_func(self.state, target.rect)
+        self.state = self.camera_func(self.state, target.rect_spr)
 
 ''' Cámara que sigue al objetivo, pero le
     dan igual los límites de la ventana

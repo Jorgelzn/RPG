@@ -16,7 +16,8 @@ class Personaje(sprite.Sprite):
         self.frame_width = 115        # Anchura de la imagen
         self.frame_height = 158        # Altura de la imagen
         self.frame_counter = FPSPRITE # Nº de frames por imagen
-
+        # Rectángulo para el sprite:
+        self.rect_spr = pygame.Rect(x,y-self.frame_height+20,self.frame_width,self.frame_height)
         # Cargamos la hoja completa de sprites del personaje.
         # Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
 
@@ -25,7 +26,7 @@ class Personaje(sprite.Sprite):
         # "image" se corresponde con la imagen actual a mostrar.
         self.image = self.spriteSheet.subsurface(136,0,self.frame_width,self.frame_height)
         # Collision box:
-        self.rect = pygame.Rect(x,y,self.frame_width,20)
+        self.rect_col = pygame.Rect(x,y,self.frame_width,20)
 
         # Control del movimiento:
         self.speedx = 5
@@ -70,15 +71,17 @@ class Personaje(sprite.Sprite):
             self.move((0,-self.speedy), mapa, obs)
 
     def move(self, offset, mapa, obs):
-        self.rect = self.rect.move(offset) # avanzamos
+        self.rect_spr = self.rect_spr.move(offset) # avanzamos
+        self.rect_col = self.rect_col.move(offset)
         #ponemos velocidad baja:
         offset = list(offset)
         if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
         if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
 
         while not self.pos_valida(mapa, obs): # mientras la posición no sea válida
-            self.rect = self.rect.move(offset) # retrocedemos poco a poco
+            self.rect_spr = self.rect_spr.move(offset) # retrocedemos poco a poco
+            self.rect_col = self.rect_col.move(offset)
 
     def pos_valida(self, mapa, obs):
-        return self.rect.collidelist(obs)==-1 and self.rect.bottom-self.frame_height>=0 and \
-            self.rect.left>=0 and self.rect.right<=mapa[0] and self.rect.bottom<=mapa[1]
+        return self.rect_col.collidelist(obs)==-1 and self.rect_spr.top>=0 and \
+            self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]
