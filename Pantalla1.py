@@ -26,7 +26,7 @@ class Pantalla1(Scene):
 
 
     def on_update(self, time,keys):
-        if not self.text.display:
+        if not self.text.display and not self.text.displayMenu:
             self.camera.update(self.pj)
             self.ingame_elemets.update(time/1000, keys,self.mapa,self.obs)
 
