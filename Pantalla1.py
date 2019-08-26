@@ -6,6 +6,7 @@ import pygame
 from pygame.locals import *
 from Variables import *
 from text import Text
+from sonido import Sonido
 
 class Pantalla1(Scene):
 
@@ -21,8 +22,8 @@ class Pantalla1(Scene):
             Obstaculo("imagenes/snorlax.png", 500, 500)
         ]
         self.text=Text()
-        self.soundtrack= pygame.mixer.music.load("sonidos/Moki_Town.mp3")
-        #pygame.mixer.music.play()
+        self.sound = Sound()
+        pygame.mixer.music.play()
 
 
     def on_update(self, time,keys):
