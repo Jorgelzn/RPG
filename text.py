@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from Variables import *
+from sonidos import Sonido
 
 class Text:
 
@@ -53,6 +54,8 @@ class Text:
         self.mapImage = pygame.transform.scale(self.mapImage, (950, 700))
         self.displayMap=False
 
+        self.sonido= Sonido()
+
     def dialog1(self):
         for e in self.chat1:
             if not self.chat1[0]:
@@ -96,8 +99,10 @@ class Text:
         elif self.displayMenu:
             if keys[K_DOWN]:
                 self.countSelector+=1
+                self.sonido.pointerSound.play()
             elif keys[K_UP]:
                 self.countSelector-=1
+                self.sonido.pointerSound.play()
             elif keys[K_p] and self.countSelector==1:
                 if self.displayMap:
                     self.displayMap=False

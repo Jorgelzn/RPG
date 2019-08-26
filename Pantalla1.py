@@ -6,6 +6,7 @@ import pygame
 from pygame.locals import *
 from Variables import *
 from text import Text
+from sonidos import Sonido
 
 
 class Pantalla1(Scene):
@@ -16,14 +17,14 @@ class Pantalla1(Scene):
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
         self.mapa = map
-
+        self.sonido = Sonido()
         self.obs = [
             Obstaculo("imagenes/snorlax.png", 100, 150),
             Obstaculo("imagenes/snorlax.png", 500, 500)
         ]
         self.text=Text()
 
-        self.soundtrack= pygame.mixer.music.load("sonidos/ost/Moki_Town.mp3")
+        self.soundtrack= self.sonido.soundtrack1
         pygame.mixer.music.play()
 
 
