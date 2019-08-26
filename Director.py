@@ -30,7 +30,7 @@ class Director:
                     break
                 elif event.type == pygame.KEYDOWN:
                     key = pygame.key.get_pressed()
-                    self.scene.on_event(key, self.screen)
+                    self.scene.on_event(key)
 
             keys = pygame.key.get_pressed()
             # actualiza la escena
