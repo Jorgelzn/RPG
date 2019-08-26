@@ -81,11 +81,24 @@ class Text:
                 self.display= False
 
 
-    def menu(self):
-        if not self.displayMenu:
-            self.displayMenu=True
-        else:
-            self.displayMenu= False
+    def menu(self,keys):
+        if keys[K_t] and not self.display:
+            if not self.displayMenu:
+                self.displayMenu=True
+            else:
+                self.displayMenu= False
+        elif self.displayMenu:
+            if keys[K_DOWN]:
+                self.countSelector+=1
+            elif keys[K_UP]:
+                self.countSelector-=1
+
+            if self.countSelector==4:
+                self.countSelector=0
+            elif self.countSelector==-1:
+                self.countSelector=3
+
+            self.selectorRect.center=self.posSelector[self.countSelector]
 
     def displays(self, screen):
         if self.display:

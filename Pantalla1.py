@@ -41,20 +41,8 @@ class Pantalla1(Scene):
                 self.text.dialog2()
             else:
                 self.text.dialog1()
-        elif keys[K_t] and not self.text.display:
-            self.text.menu()
-        elif self.text.displayMenu:
-            if keys[K_DOWN]:
-                self.text.countSelector+=1
-            elif keys[K_UP]:
-                self.text.countSelector-=1
+        self.text.menu(keys)
 
-            if self.text.countSelector==4:
-                self.text.countSelector=0
-            elif self.text.countSelector==-1:
-                self.text.countSelector=3
-
-            self.text.selectorRect.center=self.text.posSelector[self.text.countSelector]
 
 
     def on_draw(self, screen):
