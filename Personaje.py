@@ -26,7 +26,7 @@ class Personaje(sprite.Sprite):
         # "image" se corresponde con la imagen actual a mostrar.
         self.image = self.spriteSheet.subsurface(136,0,self.frame_width,self.frame_height)
         # Collision box:
-        self.rect_col = pygame.Rect(x,y,self.frame_width,20)
+        self.rect_col = pygame.Rect(x+23,y,self.frame_width-40,20)
 
         # Control del movimiento:
         self.speedx = 5
