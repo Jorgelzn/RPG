@@ -24,7 +24,7 @@ class Text:
 
         self.font = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",20)
         self.image = pygame.image.load("imagenes/text_box.png").convert_alpha()
-        self.image = pygame.transform.scale(self.image, (800, 300))
+        self.image = pygame.transform.scale(self.image, (750, 300))
         self.rect = self.image.get_rect()
         self.rect.center=(500,600)
         self.rectext=(self.rect.topleft[0]+60,self.rect.topleft[1]+80,self.rect.width,self.rect.height)
@@ -50,6 +50,7 @@ class Text:
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[3][1]-20,self.menuRect.width,50))
 
         self.mapImage=pygame.image.load("imagenes/mapita.png").convert_alpha()
+        self.mapImage = pygame.transform.scale(self.mapImage, (950, 700))
         self.displayMap=False
 
     def dialog1(self):
@@ -91,6 +92,7 @@ class Text:
                 self.displayMenu=True
             else:
                 self.displayMenu= False
+            self.displayMap=False
         elif self.displayMenu:
             if keys[K_DOWN]:
                 self.countSelector+=1
