@@ -59,12 +59,12 @@ class Text:
     def dialog1(self):
         for e in self.chat1:
             if not self.chat1[0]:
-                self.text=self.font.render('MAMAHUEVO', True, self.textcolor2)
+                self.text=self.font.render('Hola, soy peto y estoy hasta el cubo de paperi', True, self.textcolor2)
                 self.chat1[0]=True
                 self.countdialog+=1
                 break
             if not self.chat1[1]:
-                self.text=self.font.render('PAPERIPETO', True, self.textcolor2)
+                self.text=self.font.render('es un Mamahuevo', True, self.textcolor2)
                 self.chat1[1]=True
                 self.countdialog+=1
                 break
@@ -81,7 +81,7 @@ class Text:
             self.countdialog=0
 
     def dialog2(self):
-            self.text=self.font.render('aguita', True, self.textcolor1)
+            self.text=self.font.render('Hola, soy Paperi', True, self.textcolor1)
 
             if not self.display:
                 self.display=True
