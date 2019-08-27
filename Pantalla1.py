@@ -32,6 +32,8 @@ class Pantalla1(Scene):
         if not self.text.display and not self.text.displayMenu:
             self.camera.update(self.pj)
             self.ingame_elemets.update(time/1000, keys,self.mapa,self.obs)
+            self.obs[0].animation(0)
+            self.obs[1].animation(1)
 
         if keys[K_RETURN]:
                 return Pantalla2(map2,"imagenes/test.png")
