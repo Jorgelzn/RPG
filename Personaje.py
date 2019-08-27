@@ -20,9 +20,9 @@ class Personaje(sprite.Sprite):
         self.rect_spr = pygame.Rect(x,y-self.frame_height+20,self.frame_width,self.frame_height)
         # Cargamos la hoja completa de sprites del personaje.
         # Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
+        self.lastdir=[False,False,False,False] #(arriba,abajo,derecha,izquierda)
 
-
-        self.spriteSheet = pygame.image.load("imagenes/Moki sheet xs.png").convert_alpha()
+        self.spriteSheet = pygame.image.load("imagenes/Moki_sheet.png").convert_alpha()
         # "image" se corresponde con la imagen actual a mostrar.
         self.image = self.spriteSheet.subsurface(0,0,self.frame_width,self.frame_height)
         # Collision box:
@@ -40,31 +40,55 @@ class Personaje(sprite.Sprite):
             self.frame_counter = FPSPRITE
         else:
             self.frame_counter -= 1
-
         # si no se está moviendo, ponemos sprite normal:
-        if not (keys[K_DOWN] or keys[K_LEFT] or keys[K_RIGHT] or keys[K_UP]):
-            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      self.frame_height, # fila 1,
-                                                      self.frame_width, self.frame_height))
-        if keys[K_DOWN]:
+        if not (keys[K_s] or keys[K_a] or keys[K_d] or keys[K_w]):
+            if self.lastdir[0]:
+                self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          5*self.frame_height, # fila 6,
+                                                          self.frame_width, self.frame_height))
+            elif self.lastdir[1]:
+                self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          self.frame_height, # fila 1,
+                                                          self.frame_width, self.frame_height))
+            elif self.lastdir[2]:
+                self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          7*self.frame_height, # fila 7,
+                                                          self.frame_width, self.frame_height))
+            elif self.lastdir[3]:
+                self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          3*self.frame_height, # fila 3,
+                                                          self.frame_width, self.frame_height))
+        elif keys[K_s]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       0, # fila 0
                                                       self.frame_width, self.frame_height))
+            for e in range(4):
+                self.lastdir[e]=False
+            self.lastdir[1]=True
             self.move((0, self.speedy), mapa, obs)
-        if keys[K_LEFT]:
+        elif keys[K_a]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       2*self.frame_height, # fila 2
                                                       self.frame_width, self.frame_height))
+            for e in range(4):
+                self.lastdir[e]=False
+            self.lastdir[3]=True
             self.move((-self.speedx, 0), mapa, obs)
-        if keys[K_RIGHT]:
+        elif keys[K_d]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       6*self.frame_height, # fila 6
                                                       self.frame_width, self.frame_height))
+            for e in range(4):
+                self.lastdir[e]=False
+            self.lastdir[2]=True
             self.move((self.speedx, 0), mapa, obs)
-        if keys[K_UP]:
+        elif keys[K_w]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       4*self.frame_height, # fila 4
                                                       self.frame_width, self.frame_height))
+            for e in range(4):
+                self.lastdir[e]=False
+            self.lastdir[0]=True
             self.move((0,-self.speedy), mapa, obs)
 
 
