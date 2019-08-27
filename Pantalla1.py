@@ -19,7 +19,7 @@ class Pantalla1(Scene):
         self.mapa = map
         self.sonido = Sonido()
         self.obs = [
-            Obstaculo("imagenes/paperi_sheet.png", 100, 100, 68, 189),
+            Obstaculo("imagenes/paperi_sheet.png", 600, 100, 68, 189),
             Obstaculo("imagenes/Peto_sheet.png",500, 600, 119, 145)
         ]
         self.text=Text()
