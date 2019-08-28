@@ -18,9 +18,9 @@ class Pantalla1(Scene):
         self.ingame_elemets.add(self.pj)
         self.mapa = map
         self.sonido = Sonido()
-        self.obs = [
-            Obstaculo("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
-            Obstaculo("imagenes/personajes/Peto_sheet.png",500, 600, 116, 145)
+        self.npcs = [
+            NPC("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
+            NPC("imagenes/personajes/Peto_sheet.png",500, 600, 116, 145)
         ]
         self.text=Text()
 
@@ -31,20 +31,21 @@ class Pantalla1(Scene):
     def on_update(self, time,keys):
         if not self.text.display and not self.text.displayMenu:
             self.camera.update(self.pj)
-            self.ingame_elemets.update(time/1000, keys,self.mapa,self.obs)
-            self.obs[0].animation(0)
-            self.obs[1].animation(1)
-
+            self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs)
+            self.npcs[0].animation(0)
+            #self.npcs[1].animation(1)
+            self.npcs[0].camino1(self.mapa)
         if keys[K_RETURN]:
                 return Pantalla2(map2,"imagenes/test.png")
         else: return None
 
 
+
     def on_event(self,keys):
         if keys[K_r] and not self.text.displayMenu:
-            if abs(self.pj.rect_col.centerx-self.obs[0].rect.centerx)<=100 and abs(self.pj.rect_col.centery-self.obs[0].rect.centery)<=200:
+            if abs(self.pj.rect_col.centerx-self.npcs[0].rect.centerx)<=100 and abs(self.pj.rect_col.centery-self.npcs[0].rect.centery)<=200:
                 self.text.dialog2()
-            elif abs(self.pj.rect_col.centerx-self.obs[1].rect.centerx)<=100 and abs(self.pj.rect_col.centery-self.obs[1].rect.centery)<=200:
+            elif abs(self.pj.rect_col.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_col.centery-self.npcs[1].rect.centery)<=200:
                 self.text.dialog1()
         self.text.menu(keys)
 
@@ -54,7 +55,7 @@ class Pantalla1(Scene):
         self.text.displays(screen)
         if not self.text.display and not self.text.displayMenu:
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))
-            for o in self.obs:
+            for o in self.npcs:
                 screen.blit(o.image, self.camera.apply(o.rect))
             for i in self.ingame_elemets:
                 screen.blit(i.image, self.camera.apply(i.rect_spr))

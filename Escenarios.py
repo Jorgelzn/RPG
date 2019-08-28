@@ -1,7 +1,7 @@
 import pygame
 from Variables import *
 
-class Obstaculo:
+class NPC:
     def __init__(self, imagen, x=0, y=0, w=200, h=200):
         self.spriteSheet = pygame.image.load(imagen).convert_alpha()
         self.image = self.spriteSheet.subsurface(0,0,w,h)
@@ -11,6 +11,9 @@ class Obstaculo:
         self.frame_width = w         # Anchura de la imagen
         self.frame_height = h       # Altura de la imagen
         self.frame_counter = FPSPRITE # Nº de frames por imagen
+        self.trayectoria = [True,False,False,False]
+        self.x=x
+        self.y=y
 
     def animation(self, fila):
         if self.frame_counter == 0:
@@ -19,6 +22,57 @@ class Obstaculo:
         else:
             self.frame_counter -= 1
 
-        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                  fila*self.frame_height, # fila 1,
-                                                  self.frame_width, self.frame_height))
+        if self.trayectoria[0]:
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                      3*self.frame_height, # fila 1,
+                                                      self.frame_width, self.frame_height))
+        if self.trayectoria[1]:
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                      0*self.frame_height, # fila 1,
+                                                      self.frame_width, self.frame_height))
+        if self.trayectoria[2]:
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                      1*self.frame_height, # fila 1,
+                                                      self.frame_width, self.frame_height))
+        if self.trayectoria[3]:
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                      2*self.frame_height, # fila 1,
+                                                      self.frame_width, self.frame_height))
+
+    def move(self, offset, mapa):
+        self.rect = self.rect.move(offset) # avanzamos
+        #ponemos velocidad baja:
+        offset = list(offset)
+        if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
+        if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
+
+        while not self.pos_valida(mapa): # mientras la posición no sea válida
+            self.rect = self.rect.move(offset) # retrocedemos poco a poco
+
+    def pos_valida(self, mapa):
+        return self.rect.top>=0 and \
+            self.rect.left>=0 and self.rect.right<=mapa[0] and self.rect.bottom<=mapa[1]
+
+
+    def camino1(self,mapa):
+        if self.trayectoria[0]:
+            self.move((5, 0), mapa)
+        elif self.trayectoria[1]:
+            self.move((0, 5), mapa)
+        elif self.trayectoria[2]:
+            self.move((-5, 0), mapa)
+        elif self.trayectoria[3]:
+            self.move((0, -5), mapa)
+
+        if abs(self.rect.centerx-self.x)>=200:
+            self.trayectoria = [False,False,False,False]
+            self.trayectoria[1]=True
+        if abs(self.rect.centery-self.y)>=200 and self.trayectoria[1]:
+            self.trayectoria = [False,False,False,False]
+            self.trayectoria[2]=True
+        if abs(self.rect.centerx-self.x)<=5 and self.trayectoria[2]:
+            self.trayectoria = [False,False,False,False]
+            self.trayectoria[3]=True
+        if abs(self.rect.centery-self.y)<=5 and self.trayectoria[3]:
+            self.trayectoria = [False,False,False,False]
+            self.trayectoria[0]=True
