@@ -22,7 +22,7 @@ class Personaje(sprite.Sprite):
         # Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
         self.lastdir=[False,False,False,False] #(arriba,abajo,derecha,izquierda)
 
-        self.spriteSheet = pygame.image.load("imagenes/Moki_sheet.png").convert_alpha()
+        self.spriteSheet = pygame.image.load("imagenes/personajes/Moki_sheet.png").convert_alpha()
         # "image" se corresponde con la imagen actual a mostrar.
         self.image = self.spriteSheet.subsurface(0,0,self.frame_width,self.frame_height)
         # Collision box:

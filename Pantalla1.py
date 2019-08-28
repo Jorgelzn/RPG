@@ -19,13 +19,13 @@ class Pantalla1(Scene):
         self.mapa = map
         self.sonido = Sonido()
         self.obs = [
-            Obstaculo("imagenes/paperi_sheet.png", 600, 100, 68, 189),
-            Obstaculo("imagenes/Peto_sheet.png",500, 600, 116, 145)
+            Obstaculo("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
+            Obstaculo("imagenes/personajes/Peto_sheet.png",500, 600, 116, 145)
         ]
         self.text=Text()
 
         self.soundtrack= self.sonido.soundtrack1
-        pygame.mixer.music.play()
+        #pygame.mixer.music.play()
 
 
     def on_update(self, time,keys):

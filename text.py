@@ -57,6 +57,7 @@ class Text:
         self.sonido= Sonido()
 
     def dialog1(self):
+        self.sonido.dialog.play()
         for e in self.chat1:
             if not self.chat1[0]:
                 self.text=self.font.render('Hola, soy peto y estoy hasta el cubo de paperi', True, self.textcolor2)
@@ -81,12 +82,13 @@ class Text:
             self.countdialog=0
 
     def dialog2(self):
-            self.text=self.font.render('Hola, soy Paperi', True, self.textcolor1)
+        self.sonido.dialog.play()
+        self.text=self.font.render('Hola, soy Paperi', True, self.textcolor1)
 
-            if not self.display:
-                self.display=True
-            else:
-                self.display= False
+        if not self.display:
+            self.display=True
+        else:
+            self.display= False
 
 
     def menu(self,keys):
