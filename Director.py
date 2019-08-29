@@ -30,6 +30,8 @@ class Director:
                     break
                 elif event.type == pygame.KEYDOWN:
                     key = pygame.key.get_pressed()
+                    if key[K_ESCAPE]:
+                        self.quit()
                     self.scene.on_event(key)
 
             keys = pygame.key.get_pressed()

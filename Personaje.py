@@ -32,6 +32,7 @@ class Personaje(sprite.Sprite):
         self.speedx = 5
         self.speedy = 5
 
+        self.objets = []
 
     def update(self, dt, keys, mapa, obs):
         # animaciones:

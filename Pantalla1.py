@@ -22,11 +22,12 @@ class Pantalla1(Scene):
             Npc("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
             Npc("imagenes/personajes/Peto_sheet.png",500, 600, 116, 145)
         ]
+        self.ob = pygame.image.load("imagenes/ob.png").convert_alpha()
         self.text=Text()
 
         self.soundtrack= self.sonido.soundtrack1
         #pygame.mixer.music.play()
-
+        self.test=True
 
     def on_update(self, time,keys):
         if not self.text.display and not self.text.displayMenu:
@@ -35,9 +36,18 @@ class Pantalla1(Scene):
             self.npcs[0].animation(0)
             #self.npcs[1].animation(1)
             self.npcs[0].camino1(self.mapa, self.pj.rect_col)
+            if self.pj.rect_col.colliderect(self.ob.get_rect()) and self.test:
+                self.sonido.object.play()
+                self.test= False
+                self.pj.objets.append("object1")
+                self.text.objectsText.append(self.text.fontMenu.render('object1', True, self.text.textcolor3))
+
         if keys[K_l]:
                 return Pantalla2(map2,"imagenes/test.png")
         else: return None
+
+
+
 
 
 
@@ -55,6 +65,8 @@ class Pantalla1(Scene):
         self.text.displays(screen)
         if not self.text.display and not self.text.displayMenu:
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))
+            if self.test:
+                screen.blit(self.ob,self.camera.apply(self.ob.get_rect()))
             for o in self.npcs:
                 screen.blit(o.image, self.camera.apply(o.rect))
             for i in self.ingame_elemets:

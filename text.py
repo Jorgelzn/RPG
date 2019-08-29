@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from Variables import *
 from sonidos import Sonido
+from Director import Director
 
 class Text:
 
@@ -44,6 +45,8 @@ class Text:
         self.menuText.append(self.fontMenu.render('Guardar', True, self.textcolor3))
         self.menuText.append(self.fontMenu.render('Salir', True, self.textcolor3))
 
+        self.objectsText = []
+
         self.menuTextRect = []
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[0][1]-20,self.menuRect.width,50))
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[1][1]-20,self.menuRect.width,50))
@@ -53,6 +56,7 @@ class Text:
         self.mapImage=pygame.image.load("imagenes/mapita.png").convert_alpha()
         self.mapImage = pygame.transform.scale(self.mapImage, (950, 700))
         self.displayMap=False
+        self.displayObjects=False
 
         self.sonido= Sonido()
 
@@ -98,6 +102,7 @@ class Text:
             else:
                 self.displayMenu= False
             self.displayMap=False
+            self.displayObjects=False
         elif self.displayMenu:
             if keys[K_DOWN]:
                 self.countSelector+=1
@@ -105,12 +110,20 @@ class Text:
             elif keys[K_UP]:
                 self.countSelector-=1
                 self.sonido.pointerSound.play()
+            elif keys[K_RETURN] and self.countSelector==3:
+                Director.quit()
             elif keys[K_RETURN] and self.countSelector==1:
                 if self.displayMap:
                     self.displayMap=False
                     self.displayMenu=False
                 else:
                     self.displayMap=True
+            elif keys[K_RETURN] and self.countSelector==0 and len(self.objectsText)>0:
+                if self.displayObjects:
+                    self.displayObjects=False
+                    self.displayMenu=False
+                else:
+                    self.displayObjects=True
 
 
             if self.countSelector==4:
@@ -125,11 +138,16 @@ class Text:
             screen.blit(self.image, self.rect)
             screen.blit(self.text, self.rectext)
         elif self.displayMenu:
-            screen.blit(self.menuImage, self.menuRect)
-            screen.blit(self.selectorImageR,self.selectorRect)
-            leftRect=(self.selectorRect.topleft[0]+350,self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
-            screen.blit(self.selectorImageL,(leftRect))
-            for i in range(4):
-                screen.blit(self.menuText[i],self.menuTextRect[i])
             if self.displayMap:
                 screen.blit(self.mapImage,self.mapImage.get_rect())
+            else:
+                if self.displayObjects and len(self.objectsText)>0:
+                    text=self.objectsText
+                else:
+                    text=self.menuText
+                screen.blit(self.menuImage, self.menuRect)
+                screen.blit(self.selectorImageR,self.selectorRect)
+                leftRect=(self.selectorRect.topleft[0]+350,self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
+                screen.blit(self.selectorImageL,(leftRect))
+                for i in range(len(text)):
+                    screen.blit(text[i],self.menuTextRect[i])
