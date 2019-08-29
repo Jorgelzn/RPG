@@ -15,7 +15,7 @@ class Npc:
         self.x=x
         self.y=y
 
-    def animation(self, fila):
+    def animation(self):
         if self.frame_counter == 0:
             self.current_frame = (self.current_frame + 1) % self.frames # siguiente sprite
             self.frame_counter = FPSPRITE
@@ -24,11 +24,11 @@ class Npc:
 
         if self.trayectoria[0]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      3*self.frame_height, # fila 1,
+                                                      3*self.frame_height, # fila 3,
                                                       self.frame_width, self.frame_height))
         if self.trayectoria[1]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      0*self.frame_height, # fila 1,
+                                                      0*self.frame_height, # fila 0,
                                                       self.frame_width, self.frame_height))
         if self.trayectoria[2]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
@@ -36,7 +36,7 @@ class Npc:
                                                       self.frame_width, self.frame_height))
         if self.trayectoria[3]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      2*self.frame_height, # fila 1,
+                                                      2*self.frame_height, # fila 2,
                                                       self.frame_width, self.frame_height))
 
     def move(self, offset, mapa, pj):

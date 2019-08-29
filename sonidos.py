@@ -9,3 +9,4 @@ class Sonido:
         self.object = pygame.mixer.Sound("sonidos/effects/New object_mission (WAV).wav")
         self.grass = pygame.mixer.Sound("sonidos/effects/Walking (Grass_Dirt) (WAV).wav")
         self.grass.set_volume(0.1)
+        self.object.set_volume(0.9)

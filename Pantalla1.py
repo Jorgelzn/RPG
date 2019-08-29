@@ -20,7 +20,8 @@ class Pantalla1(Scene):
         self.sonido = Sonido()
         self.npcs = [
             Npc("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
-            Npc("imagenes/personajes/Peto_sheet.png",500, 600, 116, 145)
+            Npc("imagenes/personajes/Peto_sheet.png",500, 600, 114, 145),
+            Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77)
         ]
         self.ob = pygame.image.load("imagenes/ob.png").convert_alpha()
         self.text=Text()
@@ -29,13 +30,14 @@ class Pantalla1(Scene):
         pygame.mixer.music.play()
         self.test=True
 
+
     def on_update(self, time,keys):
         if not self.text.display and not self.text.displayMenu:
             self.camera.update(self.pj)
             self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs,self.sonido.grass)
-            self.npcs[0].animation(0)
-            #self.npcs[1].animation(1)
-            self.npcs[0].camino1(self.mapa, self.pj.rect_col)
+            for e in range(len(self.npcs)):
+                self.npcs[e].animation()
+                self.npcs[e].camino1(self.mapa, self.pj.rect_col)
             if self.pj.rect_col.colliderect(self.ob.get_rect()) and self.test:
                 self.sonido.object.play()
                 self.test= False
@@ -45,10 +47,6 @@ class Pantalla1(Scene):
         if keys[K_l]:
                 return Pantalla2(map2,"imagenes/test.png")
         else: return None
-
-
-
-
 
 
     def on_event(self,keys):
