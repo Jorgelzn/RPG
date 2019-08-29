@@ -94,12 +94,13 @@ class Personaje(sprite.Sprite):
 
 
     def move(self, offset, mapa, obs):
-        self.rect_spr = self.rect_spr.move(offset) # avanzamos
-        self.rect_col = self.rect_col.move(offset)
-        #ponemos velocidad baja:
-        offset = list(offset)
-        if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
-        if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
+        if self.pos_valida(mapa,obs):
+            self.rect_spr = self.rect_spr.move(offset) # avanzamos
+            self.rect_col = self.rect_col.move(offset)
+            #ponemos velocidad baja:
+            offset = list(offset)
+            if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
+            if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
 
         while not self.pos_valida(mapa, obs): # mientras la posición no sea válida
             self.rect_spr = self.rect_spr.move(offset) # retrocedemos poco a poco

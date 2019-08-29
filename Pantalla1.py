@@ -34,7 +34,7 @@ class Pantalla1(Scene):
             self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs)
             self.npcs[0].animation(0)
             #self.npcs[1].animation(1)
-            self.npcs[0].camino1(self.mapa)
+            self.npcs[0].camino1(self.mapa, self.pj.rect_col)
         if keys[K_RETURN]:
                 return Pantalla2(map2,"imagenes/test.png")
         else: return None

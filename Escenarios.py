@@ -39,30 +39,32 @@ class NPC:
                                                       2*self.frame_height, # fila 1,
                                                       self.frame_width, self.frame_height))
 
-    def move(self, offset, mapa):
-        self.rect = self.rect.move(offset) # avanzamos
-        #ponemos velocidad baja:
-        offset = list(offset)
-        if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
-        if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
+    def move(self, offset, mapa, pj):
+        if self.pos_valida(mapa,pj):
+            self.rect = self.rect.move(offset) # avanzamos
+            #ponemos velocidad baja:
+            offset = list(offset)
+            if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
+            if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
 
-        while not self.pos_valida(mapa): # mientras la posición no sea válida
+        while not self.pos_valida(mapa, pj): # mientras la posición no sea válida
             self.rect = self.rect.move(offset) # retrocedemos poco a poco
 
-    def pos_valida(self, mapa):
-        return self.rect.top>=0 and \
+
+    def pos_valida(self, mapa, pj):
+        return not self.rect.colliderect(pj) and self.rect.top>=0 and \
             self.rect.left>=0 and self.rect.right<=mapa[0] and self.rect.bottom<=mapa[1]
 
 
-    def camino1(self,mapa):
+    def camino1(self,mapa, pj):
         if self.trayectoria[0]:
-            self.move((5, 0), mapa)
+            self.move((5, 0), mapa, pj)
         elif self.trayectoria[1]:
-            self.move((0, 5), mapa)
+            self.move((0, 5), mapa, pj)
         elif self.trayectoria[2]:
-            self.move((-5, 0), mapa)
+            self.move((-5, 0), mapa, pj)
         elif self.trayectoria[3]:
-            self.move((0, -5), mapa)
+            self.move((0, -5), mapa, pj)
 
         if abs(self.rect.centerx-self.x)>=200:
             self.trayectoria = [False,False,False,False]
