@@ -58,7 +58,7 @@ class Personaje(sprite.Sprite):
                 self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                           3*self.frame_height, # fila 3,
                                                           self.frame_width, self.frame_height))
-        elif keys[K_s]:
+        elif keys[K_s] and not keys[K_a] and not keys[K_d] and not keys[K_w]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       0, # fila 0
                                                       self.frame_width, self.frame_height))
@@ -66,7 +66,7 @@ class Personaje(sprite.Sprite):
                 self.lastdir[e]=False
             self.lastdir[1]=True
             self.move((0, self.speedy), mapa, obs)
-        elif keys[K_a]:
+        elif keys[K_a] and not keys[K_s] and not keys[K_d] and not keys[K_w]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       2*self.frame_height, # fila 2
                                                       self.frame_width, self.frame_height))
@@ -74,7 +74,7 @@ class Personaje(sprite.Sprite):
                 self.lastdir[e]=False
             self.lastdir[3]=True
             self.move((-self.speedx, 0), mapa, obs)
-        elif keys[K_d]:
+        elif keys[K_d] and not keys[K_a] and not keys[K_s] and not keys[K_w]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       6*self.frame_height, # fila 6
                                                       self.frame_width, self.frame_height))
@@ -82,7 +82,7 @@ class Personaje(sprite.Sprite):
                 self.lastdir[e]=False
             self.lastdir[2]=True
             self.move((self.speedx, 0), mapa, obs)
-        elif keys[K_w]:
+        elif keys[K_w] and not keys[K_a] and not keys[K_d] and not keys[K_s]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       4*self.frame_height, # fila 4
                                                       self.frame_width, self.frame_height))

@@ -1,6 +1,6 @@
 from Scene import Scene
 from Personaje import Personaje
-from Escenarios import *
+from Npc import *
 import Camara
 import pygame
 from pygame.locals import *
@@ -19,8 +19,8 @@ class Pantalla1(Scene):
         self.mapa = map
         self.sonido = Sonido()
         self.npcs = [
-            NPC("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
-            NPC("imagenes/personajes/Peto_sheet.png",500, 600, 116, 145)
+            Npc("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
+            Npc("imagenes/personajes/Peto_sheet.png",500, 600, 116, 145)
         ]
         self.text=Text()
 
