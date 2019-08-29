@@ -105,7 +105,7 @@ class Text:
             elif keys[K_UP]:
                 self.countSelector-=1
                 self.sonido.pointerSound.play()
-            elif keys[K_p] and self.countSelector==1:
+            elif keys[K_RETURN] and self.countSelector==1:
                 if self.displayMap:
                     self.displayMap=False
                     self.displayMenu=False
