@@ -34,7 +34,7 @@ class Personaje(sprite.Sprite):
 
         self.objets = []
 
-    def update(self, dt, keys, mapa, obs):
+    def update(self, dt, keys, mapa, obs,sound):
         # animaciones:
         if self.frame_counter == 0:
             self.current_frame = (self.current_frame + 1) % self.frames # siguiente sprite
@@ -66,7 +66,7 @@ class Personaje(sprite.Sprite):
             for e in range(4):
                 self.lastdir[e]=False
             self.lastdir[1]=True
-            self.move((0, self.speedy), mapa, obs)
+            self.move((0, self.speedy), mapa, obs,sound)
         elif keys[K_a] and not keys[K_s] and not keys[K_d] and not keys[K_w]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       2*self.frame_height, # fila 2
@@ -74,7 +74,7 @@ class Personaje(sprite.Sprite):
             for e in range(4):
                 self.lastdir[e]=False
             self.lastdir[3]=True
-            self.move((-self.speedx, 0), mapa, obs)
+            self.move((-self.speedx, 0), mapa, obs,sound)
         elif keys[K_d] and not keys[K_a] and not keys[K_s] and not keys[K_w]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       6*self.frame_height, # fila 6
@@ -82,7 +82,7 @@ class Personaje(sprite.Sprite):
             for e in range(4):
                 self.lastdir[e]=False
             self.lastdir[2]=True
-            self.move((self.speedx, 0), mapa, obs)
+            self.move((self.speedx, 0), mapa, obs,sound)
         elif keys[K_w] and not keys[K_a] and not keys[K_d] and not keys[K_s]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       4*self.frame_height, # fila 4
@@ -90,14 +90,15 @@ class Personaje(sprite.Sprite):
             for e in range(4):
                 self.lastdir[e]=False
             self.lastdir[0]=True
-            self.move((0,-self.speedy), mapa, obs)
+            self.move((0,-self.speedy), mapa, obs,sound)
 
 
 
-    def move(self, offset, mapa, obs):
+    def move(self, offset, mapa, obs,sound):
         if self.pos_valida(mapa,obs):
             self.rect_spr = self.rect_spr.move(offset) # avanzamos
             self.rect_col = self.rect_col.move(offset)
+            sound.play()
             #ponemos velocidad baja:
             offset = list(offset)
             if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]

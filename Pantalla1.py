@@ -26,13 +26,13 @@ class Pantalla1(Scene):
         self.text=Text()
 
         self.soundtrack= self.sonido.soundtrack1
-        #pygame.mixer.music.play()
+        pygame.mixer.music.play()
         self.test=True
 
     def on_update(self, time,keys):
         if not self.text.display and not self.text.displayMenu:
             self.camera.update(self.pj)
-            self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs)
+            self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs,self.sonido.grass)
             self.npcs[0].animation(0)
             #self.npcs[1].animation(1)
             self.npcs[0].camino1(self.mapa, self.pj.rect_col)
