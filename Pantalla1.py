@@ -49,13 +49,13 @@ class Pantalla1(Scene):
         else: return None
 
 
-    def on_event(self,keys):
+    def on_event(self,keys,director):
         if keys[K_r] and not self.text.displayMenu:
             if abs(self.pj.rect_spr.centerx-self.npcs[0].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[0].rect.centery)<=100:
                 self.text.dialog2()
             elif abs(self.pj.rect_spr.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[1].rect.centery)<=100:
                 self.text.dialog1()
-        self.text.menu(keys,self.pj)
+        self.text.menu(keys,self.pj,director)
 
 
 

@@ -32,7 +32,7 @@ class Director:
                     key = pygame.key.get_pressed()
                     if key[K_ESCAPE]:
                         self.quit()
-                    self.scene.on_event(key)
+                    self.scene.on_event(key,self)
 
             keys = pygame.key.get_pressed()
             # actualiza la escena

@@ -2,7 +2,6 @@ import pygame
 from pygame.locals import *
 from Variables import *
 from sonidos import Sonido
-from Director import *
 
 class Text:
 
@@ -96,7 +95,7 @@ class Text:
             self.display= False
 
 
-    def menu(self,keys,pj):
+    def menu(self,keys,pj,director):
         if keys[K_t] and not self.display:
             if not self.displayMenu:
                 self.displayMenu=True
@@ -111,8 +110,8 @@ class Text:
             elif keys[K_UP]:
                 self.countSelector-=1
                 self.sonido.pointerSound.play()
-            #elif keys[K_RETURN] and self.countSelector==3:
-                #Director.quit()
+            elif keys[K_RETURN] and self.countSelector==3:
+                director.quit()
             elif keys[K_RETURN] and self.countSelector==2:
                 f = open("save.txt","w")
                 f.write(str(pj.rect_spr.centerx)+'\n')
