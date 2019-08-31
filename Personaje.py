@@ -35,6 +35,14 @@ class Personaje(sprite.Sprite):
         self.objets = []
 
     def update(self, dt, keys, mapa, obs,sound):
+        if keys[K_LSHIFT]:      #tecla de correr
+            self.speedx=10
+            self.speedy=10
+            FPSPRITE=3
+        else:
+            self.speedx=5
+            self.speedy=5
+            FPSPRITE=10
         # animaciones:
         if self.frame_counter == 0:
             self.current_frame = (self.current_frame + 1) % self.frames # siguiente sprite

@@ -10,7 +10,7 @@ agua = (50, 120, 240)
 hierba = (50, 220, 50)
 
 # Otros:
-FPSPRITE = 5 # frames por sprite (personaje)
+FPSPRITE = 10 # frames por sprite (personaje)
 
 f=open("save.txt","r")
 lines=f.readlines()
