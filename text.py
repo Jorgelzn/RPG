@@ -111,19 +111,23 @@ class Text:
                 self.countSelector-=1
                 self.sonido.pointerSound.play()
             elif keys[K_RETURN] and self.countSelector==3:
+                self.sonido.click.play()
                 director.quit()
             elif keys[K_RETURN] and self.countSelector==2:
+                self.sonido.click.play()
                 f = open("save.txt","w")
                 f.write(str(pj.rect_spr.centerx)+'\n')
                 f.write(str(pj.rect_spr.centery))
                 #f.close()
             elif keys[K_RETURN] and self.countSelector==1:
+                self.sonido.click.play()
                 if self.displayMap:
                     self.displayMap=False
                     self.displayMenu=False
                 else:
                     self.displayMap=True
             elif keys[K_RETURN] and self.countSelector==0 and len(self.objectsText)>0:
+                self.sonido.click.play()
                 if self.displayObjects:
                     self.displayObjects=False
                     self.displayMenu=False
