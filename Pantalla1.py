@@ -13,7 +13,7 @@ class Pantalla1(Scene):
 
     def __init__(self, map, image):
         Scene.__init__(self, map, image)
-        self.pj = Personaje(500, 200)
+        self.pj = Personaje(pjx, pjy)
         self.ingame_elemets = pygame.sprite.Group()
         self.ingame_elemets.add(self.pj)
         self.mapa = map
@@ -27,7 +27,7 @@ class Pantalla1(Scene):
         self.text=Text()
 
         self.soundtrack= self.sonido.soundtrack1
-        pygame.mixer.music.play()
+        #pygame.mixer.music.play()
         self.test=True
 
 
@@ -55,7 +55,7 @@ class Pantalla1(Scene):
                 self.text.dialog2()
             elif abs(self.pj.rect_spr.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[1].rect.centery)<=100:
                 self.text.dialog1()
-        self.text.menu(keys)
+        self.text.menu(keys,self.pj)
 
 
 

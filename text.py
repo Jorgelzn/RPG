@@ -2,11 +2,12 @@ import pygame
 from pygame.locals import *
 from Variables import *
 from sonidos import Sonido
-from Director import Director
+from Director import *
 
 class Text:
 
     def __init__(self):
+
         self.menuImage = pygame.image.load("imagenes/Menu.png").convert_alpha()
         self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-100, ventana[1]-100))
         self.menuRect = self.menuImage.get_rect()
@@ -95,7 +96,7 @@ class Text:
             self.display= False
 
 
-    def menu(self,keys):
+    def menu(self,keys,pj):
         if keys[K_t] and not self.display:
             if not self.displayMenu:
                 self.displayMenu=True
@@ -110,8 +111,13 @@ class Text:
             elif keys[K_UP]:
                 self.countSelector-=1
                 self.sonido.pointerSound.play()
-            elif keys[K_RETURN] and self.countSelector==3:
-                Director.quit()
+            #elif keys[K_RETURN] and self.countSelector==3:
+                #Director.quit()
+            elif keys[K_RETURN] and self.countSelector==2:
+                f = open("save.txt","w")
+                f.write(str(pj.rect_spr.centerx)+'\n')
+                f.write(str(pj.rect_spr.centery))
+                #f.close()
             elif keys[K_RETURN] and self.countSelector==1:
                 if self.displayMap:
                     self.displayMap=False
