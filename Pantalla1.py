@@ -27,7 +27,7 @@ class Pantalla1(Scene):
             Objeto("imagenes/objetos/Flute.png",700,700,50,50),
             Objeto("imagenes/objetos/Flute.png",900,700,50,50)
         ]
-        self.text=Text()
+        self.text=Text(self.pj)
 
         self.soundtrack= self.sonido.soundtrack1
         #pygame.mixer.music.play()
@@ -40,6 +40,10 @@ class Pantalla1(Scene):
             for e in range(len(self.npcs)):
                 self.npcs[e].animation()
                 self.npcs[e].camino1(self.mapa, self.pj.rect_col)
+        for e in self.objetos:
+            if self.pj.rect_col.colliderect(e.rect) and not e.taken:
+                self.pj.objects.append(e)
+                e.taken=True
 
         if keys[K_l]:
                 return Pantalla2(map2,"imagenes/mapas/test.png")
@@ -67,7 +71,8 @@ class Pantalla1(Scene):
             for i in self.ingame_elemets:
                 screen.blit(i.image, self.camera.apply(i.rect_spr))
             for e in self.objetos:
-                screen.blit(e.image, self.camera.apply(e.rect))
+                if not e.taken:
+                    screen.blit(e.image, self.camera.apply(e.rect))
             #pygame.draw.rect(screen, (0,100,200), self.camera.apply(self.pj.rect_col))
 
 

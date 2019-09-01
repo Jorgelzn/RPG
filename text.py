@@ -2,10 +2,9 @@ import pygame
 from pygame.locals import *
 from Variables import *
 from sonidos import Sonido
-
 class Text:
 
-    def __init__(self):
+    def __init__(self, pj):
 
         self.font = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",20)
         self.image = pygame.image.load("imagenes/menus/text_box.png").convert_alpha()
@@ -60,6 +59,7 @@ class Text:
         self.inventarioImage = pygame.transform.scale(self.inventarioImage, (ventana[0]+60, ventana[1]+60))
         self.inventarioRect=self.inventarioImage.get_rect()
         self.inventarioRect.topleft=(-40,-30)
+        self.objetosInventario=pj.objects
 
         self.sonido= Sonido()
 

@@ -29,7 +29,7 @@ class Flecha: # se le podría cambiar el nombre a algo maś explicativo
     pulsar espacio para cambiar de escena
 
     '''
-    def __init__(self, imagen,scene, x=0, y=0, w=200, h=200):
+    def __init__(self, imagen, scene, x=0, y=0, w=200, h=200):
         self.image = pygame.image.load(imagen).convert_alpha()
         self.image = pygame.transform.scale(self.image, (w,h))
         self.rect = self.image.get_rect()
@@ -39,8 +39,9 @@ class Flecha: # se le podría cambiar el nombre a algo maś explicativo
 
 class Objeto:
 
-    def __init__(self, imagen, x=0, y=0, w=200, h=200):
+    def __init__(self, imagen, x=0, y=0, w=200, h=200, xinvent=0, yinvent=0):
         self.image = pygame.image.load(imagen).convert_alpha()
         self.image = pygame.transform.scale(self.image, (w,h))
         self.rect = self.image.get_rect()
         self.rect.topleft = (x,y)
+        self.taken = False
