@@ -70,6 +70,7 @@ class Pantalla1(Scene):
             if not e.taken:
                 screen.blit(e.image, self.camera.apply(e.rect))
         #dibujo de fondo necesario para limpiar los menus
+        
         self.text.displays(screen)
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))
