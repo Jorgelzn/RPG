@@ -163,3 +163,6 @@ class Text:
             screen.blit(self.mapImage,self.mapImage.get_rect())
         elif self.displayInventario:
             screen.blit(self.inventarioImage,self.inventarioRect)
+            for e in self.objetosInventario:
+                if e.taken:
+                    screen.blit(e.imageInvent,e.rectInvent)

@@ -24,8 +24,8 @@ class Pantalla1(Scene):
             Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77)
         ]
         self.objetos=[
-            Objeto("imagenes/objetos/Flute.png",700,700,50,50),
-            Objeto("imagenes/objetos/Flute.png",900,700,50,50)
+            Objeto("imagenes/objetos/Flute.png",100,700,700,60,60,630,150),
+            Objeto("imagenes/objetos/Flute.png",100,900,700,50,50,200,280)
         ]
         self.text=Text(self.pj)
 
