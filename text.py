@@ -47,9 +47,9 @@ class Text:
 
         self.menuTextRect = []
         self.menuTextRect.append((self.selectorRect.center[0]+50,self.posSelector[0][1]-20,self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+130,self.posSelector[1][1]-20,self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[2][1]-20,self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+110,self.posSelector[3][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+140,self.posSelector[1][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+90,self.posSelector[2][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+120,self.posSelector[3][1]-20,self.menuRect.width,50))
 
         self.mapImage=pygame.image.load("imagenes/mapas/mapita.png").convert_alpha()
         self.mapImage = pygame.transform.scale(self.mapImage, (ventana[0]-30, ventana[1]-30))
