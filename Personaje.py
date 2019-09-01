@@ -32,8 +32,6 @@ class Personaje(sprite.Sprite):
         self.speedx = 5
         self.speedy = 5
 
-        self.objets = []
-
     def update(self, dt, keys, mapa, obs,sound):
         if keys[K_LSHIFT]:      #tecla de correr
             self.speedx=10
