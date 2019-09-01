@@ -58,7 +58,7 @@ class Text:
         self.displayMap=False
 
         self.displayInventario=False
-        self.invetarioImage=pygame.image.load("imagenes/Inventario.png").convert_alpha()
+        self.inventarioImage=pygame.image.load("imagenes/Inventario.png").convert_alpha()
         #self.invetarioImage = pygame.transform.scale(self.mapImage, (950, 700))
 
 
@@ -134,7 +134,7 @@ class Text:
                 self.sonido.click.play()
                 if self.displayInventario:
                     self.displayInventario=False
-                    self.displayInventario=False
+                    self.displayMenu=False
                 else:
                     self.displayInventario=True
 
@@ -154,16 +154,12 @@ class Text:
             if self.displayMap:
                 screen.blit(self.mapImage,self.mapImage.get_rect())
             elif self.displayInventario:
-                screen.blit(self.mapImage,self.mapImage.get_rect())
+                screen.blit(self.inventarioImage,self.inventarioImage.get_rect())
 
             else:
-                if self.displayInventario and len(self.objectsText)>0:
-                    text=self.objectsText
-                else:
-                    text=self.menuText
                 screen.blit(self.menuImage, self.menuRect)
                 screen.blit(self.selectorImageR,self.selectorRect)
                 leftRect=(self.selectorRect.topleft[0]+350,self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
                 screen.blit(self.selectorImageL,(leftRect))
-                for i in range(len(text)):
-                    screen.blit(text[i],self.menuTextRect[i])
+                for i in range(4):
+                    screen.blit(self.menuText[i],self.menuTextRect[i])
