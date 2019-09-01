@@ -40,12 +40,12 @@ class Text:
         self.text =None
 
         self.menuText = []
-        self.menuText.append(self.fontMenu.render('Objetos', True, self.textcolor3))
+        self.menuText.append(self.fontMenu.render('Inventario', True, self.textcolor3))
         self.menuText.append(self.fontMenu.render('Mapa', True, self.textcolor3))
         self.menuText.append(self.fontMenu.render('Guardar', True, self.textcolor3))
         self.menuText.append(self.fontMenu.render('Salir', True, self.textcolor3))
 
-        self.objectsText = []
+        #self.objectsText = []
 
         self.menuTextRect = []
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[0][1]-20,self.menuRect.width,50))
@@ -56,7 +56,11 @@ class Text:
         self.mapImage=pygame.image.load("imagenes/mapita.png").convert_alpha()
         self.mapImage = pygame.transform.scale(self.mapImage, (950, 700))
         self.displayMap=False
-        self.displayObjects=False
+
+        self.displayInventario=False
+        self.invetarioImage=pygame.image.load("imagenes/Inventario.png").convert_alpha()
+        #self.invetarioImage = pygame.transform.scale(self.mapImage, (950, 700))
+
 
         self.sonido= Sonido()
 
@@ -102,7 +106,7 @@ class Text:
             else:
                 self.displayMenu= False
             self.displayMap=False
-            self.displayObjects=False
+            self.displayInventario=False
         elif self.displayMenu:
             if keys[K_DOWN]:
                 self.countSelector+=1
@@ -118,7 +122,7 @@ class Text:
                 f = open("save.txt","w")
                 f.write(str(pj.rect_spr.centerx)+'\n')
                 f.write(str(pj.rect_spr.centery))
-                #f.close()
+                f.close()
             elif keys[K_RETURN] and self.countSelector==1:
                 self.sonido.click.play()
                 if self.displayMap:
@@ -126,13 +130,13 @@ class Text:
                     self.displayMenu=False
                 else:
                     self.displayMap=True
-            elif keys[K_RETURN] and self.countSelector==0 and len(self.objectsText)>0:
+            elif keys[K_RETURN] and self.countSelector==0:
                 self.sonido.click.play()
-                if self.displayObjects:
-                    self.displayObjects=False
-                    self.displayMenu=False
+                if self.displayInventario:
+                    self.displayInventario=False
+                    self.displayInventario=False
                 else:
-                    self.displayObjects=True
+                    self.displayInventario=True
 
 
             if self.countSelector==4:
@@ -149,8 +153,11 @@ class Text:
         elif self.displayMenu:
             if self.displayMap:
                 screen.blit(self.mapImage,self.mapImage.get_rect())
+            elif self.displayInventario:
+                screen.blit(self.mapImage,self.mapImage.get_rect())
+
             else:
-                if self.displayObjects and len(self.objectsText)>0:
+                if self.displayInventario and len(self.objectsText)>0:
                     text=self.objectsText
                 else:
                     text=self.menuText
