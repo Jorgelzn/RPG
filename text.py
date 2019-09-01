@@ -7,23 +7,6 @@ class Text:
 
     def __init__(self):
 
-        self.menuImage = pygame.image.load("imagenes/Menu.png").convert_alpha()
-        self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-20, ventana[1]-20))
-        self.menuRect = self.menuImage.get_rect()
-        self.selectorImageR = pygame.image.load("imagenes/Pointer_R.png").convert_alpha()
-        self.selectorImageR = pygame.transform.scale(self.selectorImageR, (40,40))
-        self.selectorImageL = pygame.image.load("imagenes/Pointer_L.png").convert_alpha()
-        self.selectorImageL = pygame.transform.scale(self.selectorImageL, (40,40))
-        self.selectorRect = self.selectorImageR.get_rect()
-        self.selectorRect.center = (self.menuRect.topleft[0]+300,self.menuRect.topleft[1]+130)
-        self.countSelector=0
-        self.posSelector = []
-        self.posSelector.append(self.selectorRect.center)
-        for i in range(3):
-            self.posSelector.append((self.selectorRect.center[0],self.posSelector[i][1]+150))
-        self.displayMenu = False
-        self.fontMenu = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",50)
-
         self.font = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",20)
         self.image = pygame.image.load("imagenes/text_box.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (750, 300))
@@ -39,19 +22,34 @@ class Text:
         self.chat1=[False, False]
         self.text =None
 
+        self.menuImage = pygame.image.load("imagenes/Menu.png").convert_alpha()
+        self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-20, ventana[1]-20))
+        self.menuRect = self.menuImage.get_rect()
+        self.selectorImageR = pygame.image.load("imagenes/Pointer_R.png").convert_alpha()
+        self.selectorImageR = pygame.transform.scale(self.selectorImageR, (int(ventana[0]/20),int(ventana[0]/20)))
+        self.selectorImageL = pygame.image.load("imagenes/Pointer_L.png").convert_alpha()
+        self.selectorImageL = pygame.transform.scale(self.selectorImageL, (int(ventana[0]/20),int(ventana[0]/20)))
+        self.selectorRect = self.selectorImageR.get_rect()
+        self.selectorRect.center = (self.menuRect.topleft[0]+ventana[0]/2-200,self.menuRect.topleft[1]+130)
+        self.countSelector=0
+        self.posSelector = []
+        self.posSelector.append(self.selectorRect.center)
+        for i in range(3):
+            self.posSelector.append((self.selectorRect.center[0],self.posSelector[i][1]+ventana[1]/4-30))
+        self.displayMenu = False
+        self.fontMenu = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",int(ventana[0]/20))
+
         self.menuText = []
         self.menuText.append(self.fontMenu.render('Inventario', True, self.textcolor3))
         self.menuText.append(self.fontMenu.render('Mapa', True, self.textcolor3))
         self.menuText.append(self.fontMenu.render('Guardar', True, self.textcolor3))
         self.menuText.append(self.fontMenu.render('Salir', True, self.textcolor3))
 
-        #self.objectsText = []
-
         self.menuTextRect = []
         self.menuTextRect.append((self.selectorRect.center[0]+50,self.posSelector[0][1]-20,self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+120,self.posSelector[1][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+130,self.posSelector[1][1]-20,self.menuRect.width,50))
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[2][1]-20,self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+90,self.posSelector[3][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+110,self.posSelector[3][1]-20,self.menuRect.width,50))
 
         self.mapImage=pygame.image.load("imagenes/mapita.png").convert_alpha()
         self.mapImage = pygame.transform.scale(self.mapImage, (ventana[0]-30, ventana[1]-30))
@@ -62,8 +60,6 @@ class Text:
         self.inventarioImage = pygame.transform.scale(self.inventarioImage, (ventana[0]+60, ventana[1]+60))
         self.inventarioRect=self.inventarioImage.get_rect()
         self.inventarioRect.topleft=(-40,-30)
-
-
 
         self.sonido= Sonido()
 
@@ -158,7 +154,7 @@ class Text:
         elif self.displayMenu:
             screen.blit(self.menuImage, self.menuRect)
             screen.blit(self.selectorImageR,self.selectorRect)
-            leftRect=(self.selectorRect.topleft[0]+380,self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
+            leftRect=(self.selectorRect.topleft[0]+int(ventana[0]/2.8),self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
             screen.blit(self.selectorImageL,(leftRect))
             for i in range(4):
                 screen.blit(self.menuText[i],self.menuTextRect[i])

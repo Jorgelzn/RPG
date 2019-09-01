@@ -3,7 +3,7 @@ from pygame.locals import *
 # Escenarios y ventanas:
 map1 = (1600, 1290)
 map2 = (10000, 3000)
-ventana = (1000, 757)
+ventana = (1200, 900)
 
 # Colores:
 agua = (50, 120, 240)
