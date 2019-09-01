@@ -128,41 +128,42 @@ class Text:
                 f.close()
             elif keys[K_RETURN] and self.countSelector==1:
                 self.sonido.click.play()
-                if self.displayMap:
-                    self.displayMap=False
-                    self.displayMenu=False
-                else:
-                    self.displayMap=True
+                self.displayMenu=False
+                self.displayMap=True
             elif keys[K_RETURN] and self.countSelector==0:
                 self.sonido.click.play()
-                if self.displayInventario:
-                    self.displayInventario=False
-                    self.displayMenu=False
-                else:
-                    self.displayInventario=True
+                self.displayMenu=False
+                self.displayInventario=True
+        elif self.displayMap:
+            if keys[K_t]:
+                self.displayMenu=True
+            elif keys[K_RETURN]:
+                self.displayMap=False
+        elif self.displayInventario:
+            if keys[K_t]:
+                self.displayMenu=True
+            elif keys[K_RETURN]:
+                self.displayInventario=False
 
-
-            if self.countSelector==4:
-                self.countSelector=0
-            elif self.countSelector==-1:
-                self.countSelector=3
-
-            self.selectorRect.center=self.posSelector[self.countSelector]
+        if self.countSelector==4:
+            self.countSelector=0
+        elif self.countSelector==-1:
+            self.countSelector=3
+        self.selectorRect.center=self.posSelector[self.countSelector]
 
     def displays(self, screen):
         if self.display:
             screen.blit(self.image, self.rect)
             screen.blit(self.text, self.rectext)
         elif self.displayMenu:
-            if self.displayMap:
-                screen.blit(self.mapImage,self.mapImage.get_rect())
-            elif self.displayInventario:
-                screen.blit(self.inventarioImage,self.inventarioRect)
+            screen.blit(self.menuImage, self.menuRect)
+            screen.blit(self.selectorImageR,self.selectorRect)
+            leftRect=(self.selectorRect.topleft[0]+380,self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
+            screen.blit(self.selectorImageL,(leftRect))
+            for i in range(4):
+                screen.blit(self.menuText[i],self.menuTextRect[i])
 
-            else:
-                screen.blit(self.menuImage, self.menuRect)
-                screen.blit(self.selectorImageR,self.selectorRect)
-                leftRect=(self.selectorRect.topleft[0]+380,self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
-                screen.blit(self.selectorImageL,(leftRect))
-                for i in range(4):
-                    screen.blit(self.menuText[i],self.menuTextRect[i])
+        elif self.displayMap:
+            screen.blit(self.mapImage,self.mapImage.get_rect())
+        elif self.displayInventario:
+            screen.blit(self.inventarioImage,self.inventarioRect)

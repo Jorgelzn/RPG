@@ -60,8 +60,10 @@ class Pantalla1(Scene):
 
 
     def on_draw(self, screen):
+        screen.blit(self.background, self.camera.apply(self.background.get_rect()))
+        #dibujo de fondo necesario para limpiar los menus
         self.text.displays(screen)
-        if not self.text.display and not self.text.displayMenu:
+        if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))
             if self.test:
                 screen.blit(self.ob,self.camera.apply(self.ob.get_rect()))
