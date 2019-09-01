@@ -100,6 +100,7 @@ class Text:
 
     def menu(self,keys,pj,director):
         if keys[K_t] and not self.display:
+            self.sonido.click.play()
             if not self.displayMenu:
                 self.displayMenu=True
             else:
@@ -139,14 +140,18 @@ class Text:
         elif self.displayMap:
             if keys[K_t]:
                 self.displayMenu=True
+                self.sonido.click.play()
             elif keys[K_RETURN]:
                 self.displayMap=False
+                self.sonido.click.play()
 
         elif self.displayInventario:
             if keys[K_t]:
                 self.displayMenu=True
+                self.sonido.click.play()
             elif keys[K_RETURN]:
                 self.displayInventario=False
+                self.sonido.click.play()
 
         if self.countSelector==4:
             self.countSelector=0
