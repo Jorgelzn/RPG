@@ -62,6 +62,13 @@ class Pantalla1(Scene):
 
     def on_draw(self, screen):
         screen.blit(self.background, self.camera.apply(self.background.get_rect()))
+        for o in self.npcs:
+            screen.blit(o.image, self.camera.apply(o.rect))
+        for i in self.ingame_elemets:
+            screen.blit(i.image, self.camera.apply(i.rect_spr))
+        for e in self.objetos:
+            if not e.taken:
+                screen.blit(e.image, self.camera.apply(e.rect))
         #dibujo de fondo necesario para limpiar los menus
         self.text.displays(screen)
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
