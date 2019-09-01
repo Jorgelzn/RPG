@@ -8,7 +8,7 @@ class Text:
     def __init__(self):
 
         self.font = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",20)
-        self.image = pygame.image.load("imagenes/text_box.png").convert_alpha()
+        self.image = pygame.image.load("imagenes/menus/text_box.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (750, 300))
         self.rect = self.image.get_rect()
         self.rect.center=(500,600)
@@ -22,12 +22,12 @@ class Text:
         self.chat1=[False, False]
         self.text =None
 
-        self.menuImage = pygame.image.load("imagenes/Menu.png").convert_alpha()
+        self.menuImage = pygame.image.load("imagenes/menus/Menu.png").convert_alpha()
         self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-20, ventana[1]-20))
         self.menuRect = self.menuImage.get_rect()
-        self.selectorImageR = pygame.image.load("imagenes/Pointer_R.png").convert_alpha()
+        self.selectorImageR = pygame.image.load("imagenes/menus/Pointer_R.png").convert_alpha()
         self.selectorImageR = pygame.transform.scale(self.selectorImageR, (int(ventana[0]/20),int(ventana[0]/20)))
-        self.selectorImageL = pygame.image.load("imagenes/Pointer_L.png").convert_alpha()
+        self.selectorImageL = pygame.image.load("imagenes/menus/Pointer_L.png").convert_alpha()
         self.selectorImageL = pygame.transform.scale(self.selectorImageL, (int(ventana[0]/20),int(ventana[0]/20)))
         self.selectorRect = self.selectorImageR.get_rect()
         self.selectorRect.center = (self.menuRect.topleft[0]+ventana[0]/2-200,self.menuRect.topleft[1]+130)
@@ -51,12 +51,12 @@ class Text:
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[2][1]-20,self.menuRect.width,50))
         self.menuTextRect.append((self.selectorRect.center[0]+110,self.posSelector[3][1]-20,self.menuRect.width,50))
 
-        self.mapImage=pygame.image.load("imagenes/mapita.png").convert_alpha()
+        self.mapImage=pygame.image.load("imagenes/mapas/mapita.png").convert_alpha()
         self.mapImage = pygame.transform.scale(self.mapImage, (ventana[0]-30, ventana[1]-30))
         self.displayMap=False
 
         self.displayInventario=False
-        self.inventarioImage=pygame.image.load("imagenes/Inventario.png").convert_alpha()
+        self.inventarioImage=pygame.image.load("imagenes/menus/Inventario.png").convert_alpha()
         self.inventarioImage = pygame.transform.scale(self.inventarioImage, (ventana[0]+60, ventana[1]+60))
         self.inventarioRect=self.inventarioImage.get_rect()
         self.inventarioRect.topleft=(-40,-30)

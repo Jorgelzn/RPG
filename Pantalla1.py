@@ -38,7 +38,7 @@ class Pantalla1(Scene):
                 self.npcs[e].camino1(self.mapa, self.pj.rect_col)
 
         if keys[K_l]:
-                return Pantalla2(map2,"imagenes/test.png")
+                return Pantalla2(map2,"imagenes/mapas/test.png")
         else: return None
 
 
