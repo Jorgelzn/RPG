@@ -24,13 +24,13 @@ class Obstaculo:
                                                   self.frame_width, self.frame_height))
 
 
-class Flecha: # se le podría cambiar el nombre a algo maś explicativo
+class Objeto: # se le podría cambiar el nombre a algo maś explicativo
     '''Cualquier objeto que sirva para cambiar de escena (puertas,
     escaleras, flechas laterales...).  Colocarse dentro del sprite y
     pulsar espacio para cambiar de escena
 
     '''
-    def __init__(self, imagen, scene, x=0, y=0, w=200, h=200):
+    def __init__(self, imagen, x=0, y=0, w=200, h=200, scene=None):
         self.image = pygame.image.load(imagen).convert_alpha()
         self.image = pygame.transform.scale(self.image, (w,h))
         self.rect = self.image.get_rect()

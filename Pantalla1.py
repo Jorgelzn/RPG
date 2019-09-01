@@ -7,7 +7,7 @@ from pygame.locals import *
 from Variables import *
 from text import Text
 from sonidos import Sonido
-
+from Escenario import *
 
 class Pantalla1(Scene):
 
@@ -22,6 +22,10 @@ class Pantalla1(Scene):
             Npc("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
             Npc("imagenes/personajes/Peto_sheet.png",500, 600, 114, 145),
             Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77)
+        ]
+        self.objetos=[
+            Objeto("imagenes/objetos/Flute.png",700,700,50,50),
+            Objeto("imagenes/objetos/Flute.png",900,700,50,50)
         ]
         self.text=Text()
 
@@ -62,6 +66,8 @@ class Pantalla1(Scene):
                 screen.blit(o.image, self.camera.apply(o.rect))
             for i in self.ingame_elemets:
                 screen.blit(i.image, self.camera.apply(i.rect_spr))
+            for e in self.objetos:
+                screen.blit(e.image, self.camera.apply(e.rect))
             #pygame.draw.rect(screen, (0,100,200), self.camera.apply(self.pj.rect_col))
 
 
