@@ -8,19 +8,19 @@ class Text:
     def __init__(self):
 
         self.menuImage = pygame.image.load("imagenes/Menu.png").convert_alpha()
-        self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-100, ventana[1]-100))
+        self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-20, ventana[1]-20))
         self.menuRect = self.menuImage.get_rect()
         self.selectorImageR = pygame.image.load("imagenes/Pointer_R.png").convert_alpha()
         self.selectorImageR = pygame.transform.scale(self.selectorImageR, (40,40))
         self.selectorImageL = pygame.image.load("imagenes/Pointer_L.png").convert_alpha()
         self.selectorImageL = pygame.transform.scale(self.selectorImageL, (40,40))
         self.selectorRect = self.selectorImageR.get_rect()
-        self.selectorRect.center = (self.menuRect.topleft[0]+250,self.menuRect.topleft[1]+130)
+        self.selectorRect.center = (self.menuRect.topleft[0]+300,self.menuRect.topleft[1]+130)
         self.countSelector=0
         self.posSelector = []
         self.posSelector.append(self.selectorRect.center)
         for i in range(3):
-            self.posSelector.append((self.selectorRect.center[0],self.posSelector[i][1]+120))
+            self.posSelector.append((self.selectorRect.center[0],self.posSelector[i][1]+150))
         self.displayMenu = False
         self.fontMenu = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",50)
 
@@ -48,18 +48,21 @@ class Text:
         #self.objectsText = []
 
         self.menuTextRect = []
-        self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[0][1]-20,self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[1][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+50,self.posSelector[0][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+120,self.posSelector[1][1]-20,self.menuRect.width,50))
         self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[2][1]-20,self.menuRect.width,50))
-        self.menuTextRect.append((self.selectorRect.center[0]+80,self.posSelector[3][1]-20,self.menuRect.width,50))
+        self.menuTextRect.append((self.selectorRect.center[0]+90,self.posSelector[3][1]-20,self.menuRect.width,50))
 
         self.mapImage=pygame.image.load("imagenes/mapita.png").convert_alpha()
-        self.mapImage = pygame.transform.scale(self.mapImage, (950, 700))
+        self.mapImage = pygame.transform.scale(self.mapImage, (ventana[0]-30, ventana[1]-30))
         self.displayMap=False
 
         self.displayInventario=False
         self.inventarioImage=pygame.image.load("imagenes/Inventario.png").convert_alpha()
-        #self.invetarioImage = pygame.transform.scale(self.mapImage, (950, 700))
+        self.inventarioImage = pygame.transform.scale(self.inventarioImage, (ventana[0]+60, ventana[1]+60))
+        self.inventarioRect=self.inventarioImage.get_rect()
+        self.inventarioRect.topleft=(-40,-30)
+
 
 
         self.sonido= Sonido()
@@ -154,12 +157,12 @@ class Text:
             if self.displayMap:
                 screen.blit(self.mapImage,self.mapImage.get_rect())
             elif self.displayInventario:
-                screen.blit(self.inventarioImage,self.inventarioImage.get_rect())
+                screen.blit(self.inventarioImage,self.inventarioRect)
 
             else:
                 screen.blit(self.menuImage, self.menuRect)
                 screen.blit(self.selectorImageR,self.selectorRect)
-                leftRect=(self.selectorRect.topleft[0]+350,self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
+                leftRect=(self.selectorRect.topleft[0]+380,self.selectorRect.topleft[1],self.selectorRect.width,self.selectorRect.height)
                 screen.blit(self.selectorImageL,(leftRect))
                 for i in range(4):
                     screen.blit(self.menuText[i],self.menuTextRect[i])
