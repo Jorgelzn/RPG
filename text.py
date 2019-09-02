@@ -78,8 +78,8 @@ class Text:
             layer+=1
             high+=180
             width=0
-        print(self.posInventario)
         self.objetosInventario=pj.objects
+        self.description=False
 
         self.sonido= Sonido()
 
@@ -108,9 +108,9 @@ class Text:
             self.finishdialog = True
             self.countdialog=0
 
-    def dialog2(self):
+    def Frase(self,frase):
         self.sonido.dialog.play()
-        self.text=self.font.render('Hola, soy Paperi', True, self.textcolor1)
+        self.text=self.font.render(frase, True, self.textcolor1)
 
         if not self.display:
             self.display=True
@@ -169,9 +169,6 @@ class Text:
             if keys[K_t]:
                 self.displayMenu=True
                 self.sonido.click.play()
-            elif keys[K_RETURN]:
-                self.displayInventario=False
-                self.sonido.click.play()
             elif keys[K_UP]:
                 self.selecPos[0]-=1
             elif keys[K_DOWN]:
@@ -188,6 +185,15 @@ class Text:
                 self.selecPos[1]=0
             elif self.selecPos[1]==-1:
                 self.selecPos[1]=3
+            pos=self.posInventario[self.selecPos[0]][self.selecPos[1]].topleft
+            for e in pj.objects:
+                if e.taken and pos==e.rectInvent.topleft and keys[K_RETURN] and not self.description:
+                    self.description=True
+                    self.text=self.font.render(e.description, True, self.textcolor1)
+                elif self.description and keys[K_RETURN]:
+                    self.description=False
+
+
 
         if self.countSelector==4:
             self.countSelector=0
@@ -218,3 +224,6 @@ class Text:
                 for e in i:                             #matrices
                     if self.posInventario[self.selecPos[0]][self.selecPos[1]]==e:
                         screen.blit(self.selecInventario,e)
+            if self.description:
+                    screen.blit(self.image, self.rect)
+                    screen.blit(self.text, self.rectext)

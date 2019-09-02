@@ -24,7 +24,7 @@ class Pantalla1(Scene):
             Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77)
         ]
         self.objetos=[
-            Objeto("imagenes/objetos/Flute.png",100,700,700,60,60,200,150)
+            Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,200,150)
         ]
         self.text=Text(self.pj)
 
@@ -52,7 +52,7 @@ class Pantalla1(Scene):
     def on_event(self,keys,director):
         if keys[K_r] and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             if abs(self.pj.rect_spr.centerx-self.npcs[0].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[0].rect.centery)<=100:
-                self.text.dialog2()
+                self.text.Frase("hola soy Paperi")
             elif abs(self.pj.rect_spr.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[1].rect.centery)<=100:
                 self.text.dialog1()
         self.text.menu(keys,self.pj,director)
