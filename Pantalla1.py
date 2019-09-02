@@ -24,13 +24,14 @@ class Pantalla1(Scene):
             Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77)
         ]
         self.objetos=[
-            Objeto("imagenes/objetos/Flute.png",100,700,700,60,60,630,150),
-            Objeto("imagenes/objetos/Flute.png",100,900,700,50,50,200,280)
+            Objeto("imagenes/objetos/Flute.png",100,1,700,700,60,60,630,150),
+            Objeto("imagenes/objetos/Flute.png",100,1,900,700,50,50,200,280)
         ]
         self.text=Text(self.pj)
 
         self.soundtrack= self.sonido.soundtrack1
-        #pygame.mixer.music.play()
+        pygame.mixer_music.load(self.soundtrack)
+        pygame.mixer.music.play()
 
 
     def on_update(self, time,keys):
@@ -44,7 +45,6 @@ class Pantalla1(Scene):
             if self.pj.rect_col.colliderect(e.rect) and not e.taken:
                 self.pj.objects.append(e)
                 e.taken=True
-
         if keys[K_l]:
                 return Pantalla2(map2,"imagenes/mapas/test.png")
         else: return None
@@ -57,6 +57,7 @@ class Pantalla1(Scene):
             elif abs(self.pj.rect_spr.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[1].rect.centery)<=100:
                 self.text.dialog1()
         self.text.menu(keys,self.pj,director)
+        self.pj.actions(keys,self.soundtrack)
 
 
 
@@ -70,7 +71,7 @@ class Pantalla1(Scene):
             if not e.taken:
                 screen.blit(e.image, self.camera.apply(e.rect))
         #dibujo de fondo necesario para limpiar los menus
-        
+
         self.text.displays(screen)
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             screen.blit(self.background, self.camera.apply(self.background.get_rect()))

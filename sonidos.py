@@ -3,7 +3,8 @@ import pygame
 class Sonido:
 
     def __init__(self):
-        self.soundtrack1 = pygame.mixer.music.load("sonidos/ost/Moki_Town.mp3")
+        self.soundtrack1 ="sonidos/ost/Moki_Town.mp3"
+        self.flute ="sonidos/ost/Saria song.mp3"
         self.pointerSound = pygame.mixer.Sound("sonidos/effects/Pointer (WAV).wav")
         self.dialog = pygame.mixer.Sound("sonidos/effects/Dialog Beep (WAV).wav")
         self.object = pygame.mixer.Sound("sonidos/effects/New object_mission (WAV).wav")
@@ -11,5 +12,5 @@ class Sonido:
         self.click = pygame.mixer.Sound("sonidos/effects/Click (WAV).wav")
         self.click.set_volume(0.9)
         self.pointerSound.set_volume(0.9)
-        self.grass.set_volume(0.5)
+        self.grass.set_volume(0.1)
         self.object.set_volume(0.9)
