@@ -59,6 +59,26 @@ class Text:
         self.inventarioImage = pygame.transform.scale(self.inventarioImage, (ventana[0]+60, ventana[1]+60))
         self.inventarioRect=self.inventarioImage.get_rect()
         self.inventarioRect.topleft=(-40,-30)
+        self.selecInventario=pygame.image.load("imagenes/menus/tri.png").convert_alpha()
+        self.selecInventario = pygame.transform.scale(self.selecInventario, (int(self.inventarioRect.width/16),int(self.inventarioRect.height/16)))
+        firstpos=(self.inventarioRect.topleft[0]+240,self.inventarioRect.topleft[1]+180)
+        self.posInventario=[]
+        for i in range(4):
+            self.posInventario.append([])
+        self.selecPos=[0,0]
+        high=0
+        width=0
+        layer=0
+        for e in range(4):
+            for i in range (4):
+                rect=self.selecInventario.get_rect()
+                rect.topleft=(firstpos[0]+width,firstpos[1]+high)
+                self.posInventario[layer].append(rect)
+                width+=220
+            layer+=1
+            high+=180
+            width=0
+        print(self.posInventario)
         self.objetosInventario=pj.objects
 
         self.sonido= Sonido()
@@ -152,6 +172,22 @@ class Text:
             elif keys[K_RETURN]:
                 self.displayInventario=False
                 self.sonido.click.play()
+            elif keys[K_UP]:
+                self.selecPos[0]-=1
+            elif keys[K_DOWN]:
+                self.selecPos[0]+=1
+            elif keys[K_RIGHT]:
+                self.selecPos[1]+=1
+            elif keys[K_LEFT]:
+                self.selecPos[1]-=1
+            if self.selecPos[0]==4:
+                self.selecPos[0]=0
+            elif self.selecPos[0]==-1:
+                self.selecPos[0]=3
+            elif self.selecPos[1]==4:
+                self.selecPos[1]=0
+            elif self.selecPos[1]==-1:
+                self.selecPos[1]=3
 
         if self.countSelector==4:
             self.countSelector=0
@@ -178,3 +214,7 @@ class Text:
             for e in self.objetosInventario:
                 if e.taken:
                     screen.blit(e.imageInvent,e.rectInvent)
+            for i in self.posInventario:
+                for e in i:                             #matrices
+                    if self.posInventario[self.selecPos[0]][self.selecPos[1]]==e:
+                        screen.blit(self.selecInventario,e)

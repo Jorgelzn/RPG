@@ -133,15 +133,14 @@ class Personaje(sprite.Sprite):
         return self.rect_col.collidelist(obs)==-1 and self.rect_spr.top>=0 and \
             self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]
 
-    def actions(self,keys,soundtrack):
-        check = False
-        for e in self.objects:
-            if e.token==1:
-                check=True
-        if keys[K_c] and not self.action and check:
-            pygame.mixer_music.load(Sonido().flute)
-            pygame.mixer.music.play()
-            self.action= True
+    def objectAct(self,keys,soundtrack,text):
+        if keys[K_c] and not self.action and not text.display and not text.displayInventario and not text.displayMap and not text.displayMenu:
+            for e in self.objects:
+                pos=text.posInventario[text.selecPos[0]][text.selecPos[1]].topleft
+                if e.taken and pos==e.rectInvent.topleft:
+                    pygame.mixer_music.load(Sonido().flute)
+                    pygame.mixer.music.play()
+                    self.action= True
         elif self.action and keys[K_c]:
             self.action=False
             pygame.mixer_music.load(soundtrack)

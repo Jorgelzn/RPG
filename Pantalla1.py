@@ -24,8 +24,7 @@ class Pantalla1(Scene):
             Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77)
         ]
         self.objetos=[
-            Objeto("imagenes/objetos/Flute.png",100,1,700,700,60,60,630,150),
-            Objeto("imagenes/objetos/Flute.png",100,1,900,700,50,50,200,280)
+            Objeto("imagenes/objetos/Flute.png",100,700,700,60,60,200,150)
         ]
         self.text=Text(self.pj)
 
@@ -57,7 +56,7 @@ class Pantalla1(Scene):
             elif abs(self.pj.rect_spr.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[1].rect.centery)<=100:
                 self.text.dialog1()
         self.text.menu(keys,self.pj,director)
-        self.pj.actions(keys,self.soundtrack)
+        self.pj.objectAct(keys,self.soundtrack,self.text)
 
 
 
