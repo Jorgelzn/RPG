@@ -59,9 +59,10 @@ class Text:
         self.inventarioImage = pygame.transform.scale(self.inventarioImage, (ventana[0]+60, ventana[1]+60))
         self.inventarioRect=self.inventarioImage.get_rect()
         self.inventarioRect.topleft=(-40,-30)
-        self.selecInventario=pygame.image.load("imagenes/menus/tri.png").convert_alpha()
-        self.selecInventario = pygame.transform.scale(self.selecInventario, (int(self.inventarioRect.width/16),int(self.inventarioRect.height/16)))
-        firstpos=(self.inventarioRect.topleft[0]+240,self.inventarioRect.topleft[1]+180)
+        self.selecInventario=pygame.image.load("imagenes/menus/square.png").convert_alpha()
+        self.selecInventario = pygame.transform.scale(self.selecInventario, (int(self.inventarioRect.width/7),int(self.inventarioRect.height/7)))
+        firstpos=(self.inventarioRect.topleft[0]+215,self.inventarioRect.topleft[1]+150)
+        print(firstpos)
         self.posInventario=[]
         for i in range(4):
             self.posInventario.append([])
@@ -74,9 +75,9 @@ class Text:
                 rect=self.selecInventario.get_rect()
                 rect.topleft=(firstpos[0]+width,firstpos[1]+high)
                 self.posInventario[layer].append(rect)
-                width+=220
+                width+=219
             layer+=1
-            high+=180
+            high+=169
             width=0
         self.objetosInventario=pj.objects
         self.description=False

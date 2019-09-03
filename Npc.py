@@ -11,7 +11,7 @@ class Npc:
         self.frame_width = w         # Anchura de la imagen
         self.frame_height = h       # Altura de la imagen
         self.frame_counter = FPSPRITE # Nº de frames por imagen
-        self.trayectoria = [True,False,False,False]
+        self.trayectoria = [True,False,False,False] #derecha,abajo,izquierda,arriba
         self.x=x
         self.y=y
 
@@ -24,7 +24,7 @@ class Npc:
 
         if self.trayectoria[0]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      3*self.frame_height, # fila 3,
+                                                      6*self.frame_height, # fila 6,
                                                       self.frame_width, self.frame_height))
         if self.trayectoria[1]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
@@ -32,11 +32,11 @@ class Npc:
                                                       self.frame_width, self.frame_height))
         if self.trayectoria[2]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      1*self.frame_height, # fila 1,
+                                                      2*self.frame_height, # fila 1,
                                                       self.frame_width, self.frame_height))
         if self.trayectoria[3]:
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      2*self.frame_height, # fila 2,
+                                                      4*self.frame_height, # fila 2,
                                                       self.frame_width, self.frame_height))
 
     def move(self, offset, mapa, pj):

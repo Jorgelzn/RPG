@@ -24,7 +24,7 @@ class Pantalla1(Scene):
             Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77)
         ]
         self.objetos=[
-            Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,200,150)
+            Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,175,120)
         ]
         self.text=Text(self.pj)
 
