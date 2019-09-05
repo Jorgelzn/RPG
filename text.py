@@ -14,10 +14,9 @@ class Text:
         self.rectext=(self.rect.topleft[0]+60,self.rect.topleft[1]+80,self.rect.width,self.rect.height)
         self.textcolor= (90, 90, 90)
         self.display = False                #controla que se vean o no los dialogos
-        self.finishdialog = False
-        self.countdialog=0;
-        self.chat1=[False, False]
-        self.text =None
+        self.finishdialog = False           # controla que haya acabado el dialogo
+        self.countdialog=0;                 # counter of phrases in the dialog function
+        self.text =None                     #text displayed in dialogs
 
         self.menuImage = pygame.image.load("imagenes/menus/Menu.png").convert_alpha()  #imagen del cuadro de menu
         self.menuImage = pygame.transform.scale(self.menuImage, (ventana[0]-20, ventana[1]-20))
@@ -90,7 +89,7 @@ class Text:
         self.sonido.dialog.play()
         if not self.finishdialog:
             for i in chat:
-                if chat.index(i)>=self.countdialog:
+                if chat.index(i)>=self.countdialog:     #solo se muestra la frase que toca dentro del dialogo
                     self.text=self.font.render(i, True, self.textcolor)
                     self.countdialog+=1
                     break

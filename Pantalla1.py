@@ -35,7 +35,7 @@ class Pantalla1(Scene):
 
 
     def on_update(self, time,keys):
-        print(self.text.countdialog)
+        
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             self.camera.update(self.pj)
             self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs,self.sonido.grass)
