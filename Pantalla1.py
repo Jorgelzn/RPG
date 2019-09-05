@@ -21,7 +21,8 @@ class Pantalla1(Scene):
         self.npcs = [
             Npc("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
             Npc("imagenes/personajes/Peto_sheet.png",500, 600, 114, 145),
-            Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77)
+            Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77),
+            Npc("imagenes/personajes/Kea_sheet.png",1200, 200, 84, 132)
         ]
         self.objetos=[
             Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,175,120)
