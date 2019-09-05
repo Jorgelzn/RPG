@@ -33,12 +33,13 @@ class Personaje(sprite.Sprite):
         self.speedx = 5
         self.speedy = 5
 
-        self.objects=[]
-        self.action=False
+        self.objects=[]         #objetos del personaje
+        self.action=False       #controla si el pj esta haciendo algo
+
 
     def update(self, dt, keys, mapa, obs,sound):
 
-            if keys[K_LSHIFT]:      #tecla de correr
+            if keys[K_LSHIFT]:      #con la tecla pulsada aumenta la velocidad
                 self.speedx=10
                 self.speedy=10
                 FPSPRITE=3
@@ -54,7 +55,7 @@ class Personaje(sprite.Sprite):
             else:
                 self.frame_counter -= 1
 
-            if self.action:
+            if self.action:                 #(solo para flauta provisional) animaciones de tocar la flauta
                 if self.current_frame==1:
                     self.image = pygame.image.load("imagenes/personajes/actions/flute/flute.png").convert_alpha()
                 elif self.current_frame==2:
@@ -114,7 +115,6 @@ class Personaje(sprite.Sprite):
                     self.move((0,-self.speedy), mapa, obs,sound)
 
 
-
     def move(self, offset, mapa, obs,sound):
         if self.pos_valida(mapa,obs):
             self.rect_spr = self.rect_spr.move(offset) # avanzamos
@@ -129,11 +129,13 @@ class Personaje(sprite.Sprite):
             self.rect_spr = self.rect_spr.move(offset) # retrocedemos poco a poco
             self.rect_col = self.rect_col.move(offset)
 
+
     def pos_valida(self, mapa, obs):
         return self.rect_col.collidelist(obs)==-1 and self.rect_spr.top>=0 and \
             self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]
 
-    def objectAct(self,keys,soundtrack,text):
+
+    def objectAct(self,keys,soundtrack,text):     #controla lo que hace el pj con el objeto equipado
         if keys[K_c] and not self.action and not text.display and not text.displayInventario and not text.displayMap and not text.displayMenu:
             for e in self.objects:
                 pos=text.posInventario[text.selecPos[0]][text.selecPos[1]].topleft
@@ -141,7 +143,7 @@ class Personaje(sprite.Sprite):
                     pygame.mixer_music.load(Sonido().flute)
                     pygame.mixer.music.play()
                     self.action= True
-        elif self.action and keys[K_c]:
+        elif self.action and keys[K_c]:             #vuelves a pulsar c y la accion se detiene
             self.action=False
             pygame.mixer_music.load(soundtrack)
             pygame.mixer.music.play()

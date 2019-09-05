@@ -28,7 +28,7 @@ class Text:
         self.selectorImageL = pygame.transform.scale(self.selectorImageL, (int(ventana[0]/20),int(ventana[0]/20)))
         self.selectorRect = self.selectorImageR.get_rect()
         self.selectorRect.center = (self.menuRect.topleft[0]+ventana[0]/2-200,self.menuRect.topleft[1]+130)
-        self.countSelector=0
+        self.countSelector=0        #controla que posicion tiene el selector del menu
         self.posSelector = []       #las posibles posiciones del selector del menu
         self.posSelector.append(self.selectorRect.center)
         for i in range(3):
@@ -145,7 +145,7 @@ class Text:
                 self.countSelector=0
             elif self.countSelector==-1:
                 self.countSelector=3
-            self.selectorRect.center=self.posSelector[self.countSelector]
+            self.selectorRect.center=self.posSelector[self.countSelector]   #asigna la posicion de los selectores
 
 
         elif self.displayMap:                   #estamos en el mapa

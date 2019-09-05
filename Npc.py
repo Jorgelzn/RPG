@@ -57,7 +57,7 @@ class Npc:
             self.rect.left>=0 and self.rect.right<=mapa[0] and self.rect.bottom<=mapa[1]
 
 
-    def camino1(self,mapa, pj):
+    def camino1(self,mapa, pj):             #camino predeterminado que pueden recorrer los npcs
         if self.trayectoria[0]:
             self.move((5, 0), mapa, pj)
         elif self.trayectoria[1]:
