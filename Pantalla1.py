@@ -55,7 +55,7 @@ class Pantalla1(Scene):
             if abs(self.pj.rect_spr.centerx-self.npcs[0].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[0].rect.centery)<=100:
                 self.text.Frase("hola soy Paperi")
             elif abs(self.pj.rect_spr.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[1].rect.centery)<=100:
-                self.text.dialog1()
+                self.text.dialog()
         self.text.menu(keys,self.pj,director)
         self.pj.objectAct(keys,self.soundtrack,self.text)
 
