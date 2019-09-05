@@ -2,7 +2,7 @@ import pygame
 from Variables import *
 
 class Npc:
-    def __init__(self, imagen, x=0, y=0, w=200, h=200):
+    def __init__(self, imagen,dialog=None, x=0, y=0, w=200, h=200):
         self.spriteSheet = pygame.image.load(imagen).convert_alpha()
         self.image = self.spriteSheet.subsurface(0,0,w,h)
         self.rect = pygame.Rect(x, y, w, h)
@@ -12,6 +12,7 @@ class Npc:
         self.frame_height = h       # Altura de la imagen
         self.frame_counter = FPSPRITE # Nº de frames por imagen
         self.trayectoria = [True,False,False,False] #derecha,abajo,izquierda,arriba
+        self.dialog=dialog
         self.x=x
         self.y=y
 

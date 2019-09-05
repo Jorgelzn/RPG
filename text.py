@@ -12,9 +12,7 @@ class Text:
         self.rect = self.image.get_rect()
         self.rect.center=(500,600)
         self.rectext=(self.rect.topleft[0]+60,self.rect.topleft[1]+80,self.rect.width,self.rect.height)
-        self.textcolor1= (3, 123, 239)
-        self.textcolor2= (200,50,50)
-        self.textcolor3= (90, 90, 90)
+        self.textcolor= (90, 90, 90)
         self.display = False                #controla que se vean o no los dialogos
         self.finishdialog = False
         self.countdialog=0;
@@ -41,10 +39,10 @@ class Text:
         self.fontMenu = pygame.font.Font("imagenes/ARCADECLASSIC.TTF",int(ventana[0]/20))   #tipo de letra en menu
 
         self.menuText = []          #los diferentes textos del menu
-        self.menuText.append(self.fontMenu.render('Inventario', True, self.textcolor3))
-        self.menuText.append(self.fontMenu.render('Mapa', True, self.textcolor3))
-        self.menuText.append(self.fontMenu.render('Guardar', True, self.textcolor3))
-        self.menuText.append(self.fontMenu.render('Salir', True, self.textcolor3))
+        self.menuText.append(self.fontMenu.render('Inventario', True, self.textcolor))
+        self.menuText.append(self.fontMenu.render('Mapa', True, self.textcolor))
+        self.menuText.append(self.fontMenu.render('Guardar', True, self.textcolor))
+        self.menuText.append(self.fontMenu.render('Salir', True, self.textcolor))
 
         self.menuTextRect = []      #las posiciones de los textos del menu
         self.menuTextRect.append((self.selectorRect.center[0]+50,self.posSelector[0][1]-20,self.menuRect.width,50))
@@ -87,39 +85,23 @@ class Text:
 
         self.sonido= Sonido()
 
-    def dialog(self):
+
+    def dialog(self,chat):                      #controla el dialogo que se le pasa por parametro como lista string
         self.sonido.dialog.play()
-        for e in self.chat1:
-            if not self.chat1[0]:
-                self.text=self.font.render('Hola, soy peto y estoy hasta el cubo de paperi', True, self.textcolor2)
-                self.chat1[0]=True
-                self.countdialog+=1
-                break
-            if not self.chat1[1]:
-                self.text=self.font.render('es un Mamahuevo', True, self.textcolor2)
-                self.chat1[1]=True
-                self.countdialog+=1
-                break
         if not self.finishdialog:
+            for i in chat:
+                if chat.index(i)>=self.countdialog:
+                    self.text=self.font.render(i, True, self.textcolor)
+                    self.countdialog+=1
+                    break
             self.display=True
         else:
             self.display= False
             self.finishdialog= False
-            for e in self.chat1:
-                self.chat1[e]=False
 
-        if self.countdialog == len(self.chat1):
+        if self.countdialog == len(chat):
             self.finishdialog = True
             self.countdialog=0
-
-    def Frase(self,frase):
-        self.sonido.dialog.play()
-        self.text=self.font.render(frase, True, self.textcolor1)
-
-        if not self.display:
-            self.display=True
-        else:
-            self.display= False
 
 
     def menu(self,keys,pj,director):            #funcion que para navegar por el menu
@@ -200,9 +182,10 @@ class Text:
             for e in pj.objects:               #al pulsaar enter en un objeto se muestra su descripcion
                 if e.taken and pos==e.rectInvent.topleft and keys[K_RETURN] and not self.description:
                     self.description=True
-                    self.text=self.font.render(e.description, True, self.textcolor1)
+                    self.text=self.font.render(e.description, True, self.textcolor)
                 elif self.description and keys[K_RETURN]:       #al pulsar de nuevo enter vuelves al inventario
                     self.description=False
+
 
     def displays(self, screen):     #funcion que dibuja todos los textos
 

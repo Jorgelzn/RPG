@@ -19,10 +19,10 @@ class Pantalla1(Scene):
         self.mapa = map
         self.sonido = Sonido()
         self.npcs = [
-            Npc("imagenes/personajes/paperi_sheet.png", 600, 100, 68, 189),
-            Npc("imagenes/personajes/Peto_sheet.png",500, 600, 114, 145),
-            Npc("imagenes/personajes/Tapa_sheet.png",1200, 600, 68, 77),
-            Npc("imagenes/personajes/Kea_sheet.png",1200, 200, 84, 132)
+            Npc("imagenes/personajes/paperi_sheet.png",["hola","soy paperi","buenos dias"], 600, 100, 68, 189),
+            Npc("imagenes/personajes/Peto_sheet.png",["paperi siempre esta igual","deberiamos llamarnos peto y paperi","mamahuevo"],500, 600, 114, 145),
+            Npc("imagenes/personajes/Tapa_sheet.png",["me llamo Tapa :D","vente luego a jugar"],1200, 600, 68, 77),
+            Npc("imagenes/personajes/Kea_sheet.png",["me preocupan paperi y peto","no paran de pelear"],1200, 200, 84, 132)
         ]
         self.objetos=[
             Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,175,120)
@@ -35,6 +35,7 @@ class Pantalla1(Scene):
 
 
     def on_update(self, time,keys):
+        print(self.text.countdialog)
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             self.camera.update(self.pj)
             self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs,self.sonido.grass)
@@ -53,9 +54,9 @@ class Pantalla1(Scene):
     def on_event(self,keys,director):
         if keys[K_r] and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             if abs(self.pj.rect_spr.centerx-self.npcs[0].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[0].rect.centery)<=100:
-                self.text.Frase("hola soy Paperi")
+                self.text.dialog(self.npcs[0].dialog)
             elif abs(self.pj.rect_spr.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[1].rect.centery)<=100:
-                self.text.dialog()
+                self.text.dialog(self.npcs[1].dialog)
         self.text.menu(keys,self.pj,director)
         self.pj.objectAct(keys,self.soundtrack,self.text)
 
