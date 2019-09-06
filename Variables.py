@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 # Escenarios y ventanas:
 map1 = (1600, 1290)
-map2 = (10000, 3000)
+map2 = (15000, 10000)
 ventana = (1200, 900)
 
 # Colores:
