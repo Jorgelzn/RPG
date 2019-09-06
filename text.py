@@ -113,11 +113,11 @@ class Text:
             self.displayMap=False
             self.displayInventario=False
         elif self.displayMenu:                  #si estamos en el menu
-            if keys[K_DOWN]:                       #mover selector hacia abajo
-                self.countSelector+=1
+            if keys[K_DOWN]:                                      #mover selector hacia abajo
+                self.countSelector = (self.countSelector + 1) % 4
                 self.sonido.pointerSound.play()
-            elif keys[K_UP]:                        #mover selector hacia arriba
-                self.countSelector-=1
+            elif keys[K_UP]:                                      #mover selector hacia arriba
+                self.countSelector = (self.countSelector - 1) % 4
                 self.sonido.pointerSound.play()
 
             elif keys[K_RETURN] and self.countSelector==3:      #seleccionar opcion de salir
@@ -141,10 +141,6 @@ class Text:
                 f.write(str(pj.rect_spr.centery))
                 f.close()
 
-            if self.countSelector==4:           #esto controla que el selector no pase de las 4 opciones
-                self.countSelector=0
-            elif self.countSelector==-1:
-                self.countSelector=3
             self.selectorRect.center=self.posSelector[self.countSelector]   #asigna la posicion de los selectores
 
 
@@ -160,22 +156,14 @@ class Text:
             if keys[K_t]:                       #al pulsar t vuelves al menu
                 self.displayMenu=True
                 self.sonido.click.play()
-            elif keys[K_UP]:                    #mover selector arriba
-                self.selecPos[0]-=1
-            elif keys[K_DOWN]:                 #mover selector abajo
-                self.selecPos[0]+=1
-            elif keys[K_RIGHT]:                #mover selector a la derecha
-                self.selecPos[1]+=1
-            elif keys[K_LEFT]:                  #mover selector a la izquierda
-                self.selecPos[1]-=1
-            if self.selecPos[0]==4:             #estos condicionales controlan que las posiciones no excedan el 4x4
-                self.selecPos[0]=0
-            elif self.selecPos[0]==-1:
-                self.selecPos[0]=3
-            elif self.selecPos[1]==4:
-                self.selecPos[1]=0
-            elif self.selecPos[1]==-1:
-                self.selecPos[1]=3
+            elif keys[K_UP]:                                  #mover selector arriba
+                self.selecPos[0] = (self.selecPos[0] - 1) % 4
+            elif keys[K_DOWN]:                                #mover selector abajo
+                self.selecPos[0] = (self.selecPos[0] + 1) % 4
+            elif keys[K_RIGHT]:                               #mover selector a la derecha
+                self.selecPos[1] = (self.selecPos[1] + 1) % 4
+            elif keys[K_LEFT]:                                #mover selector a la izquierda
+                self.selecPos[1] = (self.selecPos[1] - 1) % 4
 
             pos=self.posInventario[self.selecPos[0]][self.selecPos[1]].topleft
             for e in pj.objects:               #al pulsaar enter en un objeto se muestra su descripcion
