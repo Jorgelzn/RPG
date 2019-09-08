@@ -31,7 +31,7 @@ class Pantalla1(Scene):
 
         self.soundtrack= self.sonido.soundtrack1
         pygame.mixer.music.load(self.soundtrack)
-        pygame.mixer.music.play()
+        #pygame.mixer.music.play()
 
 
     def on_update(self, time,keys):
@@ -42,7 +42,7 @@ class Pantalla1(Scene):
 
             for npc in self.npcs:
                 npc.animation()    #animaciones de los npcs
-                npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
+                #npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
 
             for e in self.objetos:                                      #si chocas al objeto lo coges (provisional)
                 if self.pj.rect_col.colliderect(e.rect) and not e.taken:
@@ -56,10 +56,15 @@ class Pantalla1(Scene):
 
     def on_event(self,keys,director):
         if keys[K_r] and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
-            if abs(self.pj.rect_spr.centerx-self.npcs[0].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[0].rect.centery)<=100:
-                self.text.dialog(self.npcs[0].dialog)
-            elif abs(self.pj.rect_spr.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[1].rect.centery)<=100:
-                self.text.dialog(self.npcs[1].dialog)       #control de colision con npcs (provisional)
+
+            for npc in self.npcs:
+                if self.pj.rect_spr.colliderect(npc.rect):
+                    self.text.dialog(npc.dialog)
+
+            # if abs(self.pj.rect_spr.centerx-self.npcs[0].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[0].rect.centery)<=100:
+            #     self.text.dialog(self.npcs[0].dialog)
+            # elif abs(self.pj.rect_spr.centerx-self.npcs[1].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[1].rect.centery)<=100:
+            #     self.text.dialog(self.npcs[1].dialog)       #control de colision con npcs (provisional)
 
         self.text.menu(keys,self.pj,director)     #control del menu
         self.pj.objectAct(keys,self.soundtrack,self.text)   #accion que realiza el personaje con los objetos (actualizable)
@@ -67,15 +72,15 @@ class Pantalla1(Scene):
 
 
     def on_draw(self, screen):
-        # screen.blit(self.background, self.camera.apply(self.background.get_rect()))
-        # for o in self.npcs:
-        #     screen.blit(o.image, self.camera.apply(o.rect))
-        # for i in self.ingame_elemets:
-        #     screen.blit(i.image, self.camera.apply(i.rect_spr))
-        # for e in self.objetos:
-        #     if not e.taken:
-        #         screen.blit(e.image, self.camera.apply(e.rect))
-        # #dibujo de fondo necesario para limpiar los menus (un poco chapuza, a si que provisional)
+        screen.blit(self.background, self.camera.apply(self.background.get_rect()))
+        for o in self.npcs:
+            screen.blit(o.image, self.camera.apply(o.rect))
+        for i in self.ingame_elemets:
+            screen.blit(i.image, self.camera.apply(i.rect_spr))
+        for e in self.objetos:
+            if not e.taken:
+                screen.blit(e.image, self.camera.apply(e.rect))
+        #dibujo de fondo necesario para limpiar los menus (un poco chapuza, a si que provisional)
 
         self.text.displays(screen)  #funcion que controla que se dibujen los textos y menus
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
