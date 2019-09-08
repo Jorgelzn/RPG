@@ -61,7 +61,7 @@ class Text:
 
         self.selecInventario=pygame.image.load("imagenes/menus/square.png").convert_alpha() #selector de inventario
         self.selecInventario = pygame.transform.scale(self.selecInventario, (int(self.inventarioRect.width/7),int(self.inventarioRect.height/7)))
-        firstpos=(self.inventarioRect.topleft[0]+215,self.inventarioRect.topleft[1]+150)
+        firstpos=(self.inventarioRect.topleft[0]+214,self.inventarioRect.topleft[1]+150)
         print(firstpos)
         self.posInventario=[] #las 16 posibles posiciones del selector en el inventario, matriz 4x4
         for i in range(4):
@@ -75,12 +75,13 @@ class Text:
                 rect=self.selecInventario.get_rect()
                 rect.topleft=(firstpos[0]+width,firstpos[1]+high)
                 self.posInventario[layer].append(rect)
-                width+=219
+                width+=220
             layer+=1
-            high+=169
+            high+=168
             width=0
         self.objetosInventario=pj.objects           #asignamos los objetos que tiene el personaje
         self.description=False                      #variable para controlar que se vea la descripcion de objeto
+        print(self.posInventario)
 
         self.sonido= Sonido()
 

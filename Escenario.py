@@ -39,7 +39,7 @@ class Flecha: # se le podría cambiar el nombre a algo maś explicativo
 
 class Objeto:
 
-    def __init__(self, imagen,size,description, x=0, y=0, w=200, h=200, xinvent=0, yinvent=0,taken=False):
+    def __init__(self, imagen,size,description, x=0, y=0, w=200, h=200, xinvent=0, yinvent=0,posx=0,posy=0,taken=False):
         self.image = pygame.image.load(imagen).convert_alpha()
         self.image = pygame.transform.scale(self.image, (w,h))
         self.rect = self.image.get_rect()
@@ -49,3 +49,5 @@ class Objeto:
         self.rectInvent=self.imageInvent.get_rect()
         self.rectInvent.topleft=(xinvent,yinvent)
         self.description=description
+        self.posx=posx
+        self.posy=posy

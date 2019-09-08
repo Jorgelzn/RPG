@@ -139,8 +139,8 @@ class Personaje(sprite.Sprite):
         if keys[K_c] and not self.action and not text.display and not text.displayInventario and not text.displayMap and not text.displayMenu:
             for e in self.objects:
                 pos=text.posInventario[text.selecPos[0]][text.selecPos[1]].topleft
-                if e.taken and pos==e.rectInvent.topleft:
-                    pygame.mixer.music.load("sonidos/ost/Saria song.mp3")
+                if e.taken and pos[0]==e.posx and pos[1]==e.posy:
+                    pygame.mixer_music.load(Sonido().flute)
                     pygame.mixer.music.play()
                     self.action= True
         elif self.action and keys[K_c]:             #vuelves a pulsar c y la accion se detiene
