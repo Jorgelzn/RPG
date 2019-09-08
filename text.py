@@ -168,7 +168,7 @@ class Text:
 
             pos=self.posInventario[self.selecPos[0]][self.selecPos[1]].topleft
             for e in pj.objects:               #al pulsaar enter en un objeto se muestra su descripcion
-                if e.taken and pos==e.rectInvent.topleft and keys[K_RETURN] and not self.description:
+                if e.taken and pos[0]==e.posx and pos[1]==e.posy and keys[K_RETURN] and not self.description:
                     self.description=True
                     self.text=self.font.render(e.description, True, self.textcolor)
                 elif self.description and keys[K_RETURN]:       #al pulsar de nuevo enter vuelves al inventario
