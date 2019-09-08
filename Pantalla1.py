@@ -58,7 +58,7 @@ class Pantalla1(Scene):
         if keys[K_r] and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
 
             for npc in self.npcs:
-                if self.pj.rect_spr.colliderect(npc.rect):
+                if self.pj.rect_spr.colliderect(npc.rect_accion):
                     self.text.dialog(npc.dialog)
 
             # if abs(self.pj.rect_spr.centerx-self.npcs[0].rect.centerx)<=100 and abs(self.pj.rect_spr.centery-self.npcs[0].rect.centery)<=100:
