@@ -61,7 +61,7 @@ class Text:
 
         self.selecInventario=pygame.image.load("imagenes/menus/square.png").convert_alpha() #selector de inventario
         self.selecInventario = pygame.transform.scale(self.selecInventario, (int(self.inventarioRect.width/7),int(self.inventarioRect.height/7)))
-        firstpos=(self.inventarioRect.topleft[0]+215,self.inventarioRect.topleft[1]+150)
+        firstpos=(self.inventarioRect.topleft[0]+214,self.inventarioRect.topleft[1]+150)
         print(firstpos)
         self.posInventario=[] #las 16 posibles posiciones del selector en el inventario, matriz 4x4
         for i in range(4):

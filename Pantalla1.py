@@ -25,7 +25,7 @@ class Pantalla1(Scene):
             Npc("imagenes/personajes/Kea_sheet.png",["me preocupan paperi y peto","no paran de pelear"],1200, 200, 84, 132)
         ]
         self.objetos=[
-            Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,175,120)
+            Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,175,120)
         ]
         self.text=Text(self.pj)
 
