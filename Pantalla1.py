@@ -19,10 +19,10 @@ class Pantalla1(Scene):
         self.mapa = map
         self.sonido = Sonido()
         self.npcs = [
-            Npc("imagenes/personajes/paperi_sheet.png",["hola","soy paperi","buenos dias","ven a nuestra tienda"], 600, 100, 68, 189),
+            Npc("imagenes/personajes/paperi_sheet.png",["hola","soy paperi","buenos dias","ven a nuestra tienda","vendemos pan"], 600, 100, 68, 189),
             Npc("imagenes/personajes/Peto_sheet.png",["paperi siempre esta igual","deberiamos llamarnos peto y paperi","mamahuevo"],500, 600, 114, 145),
-            Npc("imagenes/personajes/Tapa_sheet.png",["me llamo Tapa :D","vente luego a jugar"],1200, 600, 68, 77),
-            Npc("imagenes/personajes/Kea_sheet.png",["me preocupan paperi y peto","no paran de pelear"],1200, 200, 84, 132)
+            Npc("imagenes/personajes/Tapa_sheet.png",["me llamo Tapa :D","vente luego a jugar", "miau"],1200, 600, 68, 77),
+            Npc("imagenes/personajes/Kea_sheet.png",["me preocupan peto y paperi","no paran de pelear","jopé"],1200, 200, 84, 131)
         ]
         self.objetos=[
             Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,174,120)
@@ -42,7 +42,7 @@ class Pantalla1(Scene):
 
             for npc in self.npcs:
                 npc.animation()    #animaciones de los npcs
-                #npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
+                npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
 
             for e in self.objetos:                                      #si chocas al objeto lo coges (provisional)
                 if self.pj.rect_col.colliderect(e.rect) and not e.taken:

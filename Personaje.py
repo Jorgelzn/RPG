@@ -56,11 +56,11 @@ class Personaje(sprite.Sprite):
                 self.frame_counter -= 1
 
             if self.action:                 #(solo para flauta provisional) animaciones de tocar la flauta
-                if self.current_frame==1:
+                if self.current_frame==0 or self.current_frame==2:
                     self.image = pygame.image.load("imagenes/personajes/actions/flute/flute.png").convert_alpha()
-                elif self.current_frame==2:
+                elif self.current_frame==1:
                     self.image = pygame.image.load("imagenes/personajes/actions/flute/flute2.png").convert_alpha()
-                elif self.current_frame==3 or self.current_frame==0:
+                elif self.current_frame==3:
                     self.image = pygame.image.load("imagenes/personajes/actions/flute/flute3.png").convert_alpha()
             else:
             # si no se está moviendo, ponemos sprite normal:
@@ -113,7 +113,23 @@ class Personaje(sprite.Sprite):
                         self.lastdir[e]=False
                     self.lastdir[0]=True
                     self.move((0,-self.speedy), mapa, obs,sound)
-
+                else: # quedarse quieto
+                    if self.lastdir[0]:
+                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                                5*self.frame_height, # fila 5
+                                                                self.frame_width, self.frame_height))
+                    if self.lastdir[1]:
+                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                                1*self.frame_height, # fila 1
+                                                                self.frame_width, self.frame_height))
+                    if self.lastdir[2]:
+                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                                7*self.frame_height, # fila 7
+                                                                self.frame_width, self.frame_height))
+                    if self.lastdir[3]:
+                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                                3*self.frame_height, # fila 3
+                                                                self.frame_width, self.frame_height))
 
     def move(self, offset, mapa, obs,sound):
         if self.pos_valida(mapa,obs):
