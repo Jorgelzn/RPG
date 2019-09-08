@@ -75,12 +75,13 @@ class Text:
                 rect=self.selecInventario.get_rect()
                 rect.topleft=(firstpos[0]+width,firstpos[1]+high)
                 self.posInventario[layer].append(rect)
-                width+=219
+                width+=220
             layer+=1
-            high+=169
+            high+=168
             width=0
         self.objetosInventario=pj.objects           #asignamos los objetos que tiene el personaje
         self.description=False                      #variable para controlar que se vea la descripcion de objeto
+        print(self.posInventario)
 
         self.sonido= Sonido()
 
