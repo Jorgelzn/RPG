@@ -44,6 +44,7 @@ class Npc:
     def move(self, offset, mapa, pj):
         if self.pos_valida(mapa,pj):
             self.rect = self.rect.move(offset) # avanzamos
+            self.rect_accion = self.rect_accion.move(offset)
             #ponemos velocidad baja:
             offset = list(offset)
             if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
@@ -51,6 +52,7 @@ class Npc:
 
         while not self.pos_valida(mapa, pj): # mientras la posición no sea válida
             self.rect = self.rect.move(offset) # retrocedemos poco a poco
+            self.rect_accion = self.rect_accion.move(offset)
 
 
     def pos_valida(self, mapa, pj):
