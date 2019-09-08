@@ -30,7 +30,7 @@ class Pantalla1(Scene):
         self.text=Text(self.pj)
 
         self.soundtrack= self.sonido.soundtrack1
-        pygame.mixer_music.load(self.soundtrack)
+        pygame.mixer.music.load(self.soundtrack)
         pygame.mixer.music.play()
 
 
@@ -40,9 +40,9 @@ class Pantalla1(Scene):
             self.camera.update(self.pj)     #update a la camara
             self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs,self.sonido.grass) #update del personaje
 
-            for e in range(len(self.npcs)):
-                self.npcs[e].animation()    #animaciones de los npcs
-                self.npcs[e].camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
+            for npc in self.npcs:
+                npc.animation()    #animaciones de los npcs
+                npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
 
             for e in self.objetos:                                      #si chocas al objeto lo coges (provisional)
                 if self.pj.rect_col.colliderect(e.rect) and not e.taken:
@@ -67,15 +67,15 @@ class Pantalla1(Scene):
 
 
     def on_draw(self, screen):
-        screen.blit(self.background, self.camera.apply(self.background.get_rect()))
-        for o in self.npcs:
-            screen.blit(o.image, self.camera.apply(o.rect))
-        for i in self.ingame_elemets:
-            screen.blit(i.image, self.camera.apply(i.rect_spr))
-        for e in self.objetos:
-            if not e.taken:
-                screen.blit(e.image, self.camera.apply(e.rect))
-        #dibujo de fondo necesario para limpiar los menus (un poco chapuza, a si que provisional)
+        # screen.blit(self.background, self.camera.apply(self.background.get_rect()))
+        # for o in self.npcs:
+        #     screen.blit(o.image, self.camera.apply(o.rect))
+        # for i in self.ingame_elemets:
+        #     screen.blit(i.image, self.camera.apply(i.rect_spr))
+        # for e in self.objetos:
+        #     if not e.taken:
+        #         screen.blit(e.image, self.camera.apply(e.rect))
+        # #dibujo de fondo necesario para limpiar los menus (un poco chapuza, a si que provisional)
 
         self.text.displays(screen)  #funcion que controla que se dibujen los textos y menus
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:

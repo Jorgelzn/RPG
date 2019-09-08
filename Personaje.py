@@ -140,10 +140,10 @@ class Personaje(sprite.Sprite):
             for e in self.objects:
                 pos=text.posInventario[text.selecPos[0]][text.selecPos[1]].topleft
                 if e.taken and pos==e.rectInvent.topleft:
-                    pygame.mixer_music.load(Sonido().flute)
+                    pygame.mixer.music.load("sonidos/ost/Saria song.mp3")
                     pygame.mixer.music.play()
                     self.action= True
         elif self.action and keys[K_c]:             #vuelves a pulsar c y la accion se detiene
             self.action=False
-            pygame.mixer_music.load(soundtrack)
+            pygame.mixer.music.load(soundtrack)
             pygame.mixer.music.play()
