@@ -6,6 +6,7 @@ class Npc:
         self.spriteSheet = pygame.image.load(imagen).convert_alpha()
         self.image = self.spriteSheet.subsurface(0,0,w,h)
         self.rect = pygame.Rect(x, y, w, h)
+        self.rect_col = pygame.Rect(x+5, y+h-20, w-10, 20)
         self.rect_accion = pygame.Rect(x-20, y-20, w+40, h+40)
         self.frames = 4               # Número máximo de imágenes
         self.current_frame = 0        # Imagen actual
@@ -45,6 +46,7 @@ class Npc:
         if self.pos_valida(mapa,pj):
             self.rect = self.rect.move(offset) # avanzamos
             self.rect_accion = self.rect_accion.move(offset)
+            self.rect_col = self.rect_col.move(offset)
             #ponemos velocidad baja:
             offset = list(offset)
             if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
@@ -53,10 +55,11 @@ class Npc:
         while not self.pos_valida(mapa, pj): # mientras la posición no sea válida
             self.rect = self.rect.move(offset) # retrocedemos poco a poco
             self.rect_accion = self.rect_accion.move(offset)
+            self.rect_col = self.rect_col.move(offset)
 
 
     def pos_valida(self, mapa, pj):
-        return not self.rect.colliderect(pj) and self.rect.top>=0 and \
+        return not self.rect_col.colliderect(pj) and self.rect.top>=0 and \
             self.rect.left>=0 and self.rect.right<=mapa[0] and self.rect.bottom<=mapa[1]
 
 

@@ -10,6 +10,7 @@ class Personaje(sprite.Sprite):
         #Init de Sprite
         sprite.Sprite.__init__(self)
 
+        self.order=True
 
         # Variables para nuestro control del sprite:
         self.frames = 4               # Número máximo de imágenes
@@ -38,98 +39,105 @@ class Personaje(sprite.Sprite):
 
 
     def update(self, dt, keys, mapa, obs,sound):
+        
+        for e in obs:
+            if self.rect_spr.colliderect(e.rect_accion):
+                if self.rect_col.centery<e.rect_col.centery:
+                    self.order=False
+                else:
+                    self.order=True
 
-            if keys[K_LSHIFT]:      #con la tecla pulsada aumenta la velocidad
-                self.speedx=10
-                self.speedy=10
-                FPSPRITE=3
-            else:
-                self.speedx=5
-                self.speedy=5
-                FPSPRITE=10
+        if keys[K_LSHIFT]:      #con la tecla pulsada aumenta la velocidad
+            self.speedx=10
+            self.speedy=10
+            FPSPRITE=3
+        else:
+            self.speedx=5
+            self.speedy=5
+            FPSPRITE=10
 
             # animaciones:
-            if self.frame_counter == 0:
-                self.current_frame = (self.current_frame + 1) % self.frames # siguiente sprite
-                self.frame_counter = FPSPRITE
-            else:
-                self.frame_counter -= 1
+        if self.frame_counter == 0:
+            self.current_frame = (self.current_frame + 1) % self.frames # siguiente sprite
+            self.frame_counter = FPSPRITE
+        else:
+            self.frame_counter -= 1
 
-            if self.action:                 #(solo para flauta provisional) animaciones de tocar la flauta
-                if self.current_frame==0 or self.current_frame==2:
-                    self.image = pygame.image.load("imagenes/personajes/actions/flute/flute.png").convert_alpha()
-                elif self.current_frame==1:
-                    self.image = pygame.image.load("imagenes/personajes/actions/flute/flute2.png").convert_alpha()
-                elif self.current_frame==3:
-                    self.image = pygame.image.load("imagenes/personajes/actions/flute/flute3.png").convert_alpha()
-            else:
+        if self.action:                 #(solo para flauta provisional) animaciones de tocar la flauta
+            if self.current_frame==0 or self.current_frame==2:
+                self.image = pygame.image.load("imagenes/personajes/actions/flute/flute.png").convert_alpha()
+            elif self.current_frame==1:
+                self.image = pygame.image.load("imagenes/personajes/actions/flute/flute2.png").convert_alpha()
+            elif self.current_frame==3:
+                self.image = pygame.image.load("imagenes/personajes/actions/flute/flute3.png").convert_alpha()
+        else:
             # si no se está moviendo, ponemos sprite normal:
-                if not (keys[K_s] or keys[K_a] or keys[K_d] or keys[K_w]):
-                    if self.lastdir[0]:
-                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                                  5*self.frame_height, # fila 6,
-                                                                  self.frame_width, self.frame_height))
-                    elif self.lastdir[1]:
-                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                                  self.frame_height, # fila 1,
-                                                                  self.frame_width, self.frame_height))
-                    elif self.lastdir[2]:
-                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                                  7*self.frame_height, # fila 7,
-                                                                  self.frame_width, self.frame_height))
-                    elif self.lastdir[3]:
-                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                                  3*self.frame_height, # fila 3,
-                                                                  self.frame_width, self.frame_height))
-                elif keys[K_s] and not keys[K_a] and not keys[K_d] and not keys[K_w]:
+            if not (keys[K_s] or keys[K_a] or keys[K_d] or keys[K_w]):
+                if self.lastdir[0]:
                     self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                              0, # fila 0
+                                                              5*self.frame_height, # fila 6,
                                                               self.frame_width, self.frame_height))
-                    for e in range(4):
-                        self.lastdir[e]=False
-                    self.lastdir[1]=True
-                    self.move((0, self.speedy), mapa, obs,sound)
-                elif keys[K_a] and not keys[K_s] and not keys[K_d] and not keys[K_w]:
+                elif self.lastdir[1]:
                     self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                              2*self.frame_height, # fila 2
+                                                              self.frame_height, # fila 1,
                                                               self.frame_width, self.frame_height))
-                    for e in range(4):
-                        self.lastdir[e]=False
-                    self.lastdir[3]=True
-                    self.move((-self.speedx, 0), mapa, obs,sound)
-                elif keys[K_d] and not keys[K_a] and not keys[K_s] and not keys[K_w]:
+                elif self.lastdir[2]:
                     self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                              6*self.frame_height, # fila 6
+                                                              7*self.frame_height, # fila 7,
                                                               self.frame_width, self.frame_height))
-                    for e in range(4):
-                        self.lastdir[e]=False
-                    self.lastdir[2]=True
-                    self.move((self.speedx, 0), mapa, obs,sound)
-                elif keys[K_w] and not keys[K_a] and not keys[K_d] and not keys[K_s]:
+                elif self.lastdir[3]:
                     self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                              4*self.frame_height, # fila 4
+                                                              3*self.frame_height, # fila 3,
                                                               self.frame_width, self.frame_height))
-                    for e in range(4):
-                        self.lastdir[e]=False
-                    self.lastdir[0]=True
-                    self.move((0,-self.speedy), mapa, obs,sound)
-                else: # quedarse quieto
-                    if self.lastdir[0]:
-                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                                5*self.frame_height, # fila 5
-                                                                self.frame_width, self.frame_height))
-                    if self.lastdir[1]:
-                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                                1*self.frame_height, # fila 1
-                                                                self.frame_width, self.frame_height))
-                    if self.lastdir[2]:
-                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                                7*self.frame_height, # fila 7
-                                                                self.frame_width, self.frame_height))
-                    if self.lastdir[3]:
-                        self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                                3*self.frame_height, # fila 3
-                                                                self.frame_width, self.frame_height))
+            elif keys[K_s] and not keys[K_a] and not keys[K_d] and not keys[K_w]:
+                self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          0, # fila 0
+                                                          self.frame_width, self.frame_height))
+                for e in range(4):
+                    self.lastdir[e]=False
+                self.lastdir[1]=True
+                self.move((0, self.speedy), mapa, obs,sound)
+            elif keys[K_a] and not keys[K_s] and not keys[K_d] and not keys[K_w]:
+                self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          2*self.frame_height, # fila 2
+                                                          self.frame_width, self.frame_height))
+                for e in range(4):
+                    self.lastdir[e]=False
+                self.lastdir[3]=True
+                self.move((-self.speedx, 0), mapa, obs,sound)
+            elif keys[K_d] and not keys[K_a] and not keys[K_s] and not keys[K_w]:
+                self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          6*self.frame_height, # fila 6
+                                                          self.frame_width, self.frame_height))
+                for e in range(4):
+                    self.lastdir[e]=False
+                self.lastdir[2]=True
+                self.move((self.speedx, 0), mapa, obs,sound)
+            elif keys[K_w] and not keys[K_a] and not keys[K_d] and not keys[K_s]:
+                self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                          4*self.frame_height, # fila 4
+                                                          self.frame_width, self.frame_height))
+                for e in range(4):
+                    self.lastdir[e]=False
+                self.lastdir[0]=True
+                self.move((0,-self.speedy), mapa, obs,sound)
+            else: # quedarse quieto
+                if self.lastdir[0]:
+                    self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                            5*self.frame_height, # fila 5
+                                                            self.frame_width, self.frame_height))
+                if self.lastdir[1]:
+                    self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                            1*self.frame_height, # fila 1
+                                                            self.frame_width, self.frame_height))
+                if self.lastdir[2]:
+                    self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                            7*self.frame_height, # fila 7
+                                                            self.frame_width, self.frame_height))
+                if self.lastdir[3]:
+                    self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                            3*self.frame_height, # fila 3
+                                                            self.frame_width, self.frame_height))
 
     def move(self, offset, mapa, obs,sound):
         if self.pos_valida(mapa,obs):
@@ -147,8 +155,15 @@ class Personaje(sprite.Sprite):
 
 
     def pos_valida(self, mapa, obs):
-        return self.rect_col.collidelist(obs)==-1 and self.rect_spr.top>=0 and \
-            self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]
+        counter = 0
+        for e in obs:
+            if not self.rect_col.colliderect(e.rect_col) and self.rect_spr.top>=0 and \
+            self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]:
+                counter+=1
+        if counter==len(obs):
+            return True
+        else:
+            return False
 
 
     def objectAct(self,keys,soundtrack,text):     #controla lo que hace el pj con el objeto equipado
