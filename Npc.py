@@ -18,8 +18,6 @@ class Npc:
         self.x=x
         self.y=y
 
-        self.name = imagen
-
     def animation(self):
         if self.frame_counter == 0:
             self.current_frame = (self.current_frame + 1) % self.frames # siguiente sprite
