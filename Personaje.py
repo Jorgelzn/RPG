@@ -115,9 +115,10 @@ class Personaje(sprite.Sprite):
                                                             self.frame_width, self.frame_height))
 
     def move(self, offset, mapa, obs,sound):
-        if self.pos_valida(mapa,obs):
-            self.rect_spr = self.rect_spr.move(offset) # avanzamos
-            self.rect_col = self.rect_col.move(offset)
+        #if self.pos_valida(mapa,obs):
+        if True:
+            self.rect_col = self.rect_col.move(offset) # avanzamos
+
             sound.play()
             #ponemos velocidad baja:
             offset = list(offset)
@@ -125,9 +126,9 @@ class Personaje(sprite.Sprite):
             if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
 
         while not self.pos_valida(mapa, obs): # mientras la posición no sea válida
-            self.rect_spr = self.rect_spr.move(offset) # retrocedemos poco a poco
-            self.rect_col = self.rect_col.move(offset)
-
+            self.rect_col = self.rect_col.move(offset) # retrocedemos poco a poco
+            
+        self.rect_spr.bottomleft = self.rect_col.bottomleft
 
     def pos_valida(self, mapa, obs):
         counter = 0

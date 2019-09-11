@@ -18,6 +18,8 @@ class Npc:
         self.x=x
         self.y=y
 
+        self.name = imagen
+
     def animation(self):
         if self.frame_counter == 0:
             self.current_frame = (self.current_frame + 1) % self.frames # siguiente sprite
@@ -44,19 +46,17 @@ class Npc:
 
     def move(self, offset, mapa, pj):
         if self.pos_valida(mapa,pj):
-            self.rect = self.rect.move(offset) # avanzamos
-            self.rect_accion = self.rect_accion.move(offset)
-            self.rect_col = self.rect_col.move(offset)
+            self.rect_col = self.rect_col.move(offset) # avanzamos
             #ponemos velocidad baja:
             offset = list(offset)
             if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
             if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
 
         while not self.pos_valida(mapa, pj): # mientras la posición no sea válida
-            self.rect = self.rect.move(offset) # retrocedemos poco a poco
-            self.rect_accion = self.rect_accion.move(offset)
-            self.rect_col = self.rect_col.move(offset)
+            self.rect_col = self.rect_col.move(offset) # retrocedemos poco a poco
 
+        self.rect.bottomleft = self.rect_col.bottomleft
+        self.rect_accion.bottomleft = self.rect_col.bottomleft
 
     def pos_valida(self, mapa, pj):
         return not self.rect_col.colliderect(pj) and self.rect.top>=0 and \
@@ -74,10 +74,12 @@ class Npc:
             self.move((0, -5), mapa, pj)
 
         if abs(self.rect.centerx-self.x)>=200:
-            self.direccion == "abajo"
+            self.direccion = "abajo"
         if abs(self.rect.centery-self.y)>=200 and self.direccion == "abajo":
-            self.direccion == "izquierda"
-        if abs(self.rect.centerx-self.x)<=5 and self.direccion == "izquierda"
-            self.direccion == "arriba"
+            self.direccion = "izquierda"
+        if abs(self.rect.centerx-self.x)<=5 and self.direccion == "izquierda":
+            self.direccion = "arriba"
         if abs(self.rect.centery-self.y)<=5 and self.direccion == "arriba":
-            self.direccion == "derecha"
+            self.direccion = "derecha"
+
+
