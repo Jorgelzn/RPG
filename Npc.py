@@ -13,7 +13,7 @@ class Npc:
         self.frame_width = w         # Anchura de la imagen
         self.frame_height = h       # Altura de la imagen
         self.frame_counter = FPSPRITE # Nº de frames por imagen
-        self.trayectoria = [True,False,False,False] #derecha,abajo,izquierda,arriba
+        self.direccion = "derecha" # puede ser "arriba", "abajo", "derecha", "izquierda"
         self.dialog=dialog
         self.x=x
         self.y=y
@@ -25,21 +25,21 @@ class Npc:
         else:
             self.frame_counter -= 1
 
-        if self.trayectoria[0]:
-            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      6*self.frame_height, # fila 6,
-                                                      self.frame_width, self.frame_height))
-        if self.trayectoria[1]:
+        if self.direccion == "abajo":
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                       0*self.frame_height, # fila 0,
                                                       self.frame_width, self.frame_height))
-        if self.trayectoria[2]:
+        if self.direccion == "izquierda":
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      2*self.frame_height, # fila 1,
+                                                      2*self.frame_height, # fila 2,
                                                       self.frame_width, self.frame_height))
-        if self.trayectoria[3]:
+        if self.direccion == "arriba":
             self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
-                                                      4*self.frame_height, # fila 2,
+                                                      4*self.frame_height, # fila 4,
+                                                      self.frame_width, self.frame_height))
+        if self.direccion == "derecha":
+            self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
+                                                      6*self.frame_height, # fila 6,
                                                       self.frame_width, self.frame_height))
 
     def move(self, offset, mapa, pj):
@@ -64,24 +64,20 @@ class Npc:
 
 
     def camino1(self,mapa, pj):             #camino predeterminado que pueden recorrer los npcs
-        if self.trayectoria[0]:
+        if self.direccion == "derecha":
             self.move((5, 0), mapa, pj)
-        elif self.trayectoria[1]:
+        elif self.direccion == "abajo":
             self.move((0, 5), mapa, pj)
-        elif self.trayectoria[2]:
+        elif self.direccion == "izquierda":
             self.move((-5, 0), mapa, pj)
-        elif self.trayectoria[3]:
+        elif self.direccion == "arriba":
             self.move((0, -5), mapa, pj)
 
         if abs(self.rect.centerx-self.x)>=200:
-            self.trayectoria = [False,False,False,False]
-            self.trayectoria[1]=True
-        if abs(self.rect.centery-self.y)>=200 and self.trayectoria[1]:
-            self.trayectoria = [False,False,False,False]
-            self.trayectoria[2]=True
-        if abs(self.rect.centerx-self.x)<=5 and self.trayectoria[2]:
-            self.trayectoria = [False,False,False,False]
-            self.trayectoria[3]=True
-        if abs(self.rect.centery-self.y)<=5 and self.trayectoria[3]:
-            self.trayectoria = [False,False,False,False]
-            self.trayectoria[0]=True
+            self.direccion == "abajo"
+        if abs(self.rect.centery-self.y)>=200 and self.direccion == "abajo":
+            self.direccion == "izquierda"
+        if abs(self.rect.centerx-self.x)<=5 and self.direccion == "izquierda"
+            self.direccion == "arriba"
+        if abs(self.rect.centery-self.y)<=5 and self.direccion == "arriba":
+            self.direccion == "derecha"
