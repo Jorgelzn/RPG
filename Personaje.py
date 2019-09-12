@@ -18,21 +18,22 @@ class Personaje(sprite.Sprite):
         self.frame_width = 82         # Anchura de la imagen
         self.frame_height = 128       # Altura de la imagen
         self.frame_counter = FPSPRITE # Nº de frames por imagen
-        # Rectángulo para el sprite:
-        self.rect_spr = pygame.Rect(x,y-self.frame_height+20,self.frame_width,self.frame_height)
+
+        # Rectángulos para el personaje:
+        self.rect_spr = pygame.Rect(x,y-self.frame_height+20,self.frame_width,self.frame_height) # para el sprite
+        self.rect_col = pygame.Rect(x,y,self.frame_width,20) # collision box
+
         # Cargamos la hoja completa de sprites del personaje.
         # Se realiza convert_alpha() para que tenga en cuenta transparencias (capa alpha)
-        self.lastdir = None # puede ser "arriba", "abajo", "derecha", "izquierda", None
-
         self.spriteSheet = pygame.image.load("imagenes/personajes/Moki_sheet.png").convert_alpha()
         # "image" se corresponde con la imagen actual a mostrar.
         self.image = self.spriteSheet.subsurface(0,0,self.frame_width,self.frame_height)
-        # Collision box:
-        self.rect_col = pygame.Rect(x,y,self.frame_width,20)
 
         # Control del movimiento:
         self.speedx = 5
         self.speedy = 5
+
+        self.lastdir = None # puede ser "arriba", "abajo", "derecha", "izquierda", None        
 
         self.objects=[]         #objetos del personaje
         self.action=False       #controla si el pj esta haciendo algo
@@ -115,19 +116,18 @@ class Personaje(sprite.Sprite):
                                                             self.frame_width, self.frame_height))
 
     def move(self, offset, mapa, obs,sound):
-        #if self.pos_valida(mapa,obs):
-        if True:
-            self.rect_col = self.rect_col.move(offset) # avanzamos
-
-            sound.play()
-            #ponemos velocidad baja:
-            offset = list(offset)
-            if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
-            if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
+        # Movemos la collision box y cuando está en su sitio bueno, movemos lo demás
+        self.rect_col = self.rect_col.move(offset) # avanzamos
+        sound.play()
+        #ponemos velocidad baja:
+        offset = list(offset)
+        if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
+        if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
 
         while not self.pos_valida(mapa, obs): # mientras la posición no sea válida
             self.rect_col = self.rect_col.move(offset) # retrocedemos poco a poco
             
+        # Movemos lo demás:
         self.rect_spr.bottomleft = self.rect_col.bottomleft
 
     def pos_valida(self, mapa, obs):

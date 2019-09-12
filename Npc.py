@@ -43,18 +43,19 @@ class Npc:
                                                       self.frame_width, self.frame_height))
 
     def move(self, offset, mapa, pj):
-        if self.pos_valida(mapa,pj):
-            self.rect_col = self.rect_col.move(offset) # avanzamos
-            #ponemos velocidad baja:
-            offset = list(offset)
-            if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
-            if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
+        # Movemos la collision box y cuando está en su sitio bueno, movemos lo demás
+        self.rect_col = self.rect_col.move(offset) # avanzamos
+        #ponemos velocidad baja:
+        offset = list(offset)
+        if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
+        if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
 
         while not self.pos_valida(mapa, pj): # mientras la posición no sea válida
             self.rect_col = self.rect_col.move(offset) # retrocedemos poco a poco
 
-        self.rect.bottomleft = self.rect_col.bottomleft
-        self.rect_accion.bottomleft = self.rect_col.bottomleft
+        # Movemos lo demás:
+        self.rect.bottomleft = (self.rect_col.left-10, self.rect_col.bottom)
+        self.rect_accion.bottomleft = (self.rect.left-20, self.rect.bottom+20)
 
     def pos_valida(self, mapa, pj):
         return not self.rect_col.colliderect(pj) and self.rect.top>=0 and \
