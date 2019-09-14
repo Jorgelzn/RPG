@@ -116,8 +116,8 @@ class Personaje(sprite.Sprite):
                                                             self.frame_width, self.frame_height))
 
     def move(self, offset, mapa, obs,sound):
-        # Movemos la collision box y cuando está en su sitio bueno, movemos lo demás
         self.rect_col = self.rect_col.move(offset) # avanzamos
+        self.rect_spr = self.rect_spr.move(offset)
         sound.play()
         #ponemos velocidad baja:
         offset = list(offset)
@@ -126,21 +126,11 @@ class Personaje(sprite.Sprite):
 
         while not self.pos_valida(mapa, obs): # mientras la posición no sea válida
             self.rect_col = self.rect_col.move(offset) # retrocedemos poco a poco
-            
-        # Movemos lo demás:
-        self.rect_spr.bottomleft = self.rect_col.bottomleft
+            self.rect_spr = self.rect_spr.move(offset)
 
     def pos_valida(self, mapa, obs):
-        counter = 0
-        for e in obs:
-            if not self.rect_col.colliderect(e.rect_col) and self.rect_spr.top>=0 and \
-            self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]:
-                counter+=1
-        if counter==len(obs):
-            return True
-        else:
-            return False
-
+        return self.rect_col.collidelist([npc.rect_col for npc in obs])==-1 and self.rect_spr.top>=0 and \
+            self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]
 
     def objectAct(self,keys,soundtrack,text):     #controla lo que hace el pj con el objeto equipado
         if keys[K_c] and not self.action and not text.display and not text.displayInventario and not text.displayMap and not text.displayMenu:
