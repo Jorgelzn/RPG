@@ -25,7 +25,7 @@ class Pantalla1(Scene):
             Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,174,120)
         ]
         self.obs=[
-            Obstaculo(0,0,200,200)
+            Obstaculo(780,520,155,100)
         ]
         self.text=Text(self.pj)
 
@@ -91,7 +91,7 @@ class Pantalla1(Scene):
         self.text.displays(screen)  #funcion que controla que se dibujen los textos y menus
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             self.dibujarElementos(screen)
-            #pygame.draw.rect(screen, (0,100,200), self.camera.apply(self.pj.rect_col))
+            pygame.draw.rect(screen, (0,100,200), self.camera.apply(self.obs[0].rect))
 
 
 class Pantalla2(Scene):

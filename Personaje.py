@@ -129,8 +129,13 @@ class Personaje(sprite.Sprite):
             self.rect_spr = self.rect_spr.move(offset)
 
     def pos_valida(self, mapa, npcs, obs, objs):
-        return self.rect_col.collidelist([npc.rect_col for npc in npcs])==-1 and self.rect_col.collidelist([ob.rect for ob in obs])==-1 and self.rect_col.collidelist([obj.rect for obj in objs])==-1 and self.rect_spr.top>=0 and \
-            self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]
+        a = self.rect_col.collidelist([npc.rect_col for npc in npcs])==-1 and self.rect_col.collidelist([ob.rect for ob in obs])==-1 and self.rect_spr.top>=0 and self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]
+        b=True
+        for e in objs:
+            if self.rect_col.colliderect(e.rect) and e.taken==False:
+                b= False
+        return a and b
+
 
     def objectAct(self,keys,soundtrack,text):     #controla lo que hace el pj con el objeto equipado
         if keys[K_c] and not self.action and not text.display and not text.displayInventario and not text.displayMap and not text.displayMenu:
