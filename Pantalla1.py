@@ -11,9 +11,12 @@ from Escenario import *
 
 class Pantalla1(Scene):
 
-    def __init__(self, map, image):
+    def __init__(self, map, image,pj=None):
         Scene.__init__(self, map, image)
-        self.pj = Personaje(pjx, pjy)
+        if pj==None:
+            self.pj = Personaje(pjx, pjy)
+        else:
+            self.pj=pj
         self.sonido = Sonido()
         self.npcs = [
             Npc("imagenes/personajes/paperi_sheet.png",["hola","soy paperi","buenos dias","ven a nuestra tienda","vendemos pan"], 600, 100, 68, 189),
@@ -124,7 +127,7 @@ class Pantalla2(Scene):
 
 
         if keys[K_l]:                           #provisional:pulsando l cambiamos de escena
-                director.change_scene(Pantalla2(map2,"imagenes/mapas/test.png",self.pj))
+                director.change_scene(Pantalla1(map1,"imagenes/mapas/city.jpg",self.pj))
 
 
     def on_event(self,keys,director):
