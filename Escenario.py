@@ -14,7 +14,7 @@ class Objeto:
         self.image = pygame.image.load(imagen).convert_alpha()
         self.image = pygame.transform.scale(self.image, (w,h))
         self.rect = self.image.get_rect()
-        self.action_rect = pygame.Rect(x,y,w+50,h+50)
+        self.action_rect = pygame.Rect(x-20,y-20,w+40,h+40)
         self.rect.topleft = (x,y)
         self.taken = taken
         self.imageInvent=pygame.transform.scale(self.image,(size,size))

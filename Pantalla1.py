@@ -100,15 +100,8 @@ class Pantalla2(Scene):
         Scene.__init__(self, map, image)
         self.pj = pj
         self.sonido = Sonido()
-        self.npcs = [
-            Npc("imagenes/personajes/paperi_sheet.png",["hola","soy paperi","buenos dias","ven a nuestra tienda","vendemos pan"], 600, 100, 68, 189),
-            Npc("imagenes/personajes/Peto_sheet.png",["paperi siempre esta igual","deberiamos llamarnos peto y paperi","mamahuevo"],500, 600, 114, 145),
-            Npc("imagenes/personajes/Tapa_sheet.png",["me llamo Tapa :D","vente luego a jugar", "miau"],1200, 600, 68, 77),
-            Npc("imagenes/personajes/Kea_sheet.png",["me preocupan peto y paperi","no paran de pelear","jopé"],1200, 200, 84, 131)
-        ]
-        self.objetos=[
-            Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,174,120)
-        ]
+        self.npcs = []
+        self.objetos=[]
         self.obs=[
             Obstaculo(0,0,200,200)
         ]
