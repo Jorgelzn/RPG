@@ -33,15 +33,15 @@ class Personaje(sprite.Sprite):
         self.speedx = 5
         self.speedy = 5
 
-        self.lastdir = None # puede ser "arriba", "abajo", "derecha", "izquierda", None        
+        self.lastdir = None # puede ser "arriba", "abajo", "derecha", "izquierda", None
 
         self.objects=[]         #objetos del personaje
         self.action=False       #controla si el pj esta haciendo algo
 
 
-    def update(self, dt, keys, mapa, obs,sound):
-        
-        for e in obs:
+    def update(self, dt, keys, mapa,npcs,obs,objs,sound):
+
+        for e in npcs:
             if self.rect_spr.colliderect(e.rect_accion):
                 if self.rect_col.centery<e.rect_col.centery:
                     self.order=False
@@ -77,26 +77,26 @@ class Personaje(sprite.Sprite):
                                                           0, # fila 0
                                                           self.frame_width, self.frame_height))
                 self.lastdir = "abajo"
-                self.move((0, self.speedy), mapa, obs,sound)
+                self.move((0, self.speedy), mapa, npcs, obs,objs, sound)
             elif keys[K_a] and not keys[K_s] and not keys[K_d] and not keys[K_w]: # pulsando solo la a
                 self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                           2*self.frame_height, # fila 2
                                                           self.frame_width, self.frame_height))
                 self.lastdir = "izquierda"
-                self.move((-self.speedx, 0), mapa, obs,sound)
+                self.move((-self.speedx, 0), mapa, npcs, obs,objs, sound)
             elif keys[K_w] and not keys[K_a] and not keys[K_d] and not keys[K_s]: # pulsando solo la w
                 self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                           4*self.frame_height, # fila 4
                                                           self.frame_width, self.frame_height))
                 self.lastdir = "arriba"
-                self.move((0,-self.speedy), mapa, obs,sound)
+                self.move((0,-self.speedy), mapa, npcs, obs,objs, sound)
             elif keys[K_d] and not keys[K_a] and not keys[K_s] and not keys[K_w]: # pulsando solo la d
                 self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                           6*self.frame_height, # fila 6
                                                           self.frame_width, self.frame_height))
                 self.lastdir = "derecha"
-                self.move((self.speedx, 0), mapa, obs,sound)
-            
+                self.move((self.speedx, 0), mapa, npcs, obs,objs, sound)
+
             else: # ninguna tecla o más de una: quedarse quieto
                 if self.lastdir == "abajo" or self.lastdir == None:
                     self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
@@ -115,7 +115,7 @@ class Personaje(sprite.Sprite):
                                                             7*self.frame_height, # fila 7
                                                             self.frame_width, self.frame_height))
 
-    def move(self, offset, mapa, obs,sound):
+    def move(self, offset, mapa, npcs, obs, objs,sound):
         self.rect_col = self.rect_col.move(offset) # avanzamos
         self.rect_spr = self.rect_spr.move(offset)
         sound.play()
@@ -124,12 +124,12 @@ class Personaje(sprite.Sprite):
         if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
         if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
 
-        while not self.pos_valida(mapa, obs): # mientras la posición no sea válida
+        while not self.pos_valida(mapa, npcs, obs, objs): # mientras la posición no sea válida
             self.rect_col = self.rect_col.move(offset) # retrocedemos poco a poco
             self.rect_spr = self.rect_spr.move(offset)
 
-    def pos_valida(self, mapa, obs):
-        return self.rect_col.collidelist([npc.rect_col for npc in obs])==-1 and self.rect_spr.top>=0 and \
+    def pos_valida(self, mapa, npcs, obs, objs):
+        return self.rect_col.collidelist([npc.rect_col for npc in npcs])==-1 and self.rect_col.collidelist([ob.rect for ob in obs])==-1 and self.rect_col.collidelist([obj.rect for obj in objs])==-1 and self.rect_spr.top>=0 and \
             self.rect_spr.left>=0 and self.rect_spr.right<=mapa[0] and self.rect_spr.bottom<=mapa[1]
 
     def objectAct(self,keys,soundtrack,text):     #controla lo que hace el pj con el objeto equipado

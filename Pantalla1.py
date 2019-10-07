@@ -27,6 +27,9 @@ class Pantalla1(Scene):
         self.objetos=[
             Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,174,120)
         ]
+        self.obs=[
+            Obstaculo(0,0,200,200)
+        ]
         self.text=Text(self.pj)
 
         self.soundtrack= self.sonido.soundtrack1
@@ -38,16 +41,12 @@ class Pantalla1(Scene):
 
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:        #si no estamos mostrando texto
             self.camera.update(self.pj)     #update a la camara
-            self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs,self.sonido.grass) #update del personaje
+            self.ingame_elemets.update(time/1000, keys,self.mapa,self.npcs,self.obs, self.objetos,self.sonido.grass) #update del personaje
 
             for npc in self.npcs:
                 npc.animation()    #animaciones de los npcs
                 npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
 
-            for e in self.objetos:                                      #si chocas al objeto lo coges (provisional)
-                if self.pj.rect_col.colliderect(e.rect) and not e.taken:
-                    self.pj.objects.append(e)
-                    e.taken=True
 
         if keys[K_l]:                           #provisional:pulsando l cambiamos de escena
                 return Pantalla2(map2,"imagenes/mapas/test.png",self.pj)
@@ -60,6 +59,11 @@ class Pantalla1(Scene):
             for npc in self.npcs:
                 if self.pj.rect_spr.colliderect(npc.rect_accion):
                     self.text.dialog(npc.dialog)
+            for ob in self.objetos:
+                if self.pj.rect_spr.colliderect(ob.action_rect) and not ob.taken:
+                    self.pj.objects.append(ob)
+                    ob.taken=True
+
 
         self.text.menu(keys,self.pj,director)     #control del menu
         self.pj.objectAct(keys,self.soundtrack,self.text)   #accion que realiza el personaje con los objetos (actualizable)
