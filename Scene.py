@@ -9,9 +9,10 @@ class Scene:
     '''
 
     def __init__(self,map,image):
-
+        self.mapa = map
         self.camera = Camara.Camera(Camara.complex_camera,map)
         self.background = pygame.image.load(image).convert_alpha()
+        self.background = pygame.transform.scale(self.background,self.mapa)
     def on_update(self, time):
         ''' Actualización lógica que se llama automáticamente desde el director
         '''

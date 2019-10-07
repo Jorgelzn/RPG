@@ -118,7 +118,7 @@ class Personaje(sprite.Sprite):
     def move(self, offset, mapa, npcs, obs, objs,sound):
         self.rect_col = self.rect_col.move(offset) # avanzamos
         self.rect_spr = self.rect_spr.move(offset)
-        sound.play()
+        #sound.play()
         #ponemos velocidad baja:
         offset = list(offset)
         if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
