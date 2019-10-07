@@ -107,7 +107,7 @@ class Pantalla2(Scene):
         ]
         self.text=Text(self.pj)
 
-        self.soundtrack= self.sonido.soundtrack1
+        self.soundtrack= self.sonido.soundtrack2
         pygame.mixer.music.load(self.soundtrack)
         #pygame.mixer.music.play()
 
