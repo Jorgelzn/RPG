@@ -2,8 +2,9 @@ import pygame
 from Variables import *
 
 class Obstaculo:
-    def __init__(self, x=0, y=0, w=200, h=200):
+    def __init__(self, x=0, y=0, w=200, h=200, portal=False):
         self.rect = pygame.Rect(x, y, w, h)
+        self.portal=portal
         self.frame_width = w         # Anchura de la imagen
         self.frame_height = h       # Altura de la imagen
 

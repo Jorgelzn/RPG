@@ -11,12 +11,14 @@ from Escenario import *
 
 class Pantalla1(Scene):
 
-    def __init__(self, map, image,pj=None):
+    def __init__(self, map, image,pj=None,pos=None):
         Scene.__init__(self, map, image)
         if pj==None:
             self.pj = Personaje(pjx, pjy)
         else:
             self.pj=pj
+            self.pj.rect_col.topleft=(pos[0],pos[1])
+            self.pj.rect_spr.topleft=(pos[0],pos[1]-self.pj.frame_height+20)
         self.sonido = Sonido()
         self.npcs = [
             Npc("imagenes/personajes/paperi_sheet.png",["hola","soy paperi","buenos dias","ven a nuestra tienda","vendemos pan"], 600, 100, 68, 189),
@@ -28,7 +30,12 @@ class Pantalla1(Scene):
             Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,174,120)
         ]
         self.obs=[
-            Obstaculo(780,520,155,100)
+            Obstaculo(780,520,155,100),
+            Obstaculo(1080,520,155,100),
+            Obstaculo(0,400,50,130,True),
+            Obstaculo(680,self.mapa[1]-50,125,50,True),
+            Obstaculo(600,0,125,50,True)
+
         ]
         self.text=Text(self.pj)
 
@@ -45,11 +52,10 @@ class Pantalla1(Scene):
 
             for npc in self.npcs:
                 npc.animation()    #animaciones de los npcs
-                npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
+                npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisiona[3].rectl)
 
-
-        if keys[K_l]:                           #provisional:pulsando l cambiamos de escena
-                director.change_scene(Pantalla2(map2,"imagenes/mapas/forest.png",self.pj))
+            if self.pj.rect_col.colliderect(self.obs[2].rect) or self.pj.rect_col.colliderect(self.obs[3].rect) or  self.pj.rect_spr.colliderect(self.obs[4].rect):   #cambiamos de zona al chocar con los cuadrados de transporte
+                director.change_scene(Pantalla2(map2,"imagenes/mapas/forest.png",self.pj,(500,500)))
 
 
     def on_event(self,keys,director):
@@ -94,19 +100,23 @@ class Pantalla1(Scene):
         self.text.displays(screen)  #funcion que controla que se dibujen los textos y menus
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             self.dibujarElementos(screen)
-            pygame.draw.rect(screen, (0,100,200), self.camera.apply(self.obs[0].rect))
+            for e in self.obs:
+                pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles
 
 
 class Pantalla2(Scene):
 
-    def __init__(self, map, image,pj):
+    def __init__(self, map, image,pj,pos):
         Scene.__init__(self, map, image)
         self.pj = pj
+        self.pj.rect_col.topleft=(pos[0],pos[1])
+        self.pj.rect_spr.topleft=(pos[0],pos[1]-self.pj.frame_height+20)
         self.sonido = Sonido()
         self.npcs = []
         self.objetos=[]
         self.obs=[
-            Obstaculo(0,0,200,200)
+            Obstaculo(780,520,155,100),
+            Obstaculo(self.mapa[0]-150,self.mapa[1]-50,125,50,True)
         ]
         self.text=Text(self.pj)
 
@@ -125,9 +135,8 @@ class Pantalla2(Scene):
                 npc.animation()    #animaciones de los npcs
                 npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
 
-
-        if keys[K_l]:                           #provisional:pulsando l cambiamos de escena
-                director.change_scene(Pantalla1(map1,"imagenes/mapas/city.jpg",self.pj))
+            if self.pj.rect_col.colliderect(self.obs[1].rect):   #cambiamos de zona al chocar con los cuadrados de transporte
+                director.change_scene(Pantalla1(map1,"imagenes/mapas/city.jpg",self.pj,(500,500)))
 
 
     def on_event(self,keys,director):
@@ -172,4 +181,5 @@ class Pantalla2(Scene):
         self.text.displays(screen)  #funcion que controla que se dibujen los textos y menus
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             self.dibujarElementos(screen)
-            #pygame.draw.rect(screen, (0,100,200), self.camera.apply(self.pj.rect_col))
+            for e in self.obs:
+                pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect))  #draw colision obstacles
