@@ -3,24 +3,19 @@ from pygame.locals import *
 from Variables import *
 
 class Director:
-    '''Representa el objeto principal del juego.
-    El objeto Director mantiene en funcionamiento el juego, se
-    encarga de actualizar, dibuja y propagar eventos.
-    Tiene que utilizar este objeto en conjunto con objetos
-    derivados de Scene.'''
+    #main class of the game, it is where the game is executed
+    #in this class is the main loop of the game
 
     def __init__(self):
-        ''' En el init establecemos las características globales como
-            resolución, título de la ventana, etc"
-        '''
+
         self.screen = pygame.display.set_mode(ventana)
         pygame.display.set_caption("RPG")
         self.scene = None       #Escena actual
         self.quit_flag = False  #Control para el bucle de juego
         self.clock = pygame.time.Clock()
 
-    def loop(self):
-        ''' Bucle de juego'''
+    def loop(self):     #main loop
+
         while not self.quit_flag:
             time = self.clock.tick(30)  #PCMaster Race
             # Eventos que capturamos en cada momento
@@ -41,10 +36,8 @@ class Director:
             self.scene.on_draw(self.screen)
             pygame.display.update()
 
-    def change_scene(self, scene):
-        '''Altera la escena actual'''
+    def change_scene(self, scene):  #used to change the scene which is currently running
         self.scene = scene
 
-    def quit(self):
-        '''Para cuando queremos salir'''
+    def quit(self):    #used to get out of game
         self.quit_flag = True

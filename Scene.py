@@ -2,11 +2,7 @@ import Camara
 import pygame
 
 class Scene:
-    '''Representa un escena abstracta del videojuego.
-
-    Una escena es una parte visible del juego, como una pantalla
-    de presentación o menú de opciones.
-    '''
+    #abstract representation of the game scenes
 
     def __init__(self,map,image):
         self.mapa = map
@@ -14,15 +10,13 @@ class Scene:
         self.background = pygame.image.load(image).convert_alpha()
         self.background = pygame.transform.scale(self.background,self.mapa)
     def on_update(self, time):
-        ''' Actualización lógica que se llama automáticamente desde el director
-        '''
-        raise NotImplemented("Tiene que implementar el método on_update.")
+        #executed in every game loop, used to check events that can happen at any time
+        raise NotImplemented()
 
     def on_draw(self, screen):
-        ''' Se llama cuando se quiere dibujar la pantalla
-        '''
-        raise NotImplemented("Tiene que implementar el método on_draw.")
+        #used to draw on screen
+        raise NotImplemented()
 
     def on_event(self):
-
-        raise NotImplemented("Tiene que implementar el método on_event.")
+        #used to check events of keyboard or other events that happen due to a given action
+        raise NotImplemented()

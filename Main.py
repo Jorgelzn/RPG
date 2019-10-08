@@ -7,11 +7,11 @@ from Variables import *
 pygame.init()
 
 director = Director()
-#Creamos la instancia de la escena
+#create first scene
 scene = Pantalla1(map1,"imagenes/mapas/city.jpg")
-#Le decimos al director la escena que ejecutará
+#use the first scene
 director.change_scene(scene)
-#Y ponemos en marcha el juego!
+#start the main loop
 director.loop()
-#Al terminar el loop salimos de pygame:
+
 pygame.quit()
