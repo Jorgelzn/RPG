@@ -1,44 +1,28 @@
 from pygame.locals import *
 from Variables import *
 class Camera(object):
-    ''' Camera_func es el tipo de "seguir" que vamos
-        a hacer sobre el objeto.
-        map, tamaño total del mapa/escena, es decir,
-        si nuestra ventana es de 800x600 pero la escena de 1000x700,
-        pues ponemos 1000x700
-    '''
+
     def __init__(self, camera_func, map):
-        self.camera_func = camera_func
-        self.state = Rect(0, 0, map[0], map[1])
+        self.camera_func = camera_func   #macera_func is the type of camera we will use (simple or complex)
+        self.state = Rect(0, 0, map[0], map[1])   #map is the total size of the map (scene)
 
 
-
-    ''' Sobre qué objeto vamos a realizar el seguimiento.
-        Se puede cambiar "en vivo"
-    '''
-    def apply(self, targetrect):
+    def apply(self, targetrect):       #defines the objective that the camara will follow (can be changed in-live)
         return targetrect.move(self.state.topleft)
 
-    ''' Función a la que llamamos a la hora de hacer "update"
-        para desplazar el resto del mundo con respecto
-        a nuestro "objetivo".
-    '''
-    def update(self, target):
+
+    def update(self, target):     #when we update we move all the elements with repect to our objective
         self.state = self.camera_func(self.state, target.rect_spr)
 
-''' Cámara que sigue al objetivo, pero le
-    dan igual los límites de la ventana
-'''
-def simple_camera(camera, target_rect):
+
+def simple_camera(camera, target_rect):   #follow objective going away from limits of the window
     l, t, _, _ = target_rect
     _, _, w, h = camera
     return Rect(-l+ventana[0]//2, -t+ventana[1]//2, w, h)
 
-'''camara que sigue al objetivo respetando
-    los limites de la ventana
-'''
 
-def complex_camera(camera, target_rect):
+def complex_camera(camera, target_rect):  #camara that follows objective without going away of the limits of the window
+
     l, t, _, _ = target_rect
     _, _, w, h = camera
     l, t, _, _ = -l+ventana[0]//2, -t+ventana[1]//2, w, h
