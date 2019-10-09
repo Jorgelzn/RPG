@@ -55,7 +55,7 @@ class Pantalla1(Scene):
                 npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisiona[3].rectl)
 
             if self.pj.rect_col.colliderect(self.obs[2].rect) or self.pj.rect_col.colliderect(self.obs[3].rect) or  self.pj.rect_spr.colliderect(self.obs[4].rect):   #cambiamos de zona al chocar con los cuadrados de transporte
-                director.change_scene(Pantalla2(map2,"imagenes/mapas/forest.png",self.pj,(500,500)))
+                director.change_scene(Pantalla2(map2,"imagenes/mapas/forest.png",self.pj,(self.mapa[0]-150,self.mapa[1]+100)))
 
 
     def on_event(self,keys,director):
