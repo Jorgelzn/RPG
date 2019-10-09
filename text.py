@@ -137,7 +137,9 @@ class Text:
                 self.sonido.click.play()
                 f = open("save.txt","w")
                 f.write(str(pj.rect_spr.centerx)+'\n')
-                f.write(str(pj.rect_spr.centery))
+                f.write(str(pj.rect_spr.centery)+'\n')
+                for e in mapaG:
+                    f.write(str(e)+'\n')
                 f.close()
 
             self.selectorRect.center=self.posSelector[self.countSelector]   #asigna la posicion de los selectores

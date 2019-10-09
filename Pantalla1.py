@@ -13,6 +13,8 @@ class Pantalla1(Scene):
 
     def __init__(self, map, image,pj=None,pos=None):
         Scene.__init__(self, map, image)
+        mapaG[0]=1
+        mapaG[1]=0
         if pj==None:
             self.pj = Personaje(pjx, pjy)
         else:
@@ -41,7 +43,7 @@ class Pantalla1(Scene):
 
         self.soundtrack= self.sonido.soundtrack1
         pygame.mixer.music.load(self.soundtrack)
-        #pygame.mixer.music.play()
+        pygame.mixer.music.play()
 
 
     def on_update(self, time,keys,director):
@@ -106,11 +108,16 @@ class Pantalla1(Scene):
 
 class Pantalla2(Scene):
 
-    def __init__(self, map, image,pj,pos):
+    def __init__(self, map, image,pj=None,pos=None):
         Scene.__init__(self, map, image)
-        self.pj = pj
-        self.pj.rect_col.topleft=(pos[0],pos[1])
-        self.pj.rect_spr.topleft=(pos[0],pos[1]-self.pj.frame_height+20)
+        mapaG[0]=0
+        mapaG[1]=1
+        if pj==None:
+            self.pj = Personaje(pjx, pjy)
+        else:
+            self.pj=pj
+            self.pj.rect_col.topleft=(pos[0],pos[1])
+            self.pj.rect_spr.topleft=(pos[0],pos[1]-self.pj.frame_height+20)
         self.sonido = Sonido()
         self.npcs = []
         self.objetos=[]
@@ -122,7 +129,7 @@ class Pantalla2(Scene):
 
         self.soundtrack= self.sonido.soundtrack2
         pygame.mixer.music.load(self.soundtrack)
-        #pygame.mixer.music.play()
+        pygame.mixer.music.play()
 
 
     def on_update(self, time,keys,director):
