@@ -9,7 +9,7 @@ pygame.init()
 
 director = Director()
 #create first scene
-print(mapaG)
+
 if mapaG[0]==1:
     scene = Pantalla1(map1,"imagenes/mapas/city.jpg")
 elif mapaG[1]==1:
