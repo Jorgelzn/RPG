@@ -12,21 +12,16 @@ class Scene:
         self.background = pygame.transform.scale(self.background,self.mapa)
 
 
-    def on_update(self, time):
+    def on_update(self, time, keys, director):
         #executed in every game loop, used to check events that can happen at any time
-        raise NotImplemented()
 
+        if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:             #si no estamos mostrando texto
+            self.camera.update(self.pj)     #update a la camara
+            self.pj.update(time/1000, keys,self.mapa,self.npcs,self.obs, self.objetos,self.sonido.grass) #update del personaje
 
-    def on_draw(self, screen):
-        #used to draw on screen
-
-        self.dibujarElementos(screen)
-        #dibujo de fondo necesario para limpiar los menus
-        self.text.displays(screen)  #funcion que controla que se dibujen los textos y menus
-        if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
-            self.dibujarElementos(screen)
-            for e in self.obs:
-                pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles
+            for npc in self.npcs:
+                npc.animation()    #animaciones de los npcs
+                npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
 
 
     def on_event(self, keys, director):
@@ -43,6 +38,18 @@ class Scene:
 
         self.text.menu(keys,self.pj,director)     #control del menu
         self.pj.objectAct(keys,self.soundtrack,self.text)   #accion que realiza el personaje con los objetos (actualizable)
+
+
+    def on_draw(self, screen):
+        #used to draw on screen
+
+        self.dibujarElementos(screen)
+        #dibujo de fondo necesario para limpiar los menus
+        self.text.displays(screen)  #funcion que controla que se dibujen los textos y menus
+        if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
+            self.dibujarElementos(screen)
+            for e in self.obs:
+                pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles
 
 
 
