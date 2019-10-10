@@ -10,7 +10,7 @@ hierba = (50, 220, 50)
 
 # Otros:
 FPSPRITE = 10 # frames por sprite (personaje)
-
+#saving variables 
 f=open("save.txt","r")
 lines=f.readlines()
 pjx=int(lines[0])
