@@ -13,14 +13,13 @@ class Pantalla1(Scene):
 
     def __init__(self, map, image,pj=None,pos=None):
         Scene.__init__(self, map, image)
-        mapaG[0]=1
-        mapaG[1]=0
         if pj==None:
-            self.pj = Personaje(pjx, pjy)
+            self.pj = Personaje(1,pjx, pjy)
         else:
             self.pj=pj
             self.pj.rect_col.topleft=(pos[0],pos[1])
             self.pj.rect_spr.topleft=(pos[0],pos[1]-self.pj.frame_height+20)
+            self.pj.mapa=1
         self.sonido = Sonido()
         self.npcs = [
             Npc("imagenes/personajes/paperi_sheet.png",["hola","soy paperi","buenos dias","ven a nuestra tienda","vendemos pan"], 600, 100, 68, 189),
@@ -109,14 +108,13 @@ class Pantalla2(Scene):
 
     def __init__(self, map, image,pj=None,pos=None):
         Scene.__init__(self, map, image)
-        mapaG[0]=0
-        mapaG[1]=1
         if pj==None:
-            self.pj = Personaje(pjx, pjy)
+            self.pj = Personaje(2,pjx, pjy)
         else:
             self.pj=pj
             self.pj.rect_col.topleft=(pos[0],pos[1])
             self.pj.rect_spr.topleft=(pos[0],pos[1]-self.pj.frame_height+20)
+            self.pj.mapa=2
         self.sonido = Sonido()
         self.npcs = []
         self.objetos=[]

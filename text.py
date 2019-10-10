@@ -138,8 +138,7 @@ class Text:
                 f = open("save.txt","w")
                 f.write(str(pj.rect_spr.centerx)+'\n')
                 f.write(str(pj.rect_spr.centery)+'\n')
-                for e in mapaG:
-                    f.write(str(e)+'\n')
+                f.write(str(pj.mapa)+'\n')
                 for e in pj.objects:
                     f.write(str(e.taken)+'\n')
                 f.close()

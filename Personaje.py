@@ -7,7 +7,7 @@ from sonidos import Sonido
 
 class Personaje(sprite.Sprite):
 
-    def __init__(self, x=0, y=0):
+    def __init__(self,mapa, x=0, y=0,):
         #Init de Sprite
         sprite.Sprite.__init__(self)
 
@@ -33,7 +33,7 @@ class Personaje(sprite.Sprite):
         # Control del movimiento:
         self.speedx = 5
         self.speedy = 5
-
+        self.mapa = mapa
         self.lastdir = None # puede ser "arriba", "abajo", "derecha", "izquierda", None
 
         self.objects=[Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,174,120,objects[0])]         #objetos del personaje
