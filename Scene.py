@@ -10,6 +10,8 @@ class Scene:
         self.camera = Camara.Camera(Camara.complex_camera,map)
         self.background = pygame.image.load(image).convert_alpha()
         self.background = pygame.transform.scale(self.background,self.mapa)
+
+
     def on_update(self, time):
         #executed in every game loop, used to check events that can happen at any time
         raise NotImplemented()
@@ -38,7 +40,6 @@ class Scene:
             for ob in self.objetos:
                 if self.pj.rect_spr.colliderect(ob.action_rect) and not ob.taken:
                     ob.taken=True
-
 
         self.text.menu(keys,self.pj,director)     #control del menu
         self.pj.objectAct(keys,self.soundtrack,self.text)   #accion que realiza el personaje con los objetos (actualizable)
