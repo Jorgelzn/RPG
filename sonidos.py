@@ -3,9 +3,6 @@ import pygame
 class Sonido:
 
     def __init__(self):
-        self.soundtrack1 ="sonidos/ost/Moki_Town.mp3"
-        self.soundtrack2 ="sonidos/ost/abyss.mp3"
-        self.flute ="sonidos/ost/Saria song.mp3"
         self.pointerSound = pygame.mixer.Sound("sonidos/effects/Pointer (WAV).wav")
         self.dialog = pygame.mixer.Sound("sonidos/effects/Dialog Beep (WAV).wav")
         self.object = pygame.mixer.Sound("sonidos/effects/New object_mission (WAV).wav")

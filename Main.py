@@ -10,9 +10,9 @@ director = Director()
 #create first scene
 
 if mapaG==1:
-    scene = Pantalla1(map1,"imagenes/mapas/city.jpg")
+    scene = Pantalla1(map1,"imagenes/mapas/city.jpg",soundtrack1)
 elif mapaG==2:
-    scene = Pantalla2(map2,"imagenes/mapas/forest.png")
+    scene = Pantalla2(map2,"imagenes/mapas/forest.png",soundtrack2)
 
 #use the first scene
 director.change_scene(scene)

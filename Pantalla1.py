@@ -1,26 +1,13 @@
 from Scene import Scene
-from Personaje import Personaje
 from Npc import *
-import Camara
-import pygame
-from pygame.locals import *
 from Variables import *
-from text import Text
-from sonidos import Sonido
 from Escenario import *
 
 class Pantalla1(Scene):
 
-    def __init__(self, map, image,pj=None,pos=None):
-        Scene.__init__(self, map, image)
-        if pj==None:
-            self.pj = Personaje(1,pjx, pjy)
-        else:
-            self.pj=pj
-            self.pj.rect_col.topleft=(pos[0],pos[1])
-            self.pj.rect_spr.topleft=(pos[0],pos[1]-self.pj.frame_height+20)
-            self.pj.mapa=1
-        self.sonido = Sonido()
+    def __init__(self, map, image,soundtrack,pj=None,pos=None):
+        Scene.__init__(self, map, image,soundtrack,pj,pos)
+        self.pj.mapa=1
         self.npcs = [
             Npc("imagenes/personajes/paperi_sheet.png",["hola","soy paperi","buenos dias","ven a nuestra tienda","vendemos pan"], 600, 100, 68, 189),
             Npc("imagenes/personajes/Peto_sheet.png",["paperi siempre esta igual","deberiamos llamarnos peto y paperi"],500, 600, 114, 145),
@@ -35,44 +22,28 @@ class Pantalla1(Scene):
             Obstaculo(680,self.mapa[1]-50,125,50,True),
             Obstaculo(600,0,125,50,True)
         ]
-        self.text=Text(self.pj)
 
-        self.soundtrack= self.sonido.soundtrack1
-        pygame.mixer.music.load(self.soundtrack)
-        #pygame.mixer.music.play()
 
     def on_update(self, time, keys, director):
         Scene.on_update(self,time,keys,director)
         if self.pj.rect_col.colliderect(self.obs[2].rect) or self.pj.rect_col.colliderect(self.obs[3].rect) or  self.pj.rect_spr.colliderect(self.obs[4].rect):   #cambiamos de zona al chocar con los cuadrados de transporte
-            director.change_scene(Pantalla2(map2,"imagenes/mapas/forest.png",self.pj,(map2[0]-150,map2[1]-100)))
+            director.change_scene(Pantalla2(map2,"imagenes/mapas/forest.png",soundtrack2,self.pj,(map2[0]-150,map2[1]-100)))
 
 
 class Pantalla2(Scene):
 
-    def __init__(self, map, image,pj=None,pos=None):
-        Scene.__init__(self, map, image)
-        if pj==None:
-            self.pj = Personaje(2,pjx, pjy)
-        else:
-            self.pj=pj
-            self.pj.rect_col.topleft=(pos[0],pos[1])
-            self.pj.rect_spr.topleft=(pos[0],pos[1]-self.pj.frame_height+20)
-            self.pj.mapa=2
-        self.sonido = Sonido()
+    def __init__(self, map, image,soundtrack,pj=None,pos=None):
+        Scene.__init__(self, map, image,soundtrack,pj,pos)
+        self.pj.mapa=2
         self.npcs = []
         self.objetos=[]
         self.obs=[
             Obstaculo(780,520,155,100),
             Obstaculo(self.mapa[0]-150,self.mapa[1]-50,125,50,True)
         ]
-        self.text=Text(self.pj)
-
-        self.soundtrack= self.sonido.soundtrack2
-        pygame.mixer.music.load(self.soundtrack)
-        #pygame.mixer.music.play()
 
 
     def on_update(self, time,keys,director):
         Scene.on_update(self,time,keys,director)
         if self.pj.rect_col.colliderect(self.obs[1].rect):   #cambiamos de zona al chocar con los cuadrados de transporte
-            director.change_scene(Pantalla1(map1,"imagenes/mapas/city.jpg",self.pj,(500,500)))
+            director.change_scene(Pantalla1(map1,"imagenes/mapas/city.jpg",soundtrack1,self.pj,(500,500)))
