@@ -29,7 +29,7 @@ class Pantalla1(Scene):
             Npc("imagenes/personajes/Kea_sheet.png",["me preocupan peto y paperi","no paran de pelear","jopé"],1200, 200, 84, 131)
         ]
         self.objetos=[
-            Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,174,120)
+            self.pj.objects[0]
         ]
         self.obs=[
             Obstaculo(780,520,155,100),
@@ -68,7 +68,6 @@ class Pantalla1(Scene):
                     self.text.dialog(npc.dialog)
             for ob in self.objetos:
                 if self.pj.rect_spr.colliderect(ob.action_rect) and not ob.taken:
-                    self.pj.objects.append(ob)
                     ob.taken=True
 
 

@@ -140,6 +140,8 @@ class Text:
                 f.write(str(pj.rect_spr.centery)+'\n')
                 for e in mapaG:
                     f.write(str(e)+'\n')
+                for e in pj.objects:
+                    f.write(str(e.taken)+'\n')
                 f.close()
 
             self.selectorRect.center=self.posSelector[self.countSelector]   #asigna la posicion de los selectores

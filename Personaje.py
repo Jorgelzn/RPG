@@ -2,6 +2,7 @@ from pygame import sprite
 import pygame
 from pygame.locals import *
 from Variables import *
+from Escenario import Objeto
 from sonidos import Sonido
 
 class Personaje(sprite.Sprite):
@@ -35,7 +36,7 @@ class Personaje(sprite.Sprite):
 
         self.lastdir = None # puede ser "arriba", "abajo", "derecha", "izquierda", None
 
-        self.objects=[]         #objetos del personaje
+        self.objects=[Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,174,120,objects[0])]         #objetos del personaje
         self.action=False       #controla si el pj esta haciendo algo
 
 
