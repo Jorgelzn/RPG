@@ -1,7 +1,6 @@
 import pygame
 from Director import Director
-from Pantalla1 import Pantalla1
-from Pantalla1 import Pantalla2
+from Pantalla1 import *
 from Variables import *
 
 
