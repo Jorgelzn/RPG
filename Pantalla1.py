@@ -43,7 +43,7 @@ class Pantalla1(Scene):
 
         self.soundtrack= self.sonido.soundtrack1
         pygame.mixer.music.load(self.soundtrack)
-        pygame.mixer.music.play()
+        #pygame.mixer.music.play()
 
 
     def on_update(self, time,keys,director):
@@ -128,7 +128,7 @@ class Pantalla2(Scene):
 
         self.soundtrack= self.sonido.soundtrack2
         pygame.mixer.music.load(self.soundtrack)
-        pygame.mixer.music.play()
+        #pygame.mixer.music.play()
 
 
     def on_update(self, time,keys,director):
