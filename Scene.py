@@ -14,14 +14,13 @@ class Scene:
         self.camera = Camara.Camera(Camara.complex_camera,map)
         self.background = pygame.image.load(image).convert_alpha()
         self.background = pygame.transform.scale(self.background,self.mapa)
-        
+
         if pj==None:
             self.pj = Personaje(pjx, pjy)
         else:
             self.pj=pj
             self.pj.rect_col.topleft=(pos[0],pos[1])
             self.pj.rect_spr.topleft=(pos[0],pos[1]-self.pj.frame_height+20)
-            self.pj.mapa=1
 
         self.text=Text(self.pj)
         self.sonido = Sonido()
