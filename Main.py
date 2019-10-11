@@ -1,21 +1,33 @@
 import pygame
 from Director import Director
-from Pantalla1 import *
+from Pantallas import *
 from Variables import *
-
+from Personaje import Personaje
 
 pygame.init()
 
 director = Director()
-#create first scene
 
-if mapaG==1:
-    scene = Pantalla1(map1,"imagenes/mapas/city.jpg",soundtrack1)
-elif mapaG==2:
-    scene = Pantalla2(map2,"imagenes/mapas/forest.png",soundtrack2)
+pj = Personaje(pjx, pjy)
+
+#create scenes
+scene1 = Pantalla1(map1,"imagenes/mapas/city.jpg",soundtrack1,pj)
+scene2 = Pantalla2(map2,"imagenes/mapas/forest.png",soundtrack2,pj)
+scenes=[scene1,scene2]
+#doing this we create all the scenes at the beginning and just change them during program
+for e in scenes:
+    e.scenes=scenes
 
 #use the first scene
-director.change_scene(scene)
+if mapaG==0:
+    director.change_scene(scene1)
+    pygame.mixer.music.load(scene1.soundtrack)
+elif mapaG==1:
+    director.change_scene(scene2)
+    pygame.mixer.music.load(scene2.soundtrack)
+
+pygame.mixer.music.play()
+
 #start the main loop
 director.loop()
 
