@@ -10,7 +10,7 @@ class Text:
         self.image = pygame.image.load("imagenes/menus/text_box.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (750, 300))
         self.rect = self.image.get_rect()
-        self.rect.center=(500,600)
+        self.rect.center=(600,750)
         self.rectext=(self.rect.topleft[0]+60,self.rect.topleft[1]+80,self.rect.width,self.rect.height)
         self.textcolor= (90, 90, 90)
         self.display = False                #controla que se vean o no los dialogos
