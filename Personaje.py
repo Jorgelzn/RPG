@@ -48,14 +48,14 @@ class Personaje(sprite.Sprite):
                     self.order=False
                 else:
                     self.order=True
-        for e in npcs:
-            if self.rect_spr.colliderect(e.rect_accion):
+        for e in obs:
+            if self.rect_spr.colliderect(e.action_rect):
                 if self.rect_col.centery<e.rect_col.centery:
                     self.order=False
                 else:
                     self.order=True
-        for e in obs:
-            if self.rect_spr.colliderect(e.action_rect):
+        for e in npcs:
+            if self.rect_spr.colliderect(e.rect_accion):
                 if self.rect_col.centery<e.rect_col.centery:
                     self.order=False
                 else:
