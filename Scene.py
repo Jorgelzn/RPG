@@ -64,26 +64,33 @@ class Scene:
 
     def dibujarElementos(self,screen):
         screen.blit(self.background, self.camera.apply(self.background.get_rect())) #dibujado de mapa ingame
-        if self.pj.order:
+
+        if self.pj.order:  #order 1 - pj is drawn last (is at front)
             for e in self.objetos:
                 if not e.taken:
                     screen.blit(e.image, self.camera.apply(e.rect))   #draw objects
             for e in self.obs:
-                pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw obstacles
-            for o in self.npcs:
-                screen.blit(o.image, self.camera.apply(o.rect))   #draw npcs
+                #pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles(not in-game)
+                if e.image!=None:
+                    screen.blit(e.image, self.camera.apply(e.rect)) #draw colision obstacles
+            for e in self.npcs:
+                screen.blit(e.image, self.camera.apply(e.rect))   #draw npcs
 
             screen.blit(self.pj.image, self.camera.apply(self.pj.rect_spr))
-        else:
+
+        else    :#order 2 - pj is drawn first (is at back)
             screen.blit(self.pj.image, self.camera.apply(self.pj.rect_spr))
 
             for e in self.objetos:
                 if not e.taken:
                     screen.blit(e.image, self.camera.apply(e.rect))     #draw objects
             for e in self.obs:
-                pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles
-            for o in self.npcs:
-                screen.blit(o.image, self.camera.apply(o.rect))         #draw npcs
+                #pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles(not in-game)
+                if e.image!=None:
+                    screen.blit(e.image, self.camera.apply(e.rect)) #draw colision obstacles
+            for e in self.npcs:
+                screen.blit(e.image, self.camera.apply(e.rect))         #draw npcs
+
 
     def changeScene(self,scene,director,pos):       #cambia de escena y pasa el personaje y su posicion a la siguiente escena
         self.pj.rect_col.topleft=(pos[0],pos[1])

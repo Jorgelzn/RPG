@@ -3,8 +3,9 @@ from Variables import *
 
 class Obstaculo:
     def __init__(self, x=0, y=0, w=200, h=200, portal=False, image=None):
+        self.image=image
         if image!=None:
-            self.image = pygame.image.load(imagen).convert_alpha()
+            self.image = pygame.image.load(image).convert_alpha()
             self.image = pygame.transform.scale(self.image, (w,h))
         self.rect = pygame.Rect(x, y, w, h)
         self.rect_col = pygame.Rect(x+10, y+h-20, w-20, 20)
