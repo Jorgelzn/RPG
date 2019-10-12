@@ -59,19 +59,19 @@ class Scene:
         self.text.displays(screen)  #funcion que controla que se dibujen los textos y menus
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             self.dibujarElementos(screen)
-            for e in self.obs:
-                pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles
 
 
 
     def dibujarElementos(self,screen):
         screen.blit(self.background, self.camera.apply(self.background.get_rect())) #dibujado de mapa ingame
         if self.pj.order:
-            for o in self.npcs:
-                screen.blit(o.image, self.camera.apply(o.rect))
             for e in self.objetos:
                 if not e.taken:
-                    screen.blit(e.image, self.camera.apply(e.rect))
+                    screen.blit(e.image, self.camera.apply(e.rect))   #draw objects
+            for e in self.obs:
+                pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw obstacles
+            for o in self.npcs:
+                screen.blit(o.image, self.camera.apply(o.rect))   #draw npcs
 
             screen.blit(self.pj.image, self.camera.apply(self.pj.rect_spr))
         else:
@@ -79,9 +79,11 @@ class Scene:
 
             for e in self.objetos:
                 if not e.taken:
-                    screen.blit(e.image, self.camera.apply(e.rect))
+                    screen.blit(e.image, self.camera.apply(e.rect))     #draw objects
+            for e in self.obs:
+                pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles
             for o in self.npcs:
-                screen.blit(o.image, self.camera.apply(o.rect))
+                screen.blit(o.image, self.camera.apply(o.rect))         #draw npcs
 
     def changeScene(self,scene,director,pos):       #cambia de escena y pasa el personaje y su posicion a la siguiente escena
         self.pj.rect_col.topleft=(pos[0],pos[1])

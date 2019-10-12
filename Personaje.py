@@ -42,8 +42,20 @@ class Personaje(sprite.Sprite):
 
     def update(self, dt, keys, mapa,npcs,obs,objs,sound):
 
+        for e in objs:
+            if self.rect_spr.colliderect(e.action_rect):
+                if self.rect_col.centery<e.rect.centery:
+                    self.order=False
+                else:
+                    self.order=True
         for e in npcs:
             if self.rect_spr.colliderect(e.rect_accion):
+                if self.rect_col.centery<e.rect_col.centery:
+                    self.order=False
+                else:
+                    self.order=True
+        for e in obs:
+            if self.rect_spr.colliderect(e.action_rect):
                 if self.rect_col.centery<e.rect_col.centery:
                     self.order=False
                 else:
@@ -134,7 +146,7 @@ class Personaje(sprite.Sprite):
         b=True
         c=True
         for e in obs:
-            if self.rect_col.colliderect(e.rect) and e.portal==False:
+            if self.rect_col.colliderect(e.rect_col) and e.portal==False:
                 c=False
         for e in objs:
             if self.rect_col.colliderect(e.rect) and e.taken==False:

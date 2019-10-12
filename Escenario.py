@@ -2,11 +2,16 @@ import pygame
 from Variables import *
 
 class Obstaculo:
-    def __init__(self, x=0, y=0, w=200, h=200, portal=False):
+    def __init__(self, x=0, y=0, w=200, h=200, portal=False, image=None):
+        if image!=None:
+            self.image = pygame.image.load(imagen).convert_alpha()
+            self.image = pygame.transform.scale(self.image, (w,h))
         self.rect = pygame.Rect(x, y, w, h)
+        self.rect_col = pygame.Rect(x+10, y+h-20, w-20, 20)
         self.portal=portal
         self.frame_width = w         # Anchura de la imagen
         self.frame_height = h       # Altura de la imagen
+        self.action_rect = pygame.Rect(x-20, y-20, w+40, h+40)
 
 
 class Objeto:
