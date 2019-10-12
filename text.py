@@ -86,6 +86,7 @@ class Text:
 
     def dialog(self,npc):                      #controla el dialogo que se le pasa por parametro como lista string
         self.sonido.dialog.play()
+        npc.talking= False
         if not self.finishdialog:
             npc.talking=True
             for i in npc.dialog:
@@ -100,7 +101,6 @@ class Text:
 
         if self.countdialog == len(npc.dialog):
             self.finishdialog = True
-            npc.talking= False
             self.countdialog=0
 
 
