@@ -2,7 +2,7 @@ import pygame
 from Variables import *
 
 class Npc:
-    def __init__(self, imagen,dialog=None, x=0, y=0, w=200, h=200):
+    def __init__(self, imagen,talking,dialog=None, x=0, y=0, w=200, h=200):
         self.spriteSheet = pygame.image.load(imagen).convert_alpha()
         self.image = self.spriteSheet.subsurface(0,0,w,h)
         self.rect = pygame.Rect(x, y, w, h)
@@ -15,6 +15,7 @@ class Npc:
         self.frame_counter = FPSPRITE # Nº de frames por imagen
         self.direccion = "derecha" # puede ser "arriba", "abajo", "derecha", "izquierda"
         self.dialog=dialog
+        self.talking=talking
         self.x=x
         self.y=y
 
@@ -79,5 +80,3 @@ class Npc:
             self.direccion = "arriba"
         if abs(self.rect.centery-self.y)<=5 and self.direccion == "arriba":
             self.direccion = "derecha"
-
-

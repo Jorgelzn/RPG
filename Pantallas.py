@@ -8,10 +8,10 @@ class Pantalla1(Scene):
     def __init__(self, map, image,soundtrack,pj):
         Scene.__init__(self, map, image,soundtrack,pj)
         self.npcs = [
-            Npc("imagenes/personajes/paperi_sheet.png",["hola","soy paperi","buenos dias","ven a nuestra tienda","vendemos pan"], 600, 100, 68, 189),
-            Npc("imagenes/personajes/Peto_sheet.png",["paperi siempre esta igual","deberiamos llamarnos peto y paperi"],500, 600, 114, 145),
-            Npc("imagenes/personajes/Tapa_sheet.png",["me llamo Tapa :D","vente luego a jugar", "miau"],1200, 600, 68, 77),
-            Npc("imagenes/personajes/Kea_sheet.png",["me preocupan peto y paperi","no paran de pelear","jopé"],1200, 200, 84, 131)
+            Npc("imagenes/personajes/paperi_sheet.png",False,["hola","soy paperi","buenos dias","ven a nuestra tienda","vendemos pan"], 600, 100, 68, 189),
+            Npc("imagenes/personajes/Peto_sheet.png",False,["paperi siempre esta igual","deberiamos llamarnos peto y paperi"],500, 600, 114, 145),
+            Npc("imagenes/personajes/Tapa_sheet.png",False,["me llamo Tapa :D","vente luego a jugar", "miau"],1200, 600, 68, 77),
+            Npc("imagenes/personajes/Kea_sheet.png",False,["me preocupan peto y paperi","no paran de pelear","jopé"],1200, 200, 84, 131)
         ]
         self.objetos=[self.pj.objects[0]]
         self.obs=[

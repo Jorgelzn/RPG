@@ -20,7 +20,7 @@ class Scene:
 
         self.sonido = Sonido()
         self.soundtrack=soundtrack
-        
+
 
     def on_update(self, time, keys, director):
         #executed in every game loop, used to check events that can happen at any time
@@ -29,7 +29,8 @@ class Scene:
             self.camera.update(self.pj)     #update a la camara
             self.pj.update(time/1000, keys,self.mapa,self.npcs,self.obs, self.objetos,self.sonido.grass) #update del personaje
 
-            for npc in self.npcs:
+        for npc in self.npcs:
+            if npc.talking==False:
                 npc.animation()    #animaciones de los npcs
                 npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
 

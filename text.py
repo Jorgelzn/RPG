@@ -87,6 +87,7 @@ class Text:
     def dialog(self,chat):                      #controla el dialogo que se le pasa por parametro como lista string
         self.sonido.dialog.play()
         if not self.finishdialog:
+            self.talking=True
             for i in chat:
                 if chat.index(i)>=self.countdialog:     #solo se muestra la frase que toca dentro del dialogo
                     self.text=self.font.render(i, True, self.textcolor)
@@ -99,6 +100,7 @@ class Text:
 
         if self.countdialog == len(chat):
             self.finishdialog = True
+            self.talking= False
             self.countdialog=0
 
 
