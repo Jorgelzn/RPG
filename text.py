@@ -84,12 +84,12 @@ class Text:
         self.sonido= Sonido()
 
 
-    def dialog(self,chat):                      #controla el dialogo que se le pasa por parametro como lista string
+    def dialog(self,npc):                      #controla el dialogo que se le pasa por parametro como lista string
         self.sonido.dialog.play()
         if not self.finishdialog:
-            self.talking=True
-            for i in chat:
-                if chat.index(i)>=self.countdialog:     #solo se muestra la frase que toca dentro del dialogo
+            npc.talking=True
+            for i in npc.dialog:
+                if npc.dialog.index(i)>=self.countdialog:     #solo se muestra la frase que toca dentro del dialogo
                     self.text=self.font.render(i, True, self.textcolor)
                     self.countdialog+=1
                     break
@@ -98,9 +98,9 @@ class Text:
             self.display= False
             self.finishdialog= False
 
-        if self.countdialog == len(chat):
+        if self.countdialog == len(npc.dialog):
             self.finishdialog = True
-            self.talking= False
+            npc.talking= False
             self.countdialog=0
 
 
