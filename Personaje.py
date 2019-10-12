@@ -42,9 +42,9 @@ class Personaje(sprite.Sprite):
 
     def update(self, dt, keys, mapa,npcs,obs,objs,sound):
 
-        for e in objs:
-            if self.rect_spr.colliderect(e.action_rect):
-                if self.rect_col.centery<e.rect.centery:
+        for e in objs:                                          #bucles para comprobar si el jugador
+            if self.rect_spr.colliderect(e.action_rect):       #esta delante o detras de los elementos
+                if self.rect_col.centery<e.rect.centery:       #para asi saber el orden de dibujado
                     self.order=False
                 else:
                     self.order=True
