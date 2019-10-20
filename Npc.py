@@ -43,7 +43,7 @@ class Npc:
                                                       6*self.frame_height, # fila 6,
                                                       self.frame_width, self.frame_height))
 
-    def move(self, offset, mapa, pj):
+    def move(self, offset, mapa, pj,obs):
         self.rect_col = self.rect_col.move(offset) # avanzamos
         self.rect = self.rect.move(offset)
         self.rect_accion = self.rect_accion.move(offset)
@@ -52,25 +52,30 @@ class Npc:
         if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
         if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
 
-        while not self.pos_valida(mapa, pj): # mientras la posición no sea válida
+        while not self.pos_valida(mapa, pj,obs): # mientras la posición no sea válida
             self.rect_col = self.rect_col.move(offset) # retrocedemos poco a poco
             self.rect = self.rect.move(offset)
             self.rect_accion = self.rect_accion.move(offset)
 
-    def pos_valida(self, mapa, pj):
-        return not self.rect_col.colliderect(pj) and self.rect.top>=0 and \
+    def pos_valida(self, mapa, pj,obs):
+        a= not self.rect_col.colliderect(pj) and self.rect.top>=0 and \
             self.rect.left>=0 and self.rect.right<=mapa[0] and self.rect.bottom<=mapa[1]
+        b=True
+        for e in obs:
+            if self.rect_col.colliderect(e.rect_col):
+                b=False
+        return a and b
 
 
-    def camino1(self,mapa, pj):             #camino predeterminado que pueden recorrer los npcs
+    def camino1(self,mapa, pj,obs):             #camino predeterminado que pueden recorrer los npcs
         if self.direccion == "derecha":
-            self.move((5, 0), mapa, pj)
+            self.move((5, 0), mapa, pj,obs)
         elif self.direccion == "abajo":
-            self.move((0, 5), mapa, pj)
+            self.move((0, 5), mapa, pj,obs)
         elif self.direccion == "izquierda":
-            self.move((-5, 0), mapa, pj)
+            self.move((-5, 0), mapa, pj,obs)
         elif self.direccion == "arriba":
-            self.move((0, -5), mapa, pj)
+            self.move((0, -5), mapa, pj,obs)
 
         if abs(self.rect.centerx-self.x)>=200:
             self.direccion = "abajo"

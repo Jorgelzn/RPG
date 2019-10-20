@@ -16,15 +16,43 @@ class Obstaculo:
         self.moving=move
         self.rectMover=pygame.Rect(x,y+h-30,w,40)   #rectangulo apañado para poder detectar colision
 
-    def move(self, offset):
-        self.rect_col = self.rect_col.move(offset) # avanzamos
-        self.rect = self.rect.move(offset)
-        self.action_rect = self.action_rect.move(offset)
-        self.rectMover = self.rectMover.move(offset)
+    def move(self,pj,mapa,obs,npcs):
+        offset=pj.dir
+        if pj.rect_col.colliderect(self.rectMover):
+            self.rect_col = self.rect_col.move(offset) # avanzamos
+            self.rect = self.rect.move(offset)
+            self.action_rect = self.action_rect.move(offset)
+            self.rectMover = self.rectMover.move(offset)
 
-    def update(self,pj):
-        if pj.rect_col.colliderect(self.rectMover) and self.moving:
-            self.move(pj.dir)
+        offset = list(offset)
+        if offset[0] != 0: offset[0] = -abs(offset[0])/offset[0]
+        if offset[1] != 0: offset[1] = -abs(offset[1])/offset[1]
+
+        while not self.posValid(mapa,npcs,obs):
+
+            self.rect_col = self.rect_col.move(offset) # avanzamos
+            self.rect = self.rect.move(offset)
+            self.action_rect = self.action_rect.move(offset)
+            self.rectMover = self.rectMover.move(offset)
+
+    def posValid(self,mapa,npcs,obs):
+        a=self.rect.top>=0 and self.rect.left>=0 and \
+            self.rect.right<=mapa[0] and self.rect.bottom<=mapa[1]
+        b=True
+        c=True
+        for e in obs:
+            if self.rect_col.colliderect(e.rect_col) and e!=self:
+                b=False
+
+        for e in npcs:
+            if self.rect_col.colliderect(e.rect_col):
+                c=False
+        return a and b and c
+
+
+    def update(self,pj,mapa,obs,npcs):
+        if self.moving:
+            self.move(pj,mapa,obs,npcs)
 
 
 

@@ -32,9 +32,9 @@ class Scene:
         for npc in self.npcs:
             if npc.talking==False:
                 npc.animation()    #animaciones de los npcs
-                npc.camino1(self.mapa, self.pj.rect_col)   #camino que recorren los npcs (provisional)
+                npc.camino1(self.mapa, self.pj.rect_col,self.obs)   #camino que recorren los npcs (provisional)
         for ob in self.obs:
-            ob.update(self.pj);
+            ob.update(self.pj,self.mapa,self.obs,self.npcs);
 
 
     def on_event(self, keys, director):
