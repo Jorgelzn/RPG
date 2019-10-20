@@ -20,7 +20,8 @@ class Pantalla1(Scene):
             Obstaculo(0,400,50,130,True),
             Obstaculo(680,self.mapa[1]-50,125,50,True),
             Obstaculo(600,0,125,50,True),
-            Obstaculo(300,50,200,400,False,"imagenes/objetos/casa.png")
+            Obstaculo(300,50,200,400,False,"imagenes/objetos/casa.png"),
+            Obstaculo(700,350,50,50,False,"imagenes/objetos/stone.png",True)
         ]
 
 

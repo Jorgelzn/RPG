@@ -2,7 +2,7 @@ import pygame
 from Variables import *
 
 class Obstaculo:
-    def __init__(self, x=0, y=0, w=200, h=200, portal=False, image=None):
+    def __init__(self, x=0, y=0, w=200, h=200, portal=False, image=None,move=False):
         self.image=image
         if image!=None:
             self.image = pygame.image.load(image).convert_alpha()
@@ -13,6 +13,20 @@ class Obstaculo:
         self.frame_width = w         # Anchura de la imagen
         self.frame_height = h       # Altura de la imagen
         self.action_rect = pygame.Rect(x-20, y-20, w+40, h+40)
+        self.moving=move
+        self.rectMover=pygame.Rect(x,y+h-30,w,40)   #rectangulo apañado para poder detectar colision
+
+    def move(self, offset):
+        self.rect_col = self.rect_col.move(offset) # avanzamos
+        self.rect = self.rect.move(offset)
+        self.action_rect = self.action_rect.move(offset)
+        self.rectMover = self.rectMover.move(offset)
+
+    def update(self,pj):
+        if pj.rect_col.colliderect(self.rectMover) and self.moving:
+            self.move(pj.dir)
+
+
 
 
 class Objeto:

@@ -38,6 +38,7 @@ class Personaje(sprite.Sprite):
 
         self.objects=[Objeto("imagenes/objetos/Flute.png",100,"Nadie puede resistirse al poder de la musica",700,700,60,60,210,140,174,120,objects[0])]         #objetos del personaje
         self.action=False       #controla si el pj esta haciendo algo
+        self.dir=(0,0)
 
 
     def update(self, dt, keys, mapa,npcs,obs,objs,sound):
@@ -90,25 +91,29 @@ class Personaje(sprite.Sprite):
                                                           0, # fila 0
                                                           self.frame_width, self.frame_height))
                 self.lastdir = "abajo"
-                self.move((0, self.speedy), mapa, npcs, obs,objs, sound)
+                self.dir=(0, self.speedy)
+                self.move(self.dir, mapa, npcs, obs,objs, sound)
             elif keys[K_a] and not keys[K_s] and not keys[K_d] and not keys[K_w]: # pulsando solo la a
                 self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                           2*self.frame_height, # fila 2
                                                           self.frame_width, self.frame_height))
                 self.lastdir = "izquierda"
-                self.move((-self.speedx, 0), mapa, npcs, obs,objs, sound)
+                self.dir=(-self.speedx, 0)
+                self.move(self.dir, mapa, npcs, obs,objs, sound)
             elif keys[K_w] and not keys[K_a] and not keys[K_d] and not keys[K_s]: # pulsando solo la w
                 self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                           4*self.frame_height, # fila 4
                                                           self.frame_width, self.frame_height))
                 self.lastdir = "arriba"
-                self.move((0,-self.speedy), mapa, npcs, obs,objs, sound)
+                self.dir=(0,-self.speedy)
+                self.move(self.dir, mapa, npcs, obs,objs, sound)
             elif keys[K_d] and not keys[K_a] and not keys[K_s] and not keys[K_w]: # pulsando solo la d
                 self.image = self.spriteSheet.subsurface((self.current_frame * self.frame_width,
                                                           6*self.frame_height, # fila 6
                                                           self.frame_width, self.frame_height))
                 self.lastdir = "derecha"
-                self.move((self.speedx, 0), mapa, npcs, obs,objs, sound)
+                self.dir=(self.speedx, 0)
+                self.move(self.dir, mapa, npcs, obs,objs, sound)
 
             else: # ninguna tecla o más de una: quedarse quieto
                 if self.lastdir == "abajo" or self.lastdir == None:
