@@ -100,16 +100,16 @@ class Scene:
         self.ordering()
 
         if self.order==1:
+            self.drawObjects(screen)
             self.drawObstacles(screen)
             self.drawNPCs(screen)
-            self.drawObjects(screen)
             screen.blit(self.pj.image, self.camera.apply(self.pj.rect_spr))
 
         elif self.order==2:
             self.drawObjects(screen)
             screen.blit(self.pj.image, self.camera.apply(self.pj.rect_spr))
-            self.drawNPCs(screen)
             self.drawObstacles(screen)
+            self.drawNPCs(screen)
 
 
 
