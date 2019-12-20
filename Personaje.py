@@ -11,8 +11,6 @@ class Personaje(sprite.Sprite):
         #Init de Sprite
         sprite.Sprite.__init__(self)
 
-        self.order=True
-
         # Variables para nuestro control del sprite:
         self.frames = 4               # Número máximo de imágenes
         self.current_frame = 0        # Imagen actual
@@ -42,25 +40,6 @@ class Personaje(sprite.Sprite):
 
 
     def update(self, dt, keys, mapa,npcs,obs,objs,sound):
-
-        for e in objs:                                          #bucles para comprobar si el jugador
-            if self.rect_spr.colliderect(e.action_rect):       #esta delante o detras de los elementos
-                if self.rect_col.centery<e.rect.centery:       #para asi saber el orden de dibujado
-                    self.order=False
-                else:
-                    self.order=True
-        for e in obs:
-            if self.rect_spr.colliderect(e.action_rect):
-                if self.rect_col.centery<e.rect_col.centery:
-                    self.order=False
-                else:
-                    self.order=True
-        for e in npcs:
-            if self.rect_spr.colliderect(e.rect_accion):
-                if self.rect_col.centery<e.rect_col.centery:
-                    self.order=False
-                else:
-                    self.order=True
 
         if keys[K_LSHIFT]:      #con la tecla pulsada aumenta la velocidad
             self.speedx=10

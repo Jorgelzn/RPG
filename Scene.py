@@ -15,7 +15,7 @@ class Scene:
         self.background = pygame.image.load(image).convert_alpha()
         self.background = pygame.transform.scale(self.background,self.mapa)
         self.pj=pj
-
+        self.order=1
         self.text=Text(self.pj)
 
         self.sonido = Sonido()
@@ -62,36 +62,57 @@ class Scene:
         if not self.text.display and not self.text.displayMenu and not self.text.displayMap and not self.text.displayInventario:
             self.dibujarElementos(screen)
 
+    def drawObjects(self,screen):
+        for e in self.objetos:
+            if not e.taken:
+                screen.blit(e.image, self.camera.apply(e.rect))   #draw objects
+
+    def drawObstacles(self,screen):
+        for e in self.obs:
+            #pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles(not in-game)
+            if e.image!=None:
+                screen.blit(e.image, self.camera.apply(e.rect)) #draw colision obstacles
+
+    def drawNPCs(self,screen):
+        for e in self.npcs:
+            screen.blit(e.image, self.camera.apply(e.rect))   #draw npcs
+
+    def ordering(self):
+
+        for e in self.obs:
+            if self.pj.rect_spr.colliderect(e.action_rect):
+                if self.pj.rect_col.centery<e.rect_col.centery:
+                    self.order=2
+                else:
+                    self.order=1
+        for e in self.npcs:
+            if self.pj.rect_spr.colliderect(e.rect_accion):
+                if self.pj.rect_col.centery<e.rect_col.centery:
+                    self.order=2
+                else:
+                    self.order=1
+
 
 
     def dibujarElementos(self,screen):
         screen.blit(self.background, self.camera.apply(self.background.get_rect())) #dibujado de mapa ingame
 
-        if self.pj.order:  #order 1 - pj is drawn last (is at front)
-            for e in self.objetos:
-                if not e.taken:
-                    screen.blit(e.image, self.camera.apply(e.rect))   #draw objects
-            for e in self.obs:
-                #pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles(not in-game)
-                if e.image!=None:
-                    screen.blit(e.image, self.camera.apply(e.rect)) #draw colision obstacles
-            for e in self.npcs:
-                screen.blit(e.image, self.camera.apply(e.rect))   #draw npcs
+        self.ordering()
 
+        if self.order==1:
+            self.drawObstacles(screen)
+            self.drawNPCs(screen)
+            self.drawObjects(screen)
             screen.blit(self.pj.image, self.camera.apply(self.pj.rect_spr))
 
-        else    :#order 2 - pj is drawn first (is at back)
+        elif self.order==2:
+            self.drawObjects(screen)
             screen.blit(self.pj.image, self.camera.apply(self.pj.rect_spr))
+            self.drawNPCs(screen)
+            self.drawObstacles(screen)
 
-            for e in self.objetos:
-                if not e.taken:
-                    screen.blit(e.image, self.camera.apply(e.rect))     #draw objects
-            for e in self.obs:
-                #pygame.draw.rect(screen, (0,100,200), self.camera.apply(e.rect)) #draw colision obstacles(not in-game)
-                if e.image!=None:
-                    screen.blit(e.image, self.camera.apply(e.rect)) #draw colision obstacles
-            for e in self.npcs:
-                screen.blit(e.image, self.camera.apply(e.rect))         #draw npcs
+
+
 
 
     def changeScene(self,scene,director,pos):       #cambia de escena y pasa el personaje y su posicion a la siguiente escena

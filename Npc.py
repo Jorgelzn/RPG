@@ -7,7 +7,7 @@ class Npc:
         self.image = self.spriteSheet.subsurface(0,0,w,h)
         self.rect = pygame.Rect(x, y, w, h)
         self.rect_col = pygame.Rect(x+10, y+h-20, w-20, 20)
-        self.rect_accion = pygame.Rect(x-20, y-20, w+40, h+40)
+        self.rect_accion = pygame.Rect(x-40, y-40, w+60, h+60)
         self.frames = 4               # Número máximo de imágenes
         self.current_frame = 0        # Imagen actual
         self.frame_width = w         # Anchura de la imagen
