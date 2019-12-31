@@ -44,7 +44,7 @@ class Scene:
 
             for npc in self.npcs:
                 if self.pj.rect_spr.colliderect(npc.rect_accion):
-                    self.text.dialog(npc)
+                    self.text.dialog(npc,self.soundtrack)
             for ob in self.objetos:
                 if self.pj.rect_spr.colliderect(ob.action_rect) and not ob.taken:
                     ob.taken=True

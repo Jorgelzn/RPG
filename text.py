@@ -84,12 +84,15 @@ class Text:
         self.sonido= Sonido()
 
 
-    def dialog(self,npc):                      #controla el dialogo que se le pasa por parametro como lista string
+    def dialog(self,npc,soundtrack):                      #controla el dialogo que se le pasa por parametro como lista string
         self.sonido.dialog.play()
         npc.talking= False
         if not self.finishdialog:
             npc.talking=True
             for i in npc.dialog:
+                if self.countdialog==0:
+                    pygame.mixer.music.load(battletheme)
+                    pygame.mixer.music.play()
                 if npc.dialog.index(i)>=self.countdialog:     #solo se muestra la frase que toca dentro del dialogo
                     self.text=self.font.render(i, True, self.textcolor)
                     self.countdialog+=1
@@ -98,6 +101,8 @@ class Text:
         else:
             self.display= False
             self.finishdialog= False
+            pygame.mixer.music.load(soundtrack)
+            pygame.mixer.music.play()
 
         if self.countdialog == len(npc.dialog):
             self.finishdialog = True
