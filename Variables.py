@@ -10,7 +10,7 @@ hierba = (50, 220, 50)
 
 #Sonidos
 soundtrack1 ="sonidos/ost/Moki_Town.mp3"
-soundtrack2 ="sonidos/ost/abyss.mp3"
+soundtrack2 ="sonidos/ost/The Forest.mp3"
 flute ="sonidos/ost/Saria song.mp3"
 # Otros:
 FPSPRITE = 10 # frames por sprite (personaje)
