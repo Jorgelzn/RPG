@@ -3,7 +3,7 @@ from Director import Director
 from Pantallas import *
 from Variables import *
 from Personaje import Personaje
-
+#testing comment
 pygame.init()
 
 director = Director()
