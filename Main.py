@@ -5,7 +5,7 @@ from Variables import *
 from Personaje import Personaje
 #testing comment
 pygame.init()
-
+#testing vs code git
 director = Director()
 
 pj = Personaje(pjx, pjy)
